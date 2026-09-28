@@ -119,7 +119,7 @@ window.APP_CONFIG = {
     } else {
       const {data,error}=await db.rpc('respond_public_appointment',{p_token:token,p_response:response}); if(error||data!==true){document.querySelectorAll('[data-response]').forEach(b=>b.disabled=false);return showError('Não foi possível registrar sua resposta. Tente novamente.');}
     }
-    appointment.status=response; $('confirmActions').classList.add('hidden'); $('confirmStatus').textContent=statusText(response); $('confirmSuccess').classList.remove('hidden'); $('confirmSuccess').textContent=response==='confirmed'?'Presença confirmada. Obrigada! ✅':response==='reschedule_requested'?'Recebemos seu pedido para remarcar. Entre em contato pelo WhatsApp para combinar um novo horário.':'Atendimento cancelado. Sua resposta já foi registrada.';
+    appointment.status=response; $('confirmActions').classList.add('hidden'); $('confirmStatus').textContent=statusText(response); $('confirmSuccess').classList.remove('hidden'); $('confirmSuccess').textContent=response==='confirmed'?'Presença confirmada. Obrigado! ✅':response==='reschedule_requested'?'Recebemos seu pedido para remarcar. Entre em contato pelo WhatsApp para combinar um novo horário.':'Atendimento cancelado. Sua resposta já foi registrada.';
   }
   function statusText(s){return ({pending:'Aguardando sua confirmação.',confirmed:'✓ Presença confirmada.',reschedule_requested:'↻ Pedido de remarcação registrado.',cancelled:'Atendimento cancelado.',in_progress:'Atendimento em andamento.',completed:'Atendimento já realizado.',no_show:'Atendimento encerrado como falta.'}[s]||'Status atualizado.');}
   function showError(msg){$('confirmLoading').classList.add('hidden');$('confirmError').textContent=msg;$('confirmError').classList.remove('hidden');}

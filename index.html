@@ -28,7 +28,8 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
 .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}.metric{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 5px 18px rgba(32,37,34,.04)}.metric span{font-size:.76rem;color:var(--muted);display:block}.metric strong{display:block;font-size:1.4rem;margin-top:5px}.metric.highlight{background:var(--green);color:white;border-color:var(--green)}.metric.highlight span{color:#dfeae5}
 .section-label{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-label h2{margin:0;font-size:1rem}.section-label span{font-size:.76rem;color:var(--muted)}
 .session-list{display:grid;gap:10px}.session-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 4px 14px rgba(32,37,34,.035)}.session-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.time-block strong{font-size:1.2rem;color:var(--green)}.time-block span{display:block;font-size:.76rem;color:var(--muted);margin-top:3px}.patient-block{flex:1}.patient-block strong{display:block;font-size:1rem}.patient-block small{display:block;color:var(--muted);margin-top:3px}.status-pill{border-radius:999px;padding:6px 9px;font-size:.68rem;font-weight:800;white-space:nowrap}.s-pending{background:#fff4d9;color:#7b5c1d}.s-confirmed{background:#e6f5eb;color:#24633f}.s-in_progress{background:#e4eef8;color:#315f88}.s-completed{background:#edf2ee;color:#496156}.s-cancelled,.s-no_show{background:#f9e7e7;color:#8d3d3d}.s-reschedule_requested{background:#f3e8f4;color:#76427c}
-.session-meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;color:var(--muted);font-size:.78rem}.mini-tag{background:#f6f2eb;border-radius:999px;padding:6px 9px}.session-actions{display:flex;gap:7px;flex-wrap:wrap}.action-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:.76rem;font-weight:800;color:var(--green)}.action-btn.strong{background:var(--green);color:white;border-color:var(--green)}.action-btn.finish{background:var(--marsala);color:white;border-color:var(--marsala)}.action-btn.whatsapp{background:#e9f7ee;color:#17653a;border-color:#d0ead9}.action-btn.paid{background:#edf7ef;color:#1d6b3b}
+.session-meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;color:var(--muted);font-size:.78rem}.mini-tag{background:#f6f2eb;border-radius:999px;padding:6px 9px}.session-actions{display:flex;gap:7px;flex-wrap:wrap}.action-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:.76rem;font-weight:800;color:var(--green)}.action-btn.strong{background:var(--green);color:white;border-color:var(--green)}.action-btn.finish{background:var(--marsala);color:white;border-color:var(--marsala)}.action-btn.whatsapp{background:#e9f7ee;color:#17653a;border-color:#d0ead9}.action-btn.paid{background:#edf7ef;color:#1d6b3b}.action-btn.danger{color:var(--danger);border-color:#efcaca;background:#fff8f8}
+.reschedule-alert{margin:10px 0 2px;padding:10px 12px;border-radius:12px;background:#f3e8f4;color:#6d3d73;font-size:.78rem;font-weight:800;line-height:1.4}.series-preview{background:#eef3ef;border:1px solid #d9e5dc;border-radius:14px;padding:12px;color:var(--green);font-size:.82rem;line-height:1.45}.series-preview strong{display:block;font-size:.95rem;margin-bottom:3px}
 .empty-state{text-align:center;padding:38px 18px;background:var(--paper);border:1px dashed #cfc8bd;border-radius:22px;color:var(--muted)}.empty-state .big{font-size:2rem;margin-bottom:6px}.empty-state strong{color:var(--ink);display:block;margin-bottom:5px}
 .date-group{margin:18px 0}.date-heading{font-size:.82rem;font-weight:900;color:var(--green);margin:0 0 8px;padding-left:4px;text-transform:capitalize}
 .patient-grid{display:grid;gap:11px}.patient-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:15px}.patient-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.avatar{width:42px;height:42px;border-radius:14px;background:#e8eee9;color:var(--green);display:grid;place-items:center;font-weight:900}.patient-main{display:flex;gap:10px;align-items:center;flex:1}.patient-main strong{display:block}.patient-main small{display:block;color:var(--muted);margin-top:3px}.patient-card-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
@@ -152,6 +153,7 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
         <textarea id="patientNotes" rows="3" placeholder="Ex.: atende às terças e quintas"></textarea>
       </label>
       <button class="btn primary" type="submit">Salvar paciente</button>
+      <button id="deletePatientBtn" class="btn danger-ghost wide hidden" type="button">Excluir paciente e atendimentos</button>
     </form>
   </dialog>
 
@@ -188,6 +190,7 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
       <label>Valor por sessão
         <input id="seriesValue" type="number" min="0" step="0.01" />
       </label>
+      <div id="seriesPreview" class="series-preview">Selecione os dias da semana para ver a previsão.</div>
       <button class="btn primary" type="submit">Gerar atendimentos</button>
     </form>
   </dialog>
@@ -220,7 +223,7 @@ window.APP_CONFIG = {
 
   const $ = (id) => document.getElementById(id);
   const state = { demo:false, user:null, patients:[], appointments:[], view:'today', agendaMonth:monthKey(new Date()), financeMonth:monthKey(new Date()) };
-  const statusNames = { pending:'Aguardando', confirmed:'Confirmada', reschedule_requested:'Remarcar', cancelled:'Cancelada', in_progress:'Em atendimento', completed:'Finalizada', no_show:'Faltou' };
+  const statusNames = { pending:'Aguardando', confirmed:'Confirmada', reschedule_requested:'Solicitou remarcar', cancelled:'Cancelada', in_progress:'Em atendimento', completed:'Finalizada', no_show:'Faltou' };
 
   document.addEventListener('DOMContentLoaded', init);
 
@@ -249,7 +252,10 @@ window.APP_CONFIG = {
     $('newAppointmentFab').addEventListener('click',()=>openAppointmentDialog());
     $('appointmentForm').addEventListener('submit', saveAppointment);
     $('patientForm').addEventListener('submit', savePatient);
+    $('deletePatientBtn').addEventListener('click',()=>deletePatient($('patientId').value));
     $('seriesForm').addEventListener('submit', saveSeries);
+    ['seriesMonth','seriesTime','seriesDuration','seriesValue'].forEach(id=>$(id).addEventListener('input', updateSeriesPreview));
+    document.querySelectorAll('input[name="weekday"]').forEach(x=>x.addEventListener('change', updateSeriesPreview));
   }
 
   async function login(e){
@@ -278,7 +284,7 @@ window.APP_CONFIG = {
       state.appointments = data.appointments || [];
     } else {
       const [p,a] = await Promise.all([
-        db.from('patients').select('*').eq('active',true).order('name'),
+        db.from('patients').select('*').order('name'),
         db.from('appointments').select('*').order('scheduled_start')
       ]);
       if (p.error || a.error){ toast('Erro ao carregar os dados.'); return; }
@@ -344,12 +350,14 @@ window.APP_CONFIG = {
   }
 
   function renderPatients(){
+    const active=state.patients.filter(p=>p.active!==false);
     $('viewPatients').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">PACIENTES</p><h1>Seus pacientes</h1><p>${state.patients.length} cadastro(s) ativo(s)</p></div><button id="addPatientBtn" class="btn secondary">＋ Paciente</button></div>
-      <div class="patient-grid">${state.patients.length?state.patients.map(patientCard).join(''):emptyState('Nenhum paciente cadastrado','Cadastre o primeiro paciente para começar.')}</div>`;
+      <div class="page-title-row"><div><p class="eyebrow">PACIENTES</p><h1>Seus pacientes</h1><p>${active.length} cadastro(s) ativo(s)</p></div><button id="addPatientBtn" class="btn secondary">＋ Paciente</button></div>
+      <div class="patient-grid">${active.length?active.map(patientCard).join(''):emptyState('Nenhum paciente cadastrado','Cadastre o primeiro paciente para começar.')}</div>`;
     $('addPatientBtn').addEventListener('click',()=>openPatientDialog());
     $('viewPatients').querySelectorAll('[data-edit-patient]').forEach(b=>b.addEventListener('click',()=>openPatientDialog(b.dataset.editPatient)));
     $('viewPatients').querySelectorAll('[data-series-patient]').forEach(b=>b.addEventListener('click',()=>openSeriesDialog(b.dataset.seriesPatient)));
+    $('viewPatients').querySelectorAll('[data-deactivate-patient]').forEach(b=>b.addEventListener('click',()=>deactivatePatient(b.dataset.deactivatePatient)));
   }
 
   function renderFinance(){
@@ -379,20 +387,22 @@ window.APP_CONFIG = {
     const duration=a.actual_start&&a.actual_end?`${Math.max(1,Math.round((new Date(a.actual_end)-new Date(a.actual_start))/60000))} min realizados`:`${a.duration_minutes||60} min previstos`;
     return `<article class="session-card">
       <div class="session-head"><div class="time-block"><strong>${formatTime(d)}</strong><span>${duration}</span></div><div class="patient-block"><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${actual || (p?.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp')}</small></div><span class="status-pill s-${a.status}">${statusNames[a.status]||a.status}</span></div>
+      ${a.status==='reschedule_requested'?'<div class="reschedule-alert">↻ O paciente pediu para remarcar. Entre em contato antes de iniciar esta sessão.</div>':''}
       <div class="session-meta"><span class="mini-tag">${a.status==='completed'&&a.actual_end?'✓ encerrada':'◷ sessão'}</span>${a.paid?'<span class="mini-tag">R$ pago</span>':''}</div>
       <div class="session-actions">
-        ${['pending','confirmed','reschedule_requested'].includes(a.status)?`<button class="action-btn strong" data-start="${a.id}">▶ Iniciar</button>`:''}
+        ${['pending','confirmed'].includes(a.status)?`<button class="action-btn strong" data-start="${a.id}">▶ Iniciar</button>`:''}
         ${a.status==='in_progress'?`<button class="action-btn finish" data-finish="${a.id}">■ Finalizar</button>`:''}
         ${!['completed','cancelled','no_show'].includes(a.status)?`<button class="action-btn whatsapp" data-whatsapp="${a.id}">WhatsApp</button>`:''}
-        ${a.status==='pending'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Confirmar</button>`:''}
+        ${a.status==='pending'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Confirmar</button>`:''}${a.status==='reschedule_requested'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Manter horário</button>`:''}
         ${!['completed','cancelled'].includes(a.status)?`<button class="action-btn" data-status="cancelled" data-id="${a.id}">Cancelar</button>`:''}
+        <button class="action-btn danger" data-delete-appointment="${a.id}">Excluir</button>
       </div>
     </article>`;
   }
 
   function patientCard(p){
     const initials=p.name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-    return `<article class="patient-card"><div class="patient-card-top"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)}</small></div></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="patient-card-actions"><button class="action-btn" data-edit-patient="${p.id}">Editar</button><button class="action-btn strong" data-series-patient="${p.id}">Gerar mês</button></div></article>`;
+    return `<article class="patient-card"><div class="patient-card-top"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)}</small></div></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="patient-card-actions"><button class="action-btn" data-edit-patient="${p.id}">Editar</button><button class="action-btn strong" data-series-patient="${p.id}">Gerar mês</button><button class="action-btn danger" data-deactivate-patient="${p.id}">Desativar</button></div></article>`;
   }
 
   function financeRow(a){
@@ -405,12 +415,13 @@ window.APP_CONFIG = {
     root.querySelectorAll('[data-finish]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.finish,{status:'completed',actual_end:new Date().toISOString()}).then(renderCurrent)));
     root.querySelectorAll('[data-status]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.id,{status:b.dataset.status}).then(renderCurrent)));
     root.querySelectorAll('[data-whatsapp]').forEach(b=>b.addEventListener('click',()=>openWhatsApp(b.dataset.whatsapp)));
+    root.querySelectorAll('[data-delete-appointment]').forEach(b=>b.addEventListener('click',()=>deleteAppointment(b.dataset.deleteAppointment)));
   }
 
   function renderCurrent(){ if(state.view==='today')renderToday(); if(state.view==='agenda')renderAgenda(); if(state.view==='finance')renderFinance(); }
 
   function openAppointmentDialog(){
-    if (!state.patients.length){toast('Cadastre um paciente primeiro.');switchView('patients');return;}
+    if (!state.patients.some(p=>p.active!==false)){toast('Cadastre um paciente primeiro.');switchView('patients');return;}
     refreshPatientSelect(); const now=new Date();
     $('appointmentDate').value=dateKey(now); $('appointmentTime').value='14:00';
     const p=findPatient($('appointmentPatient').value); $('appointmentValue').value=p?.session_value||'';
@@ -421,6 +432,7 @@ window.APP_CONFIG = {
   function openPatientDialog(id=null){
     const p=id?findPatient(id):null;
     $('patientDialogTitle').textContent=p?'Editar paciente':'Novo paciente'; $('patientId').value=p?.id||''; $('patientName').value=p?.name||''; $('patientPhone').value=p?.whatsapp||''; $('patientValue').value=p?.session_value||''; $('patientNotes').value=p?.notes||'';
+    $('deletePatientBtn').classList.toggle('hidden',!p);
     $('patientDialog').showModal();
   }
 
@@ -428,6 +440,7 @@ window.APP_CONFIG = {
     const p=findPatient(id); if(!p)return;
     $('seriesPatientId').value=id; $('seriesPatientName').textContent=p.name; $('seriesMonth').value=monthKey(new Date()); $('seriesValue').value=p.session_value||'';
     document.querySelectorAll('input[name="weekday"]').forEach(x=>x.checked=false);
+    updateSeriesPreview();
     $('seriesDialog').showModal();
   }
 
@@ -453,19 +466,81 @@ window.APP_CONFIG = {
     $('patientDialog').close(); await loadData(); renderPatients(); toast('Paciente salvo.');
   }
 
-  async function saveSeries(e){
-    e.preventDefault();
-    const id=$('seriesPatientId').value; const p=findPatient(id); const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')].map(x=>Number(x.value));
-    if(!weekdays.length){toast('Selecione pelo menos um dia da semana.');return;}
-    const [year,month]= $('seriesMonth').value.split('-').map(Number); const [hh,mm]=$('seriesTime').value.split(':').map(Number); const rows=[];
-    const cursor=new Date(year,month-1,1,12,0,0); while(cursor.getMonth()===month-1){
-      if(weekdays.includes(cursor.getDay())){ const dt=new Date(year,month-1,cursor.getDate(),hh,mm,0); const exists=state.appointments.some(a=>a.patient_id===id && new Date(a.scheduled_start).getTime()===dt.getTime()); if(!exists) rows.push({patient_id:id,scheduled_start:dt.toISOString(),duration_minutes:Number($('seriesDuration').value),session_value:Number($('seriesValue').value||p.session_value||0),status:'pending',paid:false}); }
+  function buildSeriesPlan(){
+    const id=$('seriesPatientId').value; const p=findPatient(id);
+    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')].map(x=>Number(x.value));
+    const monthValue=$('seriesMonth').value;
+    if(!p || !monthValue || !weekdays.length) return {rows:[],skippedPast:0,skippedExisting:0};
+    const [year,month]=monthValue.split('-').map(Number); const [hh,mm]=$('seriesTime').value.split(':').map(Number);
+    const now=new Date(); const rows=[]; let skippedPast=0, skippedExisting=0;
+    const cursor=new Date(year,month-1,1,12,0,0);
+    while(cursor.getMonth()===month-1){
+      if(weekdays.includes(cursor.getDay())){
+        const dt=new Date(year,month-1,cursor.getDate(),hh,mm,0);
+        if(dt.getTime() < now.getTime()) skippedPast++;
+        else {
+          const exists=state.appointments.some(a=>a.patient_id===id && new Date(a.scheduled_start).getTime()===dt.getTime());
+          if(exists) skippedExisting++;
+          else rows.push({patient_id:id,scheduled_start:dt.toISOString(),duration_minutes:Number($('seriesDuration').value),session_value:Number($('seriesValue').value||p.session_value||0),status:'pending',paid:false});
+        }
+      }
       cursor.setDate(cursor.getDate()+1);
     }
-    if(!rows.length){toast('Não há novas datas para gerar.');return;}
+    return {rows,skippedPast,skippedExisting};
+  }
+
+  function updateSeriesPreview(){
+    const box=$('seriesPreview'); if(!box)return;
+    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')];
+    if(!weekdays.length){ box.innerHTML='Selecione os dias da semana para ver a previsão.'; return; }
+    const plan=buildSeriesPlan(); const total=plan.rows.reduce((sum,row)=>sum+Number(row.session_value||0),0);
+    if(!plan.rows.length){
+      box.innerHTML=`<strong>Nenhuma nova sessão será criada.</strong>${plan.skippedPast?'As datas/horários anteriores a agora serão ignorados. ':''}${plan.skippedExisting?'As sessões que já existem também não serão duplicadas.':''}`;
+      return;
+    }
+    box.innerHTML=`<strong>${plan.rows.length} sessão(ões) nova(s) • ${money(total)}</strong>${plan.skippedPast?`${plan.skippedPast} data(s) passada(s) serão ignoradas. `:''}${plan.skippedExisting?`${plan.skippedExisting} sessão(ões) já existente(s) não serão duplicadas.`:''}`;
+  }
+
+  async function saveSeries(e){
+    e.preventDefault();
+    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')];
+    if(!weekdays.length){toast('Selecione pelo menos um dia da semana.');return;}
+    const {rows}=buildSeriesPlan();
+    if(!rows.length){toast('Não há novas datas futuras para gerar.');return;}
     if(state.demo){ rows.forEach(r=>state.appointments.push({id:crypto.randomUUID(),confirmation_token:'demo-'+crypto.randomUUID(),actual_start:null,actual_end:null,...r})); persistDemo(); }
     else { const {error}=await db.from('appointments').insert(rows); if(error){toast('Erro ao gerar as sessões.');return;} }
     $('seriesDialog').close(); await loadData(); toast(`${rows.length} sessão(ões) gerada(s).`); switchView('agenda');
+  }
+
+  async function deleteAppointment(id){
+    const a=findAppointment(id); if(!a)return;
+    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start);
+    if(!window.confirm(`Excluir definitivamente o atendimento de ${p?.name||'Paciente'} em ${formatShortDate(d)} às ${formatTime(d)}?`)) return;
+    if(state.demo){ state.appointments=state.appointments.filter(x=>x.id!==id); persistDemo(); }
+    else { const {error}=await db.from('appointments').delete().eq('id',id); if(error){toast('Não foi possível excluir o atendimento.');return;} }
+    await loadData(); renderCurrent(); toast('Atendimento excluído.');
+  }
+
+  async function deactivatePatient(id){
+    const p=findPatient(id); if(!p)return;
+    if(!window.confirm(`Desativar ${p.name}? O histórico de atendimentos será mantido, mas o paciente deixará de aparecer na lista ativa.`)) return;
+    if(state.demo){ const i=state.patients.findIndex(x=>x.id===id); state.patients[i]={...state.patients[i],active:false}; persistDemo(); }
+    else { const {error}=await db.from('patients').update({active:false}).eq('id',id); if(error){toast('Não foi possível desativar o paciente.');return;} }
+    await loadData(); renderPatients(); toast('Paciente desativado.');
+  }
+
+  async function deletePatient(id){
+    const p=findPatient(id); if(!p)return;
+    if(!window.confirm(`Excluir definitivamente ${p.name} e TODOS os atendimentos desse paciente? Esta ação não pode ser desfeita.`)) return;
+    if(state.demo){
+      state.patients=state.patients.filter(x=>x.id!==id);
+      state.appointments=state.appointments.filter(a=>a.patient_id!==id);
+      persistDemo();
+    } else {
+      const {error}=await db.from('patients').delete().eq('id',id);
+      if(error){toast('Não foi possível excluir o paciente.');return;}
+    }
+    $('patientDialog').close(); await loadData(); renderPatients(); toast('Paciente e atendimentos excluídos.');
   }
 
   async function insertAppointment(row){
@@ -483,11 +558,11 @@ window.APP_CONFIG = {
     const a=findAppointment(id), p=findPatient(a?.patient_id); if(!a||!p)return;
     const phone=normalizeBrazilPhone(p.whatsapp); if(!phone){toast('Cadastre o WhatsApp deste paciente.');return;}
     const d=new Date(a.scheduled_start); const confirmUrl=new URL('confirm.html',window.location.href); confirmUrl.searchParams.set('t',a.confirmation_token);
-    const first=p.name.split(' ')[0]; const text=`Olá, ${first}! 😊\n\nSeu atendimento está agendado para *${formatLongDate(d)}*, às *${formatTime(d)}*.\n\nPara confirmar, remarcar ou cancelar, acesse:\n${confirmUrl.toString()}\n\nObrigada!`;
+    const first=p.name.split(' ')[0]; const text=`Olá, ${first}! 😊\n\nSeu atendimento está agendado para *${formatLongDate(d)}*, às *${formatTime(d)}*.\n\nPara confirmar, remarcar ou cancelar, acesse:\n${confirmUrl.toString()}\n\nObrigado!`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,'_blank','noopener');
   }
 
-  function refreshPatientSelect(){ $('appointmentPatient').innerHTML=state.patients.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join(''); }
+  function refreshPatientSelect(){ $('appointmentPatient').innerHTML=state.patients.filter(p=>p.active!==false).map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join(''); }
   function findPatient(id){return state.patients.find(p=>p.id===id)} function findAppointment(id){return state.appointments.find(a=>a.id===id)}
   function emptyState(title,copy){return `<div class="empty-state"><div class="big">○</div><strong>${title}</strong><span>${copy}</span></div>`}
   function byDate(a,b){return new Date(a.scheduled_start)-new Date(b.scheduled_start)}
