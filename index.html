@@ -34,8 +34,12 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
 .date-group{margin:18px 0}.date-heading{font-size:.82rem;font-weight:900;color:var(--green);margin:0 0 8px;padding-left:4px;text-transform:capitalize}
 .patient-grid{display:grid;gap:11px}.patient-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:15px}.patient-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.avatar{width:42px;height:42px;border-radius:14px;background:#e8eee9;color:var(--green);display:grid;place-items:center;font-weight:900}.patient-main{display:flex;gap:10px;align-items:center;flex:1}.patient-main strong{display:block}.patient-main small{display:block;color:var(--muted);margin-top:3px}.patient-card-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
 .finance-table{display:grid;gap:8px}.finance-row{display:grid;grid-template-columns:1fr auto;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px}.finance-row strong{display:block}.finance-row small{color:var(--muted)}.finance-money{text-align:right}.finance-money span{display:block;font-weight:900}.finance-money button{margin-top:5px;border:0;background:none;color:var(--green);font-size:.75rem;font-weight:800}
-.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:20;width:min(520px,calc(100% - 24px));display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,253,249,.96);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:7px;box-shadow:0 12px 30px rgba(32,37,34,.13)}.nav-item{border:0;background:transparent;border-radius:17px;padding:8px 4px;color:#78807b;display:grid;place-items:center;gap:2px;font-weight:800}.nav-item span{font-size:1.05rem}.nav-item small{font-size:.67rem}.nav-item.active{background:var(--green);color:white}.fab{position:fixed;right:20px;bottom:98px;z-index:15;width:56px;height:56px;border-radius:50%;border:0;background:var(--marsala);color:white;font-size:1.7rem;box-shadow:0 10px 22px rgba(155,75,86,.25)}
+.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:20;width:min(560px,calc(100% - 24px));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,253,249,.96);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:7px;box-shadow:0 12px 30px rgba(32,37,34,.13)}.nav-item{border:0;background:transparent;border-radius:17px;padding:8px 4px;color:#78807b;display:grid;place-items:center;gap:2px;font-weight:800}.nav-item span{font-size:1.05rem}.nav-item small{font-size:.59rem}.nav-item.active{background:var(--green);color:white}.fab{position:fixed;right:20px;bottom:98px;z-index:15;width:56px;height:56px;border-radius:50%;border:0;background:var(--marsala);color:white;font-size:1.7rem;box-shadow:0 10px 22px rgba(155,75,86,.25)}
 .modal{border:0;padding:0;background:transparent;width:min(520px,calc(100% - 24px));max-height:88vh}.modal::backdrop{background:rgba(17,26,22,.48);backdrop-filter:blur(3px)}.modal-card{background:var(--paper);border-radius:26px;padding:20px;display:grid;gap:14px;max-height:88vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:flex-start}.modal-header h2{margin:0}.close-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:white;font-size:1.3rem}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}fieldset{border:1px solid var(--line);border-radius:16px;padding:12px}legend{padding:0 6px;font-size:.83rem;font-weight:800}.weekday-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.weekday-grid label{display:flex;align-items:center;gap:6px;background:#f5f3ed;border-radius:10px;padding:8px}.weekday-grid input{width:auto}.patient-highlight{margin:0;background:#eef3ef;padding:10px 12px;border-radius:12px;color:var(--green);font-weight:800}
+
+.record-filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.record-list{display:grid;gap:10px}.record-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:15px}.record-card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.record-card strong{display:block}.record-card small{color:var(--muted);display:block;margin-top:3px}.record-badge{border-radius:999px;padding:6px 9px;font-size:.68rem;font-weight:900;white-space:nowrap}.record-badge.done{background:#e6f5eb;color:#24633f}.record-badge.pending{background:#fff4d9;color:#7b5c1d}.record-summary{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0}.record-note-preview{font-size:.78rem;line-height:1.45;color:#4e5752;background:#f7f3ec;border-radius:12px;padding:10px;margin:10px 0}.record-export-bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.record-export-bar .btn{width:auto;min-height:42px;padding:10px 14px}.record-month-title{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 14px}.record-month-title strong{display:block;color:var(--green);font-size:.92rem}.record-month-title span{display:block;color:var(--muted);font-size:.74rem;margin-top:3px}.record-private{background:#eef3ef;border:1px solid #d9e5dc;color:var(--green);padding:10px 12px;border-radius:13px;font-size:.78rem;line-height:1.45;margin-bottom:14px}
+@media(max-width:430px){.record-filters{grid-template-columns:1fr}.bottom-nav{width:calc(100% - 16px);bottom:8px}.nav-item{padding:8px 1px}.nav-item small{font-size:.54rem}}
+
 .toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-130%);z-index:100;background:#202522;color:white;border-radius:999px;padding:10px 15px;font-size:.82rem;font-weight:700;box-shadow:var(--shadow);transition:.2s}.toast.show{transform:translate(-50%,0)}
 .public-body{background:linear-gradient(180deg,#173f35 0 31%,#f5f1e9 31% 100%)}.confirm-wrap{min-height:100vh;display:grid;place-items:center;padding:28px 16px}.confirm-card{width:min(480px,100%);background:var(--paper);border-radius:30px;padding:27px;box-shadow:0 18px 50px rgba(15,30,24,.18)}.confirm-logo{width:58px;height:58px;margin-bottom:12px}.confirm-card h1{margin:0 0 16px}.confirm-greeting{font-size:1.03rem;line-height:1.5}.appointment-public-details{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.appointment-public-details div{background:#f4f1ea;border-radius:14px;padding:12px;text-align:center}.appointment-public-details span{display:block;font-size:.7rem;color:var(--muted)}.appointment-public-details strong{display:block;margin-top:5px;font-size:.9rem}.status-line{padding:10px 12px;border-radius:12px;background:#f7f1e3;font-size:.82rem}.public-actions{display:grid;gap:9px;margin-top:15px}.privacy-note{font-size:.72rem;color:var(--muted);line-height:1.45;margin-top:18px}.success-panel{background:#eaf6ee;color:#275f3e;padding:14px;border-radius:15px;line-height:1.45;font-weight:700}.error-panel{background:#fae9e9;color:#7f3838;padding:14px;border-radius:15px}.loading-block{padding:24px 0;color:var(--muted)}
 @media(min-width:700px){.summary-grid{grid-template-columns:repeat(4,1fr)}.patient-grid{grid-template-columns:repeat(2,1fr)}.fab{right:max(24px,calc((100vw - 860px)/2 + 24px))}}
@@ -89,6 +93,7 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
       <section id="viewToday" class="view"></section>
       <section id="viewAgenda" class="view hidden"></section>
       <section id="viewPatients" class="view hidden"></section>
+      <section id="viewRecords" class="view hidden"></section>
       <section id="viewFinance" class="view hidden"></section>
     </main>
 
@@ -98,6 +103,7 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
       <button data-view="today" class="nav-item active"><span>⌂</span><small>Hoje</small></button>
       <button data-view="agenda" class="nav-item"><span>▦</span><small>Agenda</small></button>
       <button data-view="patients" class="nav-item"><span>♙</span><small>Pacientes</small></button>
+      <button data-view="records" class="nav-item"><span>▤</span><small>Prontuários</small></button>
       <button data-view="finance" class="nav-item"><span>R$</span><small>Financeiro</small></button>
     </nav>
   </div>
@@ -195,6 +201,45 @@ button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{displa
     </form>
   </dialog>
 
+
+
+  <dialog id="recordDialog" class="modal">
+    <form id="recordForm" method="dialog" class="modal-card">
+      <div class="modal-header">
+        <div><p class="eyebrow">PRONTUÁRIO • PRIVADO</p><h2>Registro do atendimento</h2></div>
+        <button class="close-btn" type="button" data-close-dialog>×</button>
+      </div>
+      <input id="recordAppointmentId" type="hidden" />
+      <div id="recordAppointmentSummary" class="patient-highlight"></div>
+      <label>Queixa / relato do dia
+        <textarea id="recordComplaint" rows="3" placeholder="Ex.: relata melhora da dor, porém ainda apresenta desconforto ao subir escadas."></textarea>
+      </label>
+      <div class="two-col">
+        <label>Dor antes (0–10)
+          <select id="recordPainBefore"><option value="">Não informado</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+        </label>
+        <label>Dor após (0–10)
+          <select id="recordPainAfter"><option value="">Não informado</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+        </label>
+      </div>
+      <label>Evolução / achados
+        <textarea id="recordEvolution" rows="4" required placeholder="Descreva a evolução e os principais achados do atendimento."></textarea>
+      </label>
+      <label>Conduta realizada
+        <textarea id="recordConduct" rows="5" required placeholder="Ex.: cicloergômetro 10 min; leg press 4×12; treino de equilíbrio..."></textarea>
+      </label>
+      <label>Resposta ao atendimento / intercorrências
+        <textarea id="recordResponse" rows="3" placeholder="Ex.: tolerou bem, sem intercorrências; referiu redução da dor ao final."></textarea>
+      </label>
+      <label>Plano para a próxima sessão
+        <textarea id="recordPlan" rows="3" placeholder="Ex.: progredir carga e manter treino de equilíbrio."></textarea>
+      </label>
+      <button class="btn primary" type="submit">Salvar prontuário</button>
+      <p class="tiny muted">Este conteúdo fica somente na sua área autenticada. O link de confirmação enviado ao paciente não tem acesso ao prontuário.</p>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
 /*
@@ -222,7 +267,7 @@ window.APP_CONFIG = {
   const db = configured ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_PUBLISHABLE_KEY) : null;
 
   const $ = (id) => document.getElementById(id);
-  const state = { demo:false, user:null, patients:[], appointments:[], view:'today', agendaMonth:monthKey(new Date()), financeMonth:monthKey(new Date()) };
+  const state = { demo:false, user:null, patients:[], appointments:[], view:'today', agendaMonth:monthKey(new Date()), financeMonth:monthKey(new Date()), recordsPatient:'all', recordsMonth:monthKey(new Date()) };
   const statusNames = { pending:'Aguardando', confirmed:'Confirmada', reschedule_requested:'Solicitou remarcar', cancelled:'Cancelada', in_progress:'Em atendimento', completed:'Finalizada', no_show:'Faltou' };
 
   document.addEventListener('DOMContentLoaded', init);
@@ -254,6 +299,7 @@ window.APP_CONFIG = {
     $('patientForm').addEventListener('submit', savePatient);
     $('deletePatientBtn').addEventListener('click',()=>deletePatient($('patientId').value));
     $('seriesForm').addEventListener('submit', saveSeries);
+    $('recordForm').addEventListener('submit', saveClinicalRecord);
     ['seriesMonth','seriesTime','seriesDuration','seriesValue'].forEach(id=>$(id).addEventListener('input', updateSeriesPreview));
     document.querySelectorAll('input[name="weekday"]').forEach(x=>x.addEventListener('change', updateSeriesPreview));
   }
@@ -310,12 +356,13 @@ window.APP_CONFIG = {
 
   function switchView(view){
     state.view=view;
-    ['Today','Agenda','Patients','Finance'].forEach(v=>$('view'+v).classList.add('hidden'));
+    ['Today','Agenda','Patients','Records','Finance'].forEach(v=>$('view'+v).classList.add('hidden'));
     $('view'+capitalize(view)).classList.remove('hidden');
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
     if (view==='today') renderToday();
     if (view==='agenda') renderAgenda();
     if (view==='patients') renderPatients();
+    if (view==='records') renderRecords();
     if (view==='finance') renderFinance();
   }
 
@@ -358,6 +405,145 @@ window.APP_CONFIG = {
     $('viewPatients').querySelectorAll('[data-edit-patient]').forEach(b=>b.addEventListener('click',()=>openPatientDialog(b.dataset.editPatient)));
     $('viewPatients').querySelectorAll('[data-series-patient]').forEach(b=>b.addEventListener('click',()=>openSeriesDialog(b.dataset.seriesPatient)));
     $('viewPatients').querySelectorAll('[data-deactivate-patient]').forEach(b=>b.addEventListener('click',()=>deactivatePatient(b.dataset.deactivatePatient)));
+    $('viewPatients').querySelectorAll('[data-patient-records]').forEach(b=>b.addEventListener('click',()=>{state.recordsPatient=b.dataset.patientRecords;state.recordsMonth='';switchView('records');}));
+  }
+
+  function renderRecords(){
+    const completedAll=state.appointments.filter(a=>a.status==='completed').sort((a,b)=>new Date(b.actual_end||b.scheduled_start)-new Date(a.actual_end||a.scheduled_start));
+    const list=completedAll.filter(a=>(state.recordsPatient==='all'||a.patient_id===state.recordsPatient) && (!state.recordsMonth||monthKey(new Date(a.scheduled_start))===state.recordsMonth));
+    const filled=list.filter(a=>recordComplete(readClinicalRecord(a))).length;
+    const pending=list.length-filled;
+    const patientOptions=state.patients.slice().sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')).map(p=>`<option value="${p.id}" ${state.recordsPatient===p.id?'selected':''}>${escapeHtml(p.name)}</option>`).join('');
+    const canExport=state.recordsPatient!=='all' && Boolean(state.recordsMonth) && list.length>0;
+    const selectedPatient=state.recordsPatient==='all'?null:findPatient(state.recordsPatient);
+    const monthLabel=state.recordsMonth?formatMonthLabel(state.recordsMonth):'Todos os meses';
+    $('viewRecords').innerHTML=`
+      <div class="page-title-row"><div><p class="eyebrow">PRIVADO • DADOS CLÍNICOS</p><h1>Prontuários</h1><p>Histórico dos atendimentos, organizado por paciente e por mês.</p></div></div>
+      <div class="record-private">🔒 Os prontuários ficam na sua área autenticada. O PDF só é criado quando você solicitar e não inclui valores financeiros.</div>
+      <div class="record-filters">
+        <label>Paciente<select id="recordsPatientFilter"><option value="all" ${state.recordsPatient==='all'?'selected':''}>Todos os pacientes</option>${patientOptions}</select></label>
+        <label>Mês<input id="recordsMonthFilter" type="month" value="${state.recordsMonth}"></label>
+      </div>
+      <div class="record-export-bar">
+        <button id="exportRecordsPdf" class="btn primary" type="button" ${canExport?'':'disabled'}>Exportar PDF do mês</button>
+        <button id="clearRecordFilters" class="action-btn" type="button">Mostrar histórico completo</button>
+      </div>
+      ${selectedPatient&&state.recordsMonth?`<div class="record-month-title"><strong>${escapeHtml(selectedPatient.name)} • ${escapeHtml(monthLabel)}</strong><span>${list.length} atendimento(s) realizado(s) • ${filled} prontuário(s) preenchido(s)${pending?` • ${pending} pendente(s)`:''}</span></div>`:''}
+      <div class="summary-grid">
+        <div class="metric highlight"><span>Atendimentos realizados</span><strong>${list.length}</strong></div>
+        <div class="metric"><span>Prontuários preenchidos</span><strong>${filled}</strong></div>
+        <div class="metric"><span>Pendentes</span><strong>${pending}</strong></div>
+        <div class="metric"><span>Total no histórico</span><strong>${completedAll.length}</strong></div>
+      </div>
+      <div class="section-label"><h2>${state.recordsMonth?'Atendimentos do mês':'Histórico de atendimentos'}</h2><span>${list.length} registro(s)</span></div>
+      <div class="record-list">${list.length?list.map(recordCard).join(''):emptyState('Nenhum atendimento realizado','Quando uma sessão for finalizada, ela aparecerá aqui automaticamente.')}</div>`;
+    $('recordsPatientFilter').addEventListener('change',e=>{state.recordsPatient=e.target.value;renderRecords();});
+    $('recordsMonthFilter').addEventListener('change',e=>{state.recordsMonth=e.target.value;renderRecords();});
+    $('clearRecordFilters').addEventListener('click',()=>{state.recordsPatient='all';state.recordsMonth='';renderRecords();});
+    $('exportRecordsPdf').addEventListener('click',()=>exportMonthlyRecordsPdf());
+    $('viewRecords').querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openRecordDialog(b.dataset.record)));
+  }
+
+  function formatMonthLabel(value){
+    if(!value)return'';
+    const [y,m]=value.split('-').map(Number);
+    return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(y,m-1,1));
+  }
+
+  function formatPdfDate(d){
+    return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d);
+  }
+
+  function safeFileName(v){
+    return String(v||'arquivo').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+
+  async function exportMonthlyRecordsPdf(){
+    if(state.recordsPatient==='all'){toast('Selecione um paciente para gerar o PDF.');return;}
+    if(!state.recordsMonth){toast('Selecione o mês que deseja exportar.');return;}
+    const patient=findPatient(state.recordsPatient); if(!patient)return;
+    const list=state.appointments.filter(a=>a.status==='completed' && a.patient_id===patient.id && monthKey(new Date(a.scheduled_start))===state.recordsMonth).sort(byDate);
+    if(!list.length){toast('Não há atendimentos realizados neste mês.');return;}
+    const pending=list.filter(a=>!recordComplete(readClinicalRecord(a))).length;
+    if(pending && !window.confirm(`Há ${pending} prontuário(s) ainda não preenchido(s). Eles aparecerão no PDF apenas como atendimento realizado. Deseja continuar?`))return;
+    if(!window.jspdf?.jsPDF){toast('Não foi possível carregar o gerador de PDF. Tente novamente com internet ativa.');return;}
+
+    const { jsPDF }=window.jspdf;
+    const doc=new jsPDF({unit:'mm',format:'a4'});
+    const pageW=210, pageH=297, left=16, right=16, contentW=pageW-left-right;
+    let y=18;
+    const monthLabel=formatMonthLabel(state.recordsMonth);
+    const ensure=(needed=12)=>{ if(y+needed>pageH-18){doc.addPage(); y=18; addPdfHeader(false);} };
+    const line=(txt,size=10,style='normal',gap=5)=>{
+      doc.setFont('helvetica',style); doc.setFontSize(size); doc.setTextColor(35,43,39);
+      const lines=doc.splitTextToSize(String(txt||''),contentW);
+      ensure(lines.length*4.8+gap); doc.text(lines,left,y); y+=lines.length*4.8+gap;
+    };
+    const labelBlock=(labelTxt,value)=>{
+      if(!String(value||'').trim())return;
+      ensure(13); doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,76,62);doc.text(labelTxt,left,y);y+=4.5;
+      doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(45,50,48);
+      const lines=doc.splitTextToSize(String(value),contentW); doc.text(lines,left,y); y+=lines.length*4.5+4.5;
+    };
+    function addPdfHeader(first=true){
+      doc.setFont('helvetica','bold'); doc.setTextColor(24,76,62); doc.setFontSize(first?17:11); doc.text('Fisio Check-in',left,y); y+=first?8:6;
+      if(first){
+        doc.setFontSize(12);doc.setTextColor(90,74,77);doc.text('RELATORIO DE ATENDIMENTOS',left,y);y+=8;
+        doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(35,43,39);doc.text(patient.name,left,y);y+=6;
+        doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(95,103,99);doc.text(`${monthLabel} • ${list.length} atendimento(s) realizado(s)`,left,y);y+=6;
+        doc.setDrawColor(220,215,205);doc.line(left,y,pageW-right,y);y+=8;
+      }else{
+        doc.setDrawColor(220,215,205);doc.line(left,y,pageW-right,y);y+=6;
+      }
+    }
+
+    addPdfHeader(true);
+    list.forEach((a,idx)=>{
+      const d=new Date(a.scheduled_start), r=readClinicalRecord(a);
+      const start=a.actual_start?new Date(a.actual_start):d;
+      const end=a.actual_end?new Date(a.actual_end):null;
+      const duration=end?Math.max(1,Math.round((end-start)/60000)):(a.duration_minutes||60);
+      ensure(28);
+      doc.setFillColor(246,243,237); doc.roundedRect(left,y-4,contentW,13,2,2,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(24,76,62);doc.text(`Atendimento ${idx+1} - ${formatPdfDate(d)}`,left+3,y+2);
+      doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(85,92,89);doc.text(`${formatTime(start)}${end?` - ${formatTime(end)}`:''} • ${duration} min`,left+3,y+7); y+=15;
+      if(r){
+        if(r.complaint)labelBlock('Queixa / relato do dia',r.complaint);
+        if(r.pain_before!==''||r.pain_after!=='')labelBlock('Dor',`${r.pain_before===''?'Nao informado':r.pain_before}/10 antes - ${r.pain_after===''?'Nao informado':r.pain_after}/10 apos`);
+        labelBlock('Evolucao / achados',r.evolution);
+        labelBlock('Conduta realizada',r.conduct);
+        labelBlock('Resposta ao atendimento / intercorrencias',r.response);
+        labelBlock('Plano para a proxima sessao',r.plan);
+      }else{
+        line('Prontuario ainda nao preenchido para este atendimento.',9,'italic',5);
+      }
+      ensure(8); doc.setDrawColor(232,228,220);doc.line(left,y,pageW-right,y);y+=7;
+    });
+
+    ensure(24);
+    doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(24,76,62);doc.text('Resumo do periodo',left,y);y+=6;
+    doc.setFont('helvetica','normal');doc.setTextColor(55,61,58);doc.setFontSize(9.5);doc.text(`${list.length} atendimento(s) realizado(s) em ${monthLabel}.`,left,y);y+=6;
+    doc.setFontSize(8.5);doc.setTextColor(110,116,113);doc.text(`Documento gerado em ${formatPdfDate(new Date())}. Informacoes financeiras nao sao exibidas.`,left,y);
+
+    const filename=`atendimentos-${safeFileName(patient.name)}-${state.recordsMonth}.pdf`;
+    const blob=doc.output('blob');
+    try{
+      const file=new File([blob],filename,{type:'application/pdf'});
+      if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+        await navigator.share({title:`Atendimentos - ${patient.name} - ${monthLabel}`,files:[file]});
+        return;
+      }
+    }catch(err){ if(err?.name==='AbortError')return; }
+    const url=URL.createObjectURL(blob); window.open(url,'_blank'); setTimeout(()=>URL.revokeObjectURL(url),120000);
+    toast('PDF gerado. Use o menu Compartilhar para enviar ao paciente.');
+  }
+
+  function recordCard(a){
+    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start); const r=readClinicalRecord(a); const done=recordComplete(r);
+    const actual=a.actual_start&&a.actual_end?`${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))} • ${Math.max(1,Math.round((new Date(a.actual_end)-new Date(a.actual_start))/60000))} min`:`${formatTime(d)} • ${a.duration_minutes||60} min`;
+    const pain=(r&&r.pain_before!==''&&r.pain_before!=null)|| (r&&r.pain_after!==''&&r.pain_after!=null) ? `<span class="mini-tag">Dor ${r.pain_before===''||r.pain_before==null?'—':r.pain_before} → ${r.pain_after===''||r.pain_after==null?'—':r.pain_after}</span>`:'';
+    const preview=done?escapeHtml((r.evolution||r.conduct||'').slice(0,150)):'';
+    return `<article class="record-card"><div class="record-card-top"><div><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${formatLongDate(d)} • ${actual}</small></div><span class="record-badge ${done?'done':'pending'}">${done?'✓ Preenchido':'Pendente'}</span></div><div class="record-summary"><span class="mini-tag">Atendimento finalizado</span>${pain}</div>${preview?`<div class="record-note-preview">${preview}${(r.evolution||r.conduct||'').length>150?'…':''}</div>`:''}<button class="action-btn ${done?'':'strong'}" data-record="${a.id}">${done?'Ver / editar prontuário':'Preencher prontuário'}</button></article>`;
   }
 
   function renderFinance(){
@@ -395,14 +581,14 @@ window.APP_CONFIG = {
         ${!['completed','cancelled','no_show'].includes(a.status)?`<button class="action-btn whatsapp" data-whatsapp="${a.id}">WhatsApp</button>`:''}
         ${a.status==='pending'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Confirmar</button>`:''}${a.status==='reschedule_requested'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Manter horário</button>`:''}
         ${!['completed','cancelled'].includes(a.status)?`<button class="action-btn" data-status="cancelled" data-id="${a.id}">Cancelar</button>`:''}
-        <button class="action-btn danger" data-delete-appointment="${a.id}">Excluir</button>
+        ${a.status==='completed'?`<button class="action-btn strong" data-record="${a.id}">Prontuário</button>`:`<button class="action-btn danger" data-delete-appointment="${a.id}">Excluir</button>`}
       </div>
     </article>`;
   }
 
   function patientCard(p){
     const initials=p.name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-    return `<article class="patient-card"><div class="patient-card-top"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)}</small></div></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="patient-card-actions"><button class="action-btn" data-edit-patient="${p.id}">Editar</button><button class="action-btn strong" data-series-patient="${p.id}">Gerar mês</button><button class="action-btn danger" data-deactivate-patient="${p.id}">Desativar</button></div></article>`;
+    return `<article class="patient-card"><div class="patient-card-top"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)}</small></div></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="patient-card-actions"><button class="action-btn" data-edit-patient="${p.id}">Editar</button><button class="action-btn strong" data-series-patient="${p.id}">Gerar mês</button><button class="action-btn" data-patient-records="${p.id}">Prontuários</button><button class="action-btn danger" data-deactivate-patient="${p.id}">Desativar</button></div></article>`;
   }
 
   function financeRow(a){
@@ -412,13 +598,14 @@ window.APP_CONFIG = {
 
   function bindSessionActions(root){
     root.querySelectorAll('[data-start]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.start,{status:'in_progress',actual_start:new Date().toISOString()}).then(renderCurrent)));
-    root.querySelectorAll('[data-finish]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.finish,{status:'completed',actual_end:new Date().toISOString()}).then(renderCurrent)));
+    root.querySelectorAll('[data-finish]').forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.finish;await updateAppointment(id,{status:'completed',actual_end:new Date().toISOString()});renderCurrent();openRecordDialog(id);}));
     root.querySelectorAll('[data-status]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.id,{status:b.dataset.status}).then(renderCurrent)));
     root.querySelectorAll('[data-whatsapp]').forEach(b=>b.addEventListener('click',()=>openWhatsApp(b.dataset.whatsapp)));
     root.querySelectorAll('[data-delete-appointment]').forEach(b=>b.addEventListener('click',()=>deleteAppointment(b.dataset.deleteAppointment)));
+    root.querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openRecordDialog(b.dataset.record)));
   }
 
-  function renderCurrent(){ if(state.view==='today')renderToday(); if(state.view==='agenda')renderAgenda(); if(state.view==='finance')renderFinance(); }
+  function renderCurrent(){ if(state.view==='today')renderToday(); if(state.view==='agenda')renderAgenda(); if(state.view==='records')renderRecords(); if(state.view==='finance')renderFinance(); }
 
   function openAppointmentDialog(){
     if (!state.patients.some(p=>p.active!==false)){toast('Cadastre um paciente primeiro.');switchView('patients');return;}
@@ -514,6 +701,7 @@ window.APP_CONFIG = {
 
   async function deleteAppointment(id){
     const a=findAppointment(id); if(!a)return;
+    if(a.status==='completed'){toast('Atendimentos finalizados ficam preservados no prontuário.');return;}
     const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start);
     if(!window.confirm(`Excluir definitivamente o atendimento de ${p?.name||'Paciente'} em ${formatShortDate(d)} às ${formatTime(d)}?`)) return;
     if(state.demo){ state.appointments=state.appointments.filter(x=>x.id!==id); persistDemo(); }
@@ -531,6 +719,7 @@ window.APP_CONFIG = {
 
   async function deletePatient(id){
     const p=findPatient(id); if(!p)return;
+    if(state.appointments.some(a=>a.patient_id===id && a.status==='completed')){toast('Este paciente possui prontuário. Use Desativar para preservar o histórico.');return;}
     if(!window.confirm(`Excluir definitivamente ${p.name} e TODOS os atendimentos desse paciente? Esta ação não pode ser desfeita.`)) return;
     if(state.demo){
       state.patients=state.patients.filter(x=>x.id!==id);
@@ -552,6 +741,50 @@ window.APP_CONFIG = {
     if(state.demo){ const i=state.appointments.findIndex(a=>a.id===id); state.appointments[i]={...state.appointments[i],...patch}; persistDemo(); }
     else { const {error}=await db.from('appointments').update(patch).eq('id',id); if(error){toast('Não foi possível atualizar.');return;} }
     await loadData();
+  }
+
+  function readClinicalRecord(a){
+    if(!a?.notes) return null;
+    try{ const r=JSON.parse(a.notes); return r && r._type==='fisio_clinical_record_v1' ? r : null; }catch(_e){ return null; }
+  }
+
+  function recordComplete(r){ return Boolean(r && (String(r.evolution||'').trim() || String(r.conduct||'').trim())); }
+
+  function openRecordDialog(id){
+    const a=findAppointment(id); if(!a || a.status!=='completed'){toast('Finalize o atendimento antes de preencher o prontuário.');return;}
+    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start); const r=readClinicalRecord(a)||{};
+    $('recordAppointmentId').value=id;
+    const actual=a.actual_start&&a.actual_end?` • ${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))}`:'';
+    $('recordAppointmentSummary').textContent=`${p?.name||'Paciente'} • ${formatLongDate(d)}${actual}`;
+    $('recordComplaint').value=r.complaint||'';
+    $('recordPainBefore').value=r.pain_before ?? '';
+    $('recordPainAfter').value=r.pain_after ?? '';
+    $('recordEvolution').value=r.evolution||'';
+    $('recordConduct').value=r.conduct||'';
+    $('recordResponse').value=r.response||'';
+    $('recordPlan').value=r.plan||'';
+    $('recordDialog').showModal();
+  }
+
+  async function saveClinicalRecord(e){
+    e.preventDefault(); const id=$('recordAppointmentId').value; const a=findAppointment(id); if(!a)return;
+    const existing=readClinicalRecord(a)||{};
+    const record={
+      _type:'fisio_clinical_record_v1', version:1,
+      complaint:$('recordComplaint').value.trim(),
+      pain_before:$('recordPainBefore').value,
+      pain_after:$('recordPainAfter').value,
+      evolution:$('recordEvolution').value.trim(),
+      conduct:$('recordConduct').value.trim(),
+      response:$('recordResponse').value.trim(),
+      plan:$('recordPlan').value.trim(),
+      created_at:existing.created_at||new Date().toISOString(),
+      updated_at:new Date().toISOString()
+    };
+    await updateAppointment(id,{notes:JSON.stringify(record)});
+    $('recordDialog').close();
+    if(state.view==='records')renderRecords(); else renderCurrent();
+    toast('Prontuário salvo.');
   }
 
   function openWhatsApp(id){
