@@ -1,818 +1,162 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#173f35" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Fisio Check-in" />
-  <title>Fisio Check-in</title>
-  <style>
-:root{
-  --green:#173f35; --green-2:#285b4c; --cream:#f5f1e9; --paper:#fffdf9;
-  --marsala:#9b4b56; --gold:#d8a64a; --ink:#202522; --muted:#6f7772;
-  --line:#e6dfd3; --ok:#2f7a55; --warn:#a06d16; --danger:#a94343;
-  --shadow:0 12px 34px rgba(32,37,34,.09); --radius:22px;
-}
-*{box-sizing:border-box} html{background:var(--cream)} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--cream);min-height:100vh}
-button,input,select,textarea{font:inherit} button{cursor:pointer} .hidden{display:none!important}
-.eyebrow{font-size:.72rem;letter-spacing:.14em;font-weight:800;color:var(--marsala);margin:0 0 4px;text-transform:uppercase}.muted{color:var(--muted)}.tiny{font-size:.76rem;line-height:1.45}
-.login-screen{min-height:100vh;display:grid;place-items:center;padding:28px 18px}.login-card{width:min(460px,100%);background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)}
-.brand-lockup{display:flex;gap:14px;align-items:center}.brand-icon{width:62px;height:62px}.brand-lockup h1{margin:0;font-size:1.8rem}.login-copy{color:var(--muted);line-height:1.55;margin:18px 0 22px}
-.form-stack{display:grid;gap:14px} label{display:grid;gap:7px;font-size:.88rem;font-weight:700;color:#3c433f} input,select,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;color:var(--ink);outline:none} input:focus,select:focus,textarea:focus{border-color:var(--green-2);box-shadow:0 0 0 3px rgba(40,91,76,.10)} textarea{resize:vertical}
-.btn{border:0;border-radius:15px;padding:13px 16px;font-weight:800;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn:active{transform:scale(.985)}.btn.primary{background:var(--green);color:white}.btn.secondary{background:#eef3ef;color:var(--green)}.btn.danger-ghost{background:#fff0f0;color:var(--danger);border:1px solid #f0cece}.btn.soft{background:#f4eee2;color:#644f29}.btn.wide,.wide{width:100%}
-.divider{display:flex;align-items:center;gap:12px;color:#a39d93;font-size:.78rem;margin:17px 0}.divider:before,.divider:after{content:"";height:1px;background:var(--line);flex:1}.setup-notice{background:#fff8e8;border:1px solid #ead7a5;color:#6b572c;padding:10px 12px;border-radius:12px;font-size:.82rem;line-height:1.45}
-.app-shell{min-height:100vh;padding-bottom:96px}.topbar{position:sticky;top:0;z-index:10;background:rgba(245,241,233,.93);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(230,223,211,.8)}.brand-mini{display:flex;align-items:center;gap:10px}.brand-mini img{width:40px;height:40px}.brand-mini strong{display:block}.brand-mini span{display:block;color:var(--muted);font-size:.76rem;margin-top:2px}.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper);font-weight:800;color:var(--green)}
-.main-content{width:min(860px,100%);margin:0 auto;padding:20px 16px}.page-title-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:5px 0 18px}.page-title-row h1{margin:0;font-size:1.7rem}.page-title-row p{margin:5px 0 0;color:var(--muted);font-size:.9rem}.inline-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.compact-input{max-width:170px;padding:9px 10px;border-radius:12px}
-.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}.metric{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 5px 18px rgba(32,37,34,.04)}.metric span{font-size:.76rem;color:var(--muted);display:block}.metric strong{display:block;font-size:1.4rem;margin-top:5px}.metric.highlight{background:var(--green);color:white;border-color:var(--green)}.metric.highlight span{color:#dfeae5}
-.section-label{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-label h2{margin:0;font-size:1rem}.section-label span{font-size:.76rem;color:var(--muted)}
-.session-list{display:grid;gap:10px}.session-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 4px 14px rgba(32,37,34,.035)}.session-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.time-block strong{font-size:1.2rem;color:var(--green)}.time-block span{display:block;font-size:.76rem;color:var(--muted);margin-top:3px}.patient-block{flex:1}.patient-block strong{display:block;font-size:1rem}.patient-block small{display:block;color:var(--muted);margin-top:3px}.status-pill{border-radius:999px;padding:6px 9px;font-size:.68rem;font-weight:800;white-space:nowrap}.s-pending{background:#fff4d9;color:#7b5c1d}.s-confirmed{background:#e6f5eb;color:#24633f}.s-in_progress{background:#e4eef8;color:#315f88}.s-completed{background:#edf2ee;color:#496156}.s-cancelled,.s-no_show{background:#f9e7e7;color:#8d3d3d}.s-reschedule_requested{background:#f3e8f4;color:#76427c}
-.session-meta{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;color:var(--muted);font-size:.78rem}.mini-tag{background:#f6f2eb;border-radius:999px;padding:6px 9px}.session-actions{display:flex;gap:7px;flex-wrap:wrap}.action-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:.76rem;font-weight:800;color:var(--green)}.action-btn.strong{background:var(--green);color:white;border-color:var(--green)}.action-btn.finish{background:var(--marsala);color:white;border-color:var(--marsala)}.action-btn.whatsapp{background:#e9f7ee;color:#17653a;border-color:#d0ead9}.action-btn.paid{background:#edf7ef;color:#1d6b3b}.action-btn.danger{color:var(--danger);border-color:#efcaca;background:#fff8f8}
-.reschedule-alert{margin:10px 0 2px;padding:10px 12px;border-radius:12px;background:#f3e8f4;color:#6d3d73;font-size:.78rem;font-weight:800;line-height:1.4}.series-preview{background:#eef3ef;border:1px solid #d9e5dc;border-radius:14px;padding:12px;color:var(--green);font-size:.82rem;line-height:1.45}.series-preview strong{display:block;font-size:.95rem;margin-bottom:3px}
-.empty-state{text-align:center;padding:38px 18px;background:var(--paper);border:1px dashed #cfc8bd;border-radius:22px;color:var(--muted)}.empty-state .big{font-size:2rem;margin-bottom:6px}.empty-state strong{color:var(--ink);display:block;margin-bottom:5px}
-.date-group{margin:18px 0}.date-heading{font-size:.82rem;font-weight:900;color:var(--green);margin:0 0 8px;padding-left:4px;text-transform:capitalize}
-.patient-grid{display:grid;gap:11px}.patient-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:15px}.patient-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.avatar{width:42px;height:42px;border-radius:14px;background:#e8eee9;color:var(--green);display:grid;place-items:center;font-weight:900}.patient-main{display:flex;gap:10px;align-items:center;flex:1}.patient-main strong{display:block}.patient-main small{display:block;color:var(--muted);margin-top:3px}.patient-card-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
-.finance-table{display:grid;gap:8px}.finance-row{display:grid;grid-template-columns:1fr auto;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px}.finance-row strong{display:block}.finance-row small{color:var(--muted)}.finance-money{text-align:right}.finance-money span{display:block;font-weight:900}.finance-money button{margin-top:5px;border:0;background:none;color:var(--green);font-size:.75rem;font-weight:800}
-.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:20;width:min(560px,calc(100% - 24px));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,253,249,.96);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:7px;box-shadow:0 12px 30px rgba(32,37,34,.13)}.nav-item{border:0;background:transparent;border-radius:17px;padding:8px 4px;color:#78807b;display:grid;place-items:center;gap:2px;font-weight:800}.nav-item span{font-size:1.05rem}.nav-item small{font-size:.59rem}.nav-item.active{background:var(--green);color:white}.fab{position:fixed;right:20px;bottom:98px;z-index:15;width:56px;height:56px;border-radius:50%;border:0;background:var(--marsala);color:white;font-size:1.7rem;box-shadow:0 10px 22px rgba(155,75,86,.25)}
-.modal{border:0;padding:0;background:transparent;width:min(520px,calc(100% - 24px));max-height:88vh}.modal::backdrop{background:rgba(17,26,22,.48);backdrop-filter:blur(3px)}.modal-card{background:var(--paper);border-radius:26px;padding:20px;display:grid;gap:14px;max-height:88vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:flex-start}.modal-header h2{margin:0}.close-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:white;font-size:1.3rem}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}fieldset{border:1px solid var(--line);border-radius:16px;padding:12px}legend{padding:0 6px;font-size:.83rem;font-weight:800}.weekday-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.weekday-grid label{display:flex;align-items:center;gap:6px;background:#f5f3ed;border-radius:10px;padding:8px}.weekday-grid input{width:auto}.patient-highlight{margin:0;background:#eef3ef;padding:10px 12px;border-radius:12px;color:var(--green);font-weight:800}
-
-.record-filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.record-list{display:grid;gap:10px}.record-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:15px}.record-card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.record-card strong{display:block}.record-card small{color:var(--muted);display:block;margin-top:3px}.record-badge{border-radius:999px;padding:6px 9px;font-size:.68rem;font-weight:900;white-space:nowrap}.record-badge.done{background:#e6f5eb;color:#24633f}.record-badge.pending{background:#fff4d9;color:#7b5c1d}.record-summary{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0}.record-note-preview{font-size:.78rem;line-height:1.45;color:#4e5752;background:#f7f3ec;border-radius:12px;padding:10px;margin:10px 0}.record-export-bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.record-export-bar .btn{width:auto;min-height:42px;padding:10px 14px}.record-month-title{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 14px}.record-month-title strong{display:block;color:var(--green);font-size:.92rem}.record-month-title span{display:block;color:var(--muted);font-size:.74rem;margin-top:3px}.record-private{background:#eef3ef;border:1px solid #d9e5dc;color:var(--green);padding:10px 12px;border-radius:13px;font-size:.78rem;line-height:1.45;margin-bottom:14px}
-@media(max-width:430px){.record-filters{grid-template-columns:1fr}.bottom-nav{width:calc(100% - 16px);bottom:8px}.nav-item{padding:8px 1px}.nav-item small{font-size:.54rem}}
-
-.toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-130%);z-index:100;background:#202522;color:white;border-radius:999px;padding:10px 15px;font-size:.82rem;font-weight:700;box-shadow:var(--shadow);transition:.2s}.toast.show{transform:translate(-50%,0)}
-.public-body{background:linear-gradient(180deg,#173f35 0 31%,#f5f1e9 31% 100%)}.confirm-wrap{min-height:100vh;display:grid;place-items:center;padding:28px 16px}.confirm-card{width:min(480px,100%);background:var(--paper);border-radius:30px;padding:27px;box-shadow:0 18px 50px rgba(15,30,24,.18)}.confirm-logo{width:58px;height:58px;margin-bottom:12px}.confirm-card h1{margin:0 0 16px}.confirm-greeting{font-size:1.03rem;line-height:1.5}.appointment-public-details{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.appointment-public-details div{background:#f4f1ea;border-radius:14px;padding:12px;text-align:center}.appointment-public-details span{display:block;font-size:.7rem;color:var(--muted)}.appointment-public-details strong{display:block;margin-top:5px;font-size:.9rem}.status-line{padding:10px 12px;border-radius:12px;background:#f7f1e3;font-size:.82rem}.public-actions{display:grid;gap:9px;margin-top:15px}.privacy-note{font-size:.72rem;color:var(--muted);line-height:1.45;margin-top:18px}.success-panel{background:#eaf6ee;color:#275f3e;padding:14px;border-radius:15px;line-height:1.45;font-weight:700}.error-panel{background:#fae9e9;color:#7f3838;padding:14px;border-radius:15px}.loading-block{padding:24px 0;color:var(--muted)}
-@media(min-width:700px){.summary-grid{grid-template-columns:repeat(4,1fr)}.patient-grid{grid-template-columns:repeat(2,1fr)}.fab{right:max(24px,calc((100vw - 860px)/2 + 24px))}}
-@media(max-width:420px){.two-col{grid-template-columns:1fr}.appointment-public-details{grid-template-columns:1fr}.session-head{align-items:flex-start}.status-pill{font-size:.62rem}.page-title-row{align-items:flex-start;flex-direction:column}.inline-actions{width:100%}.compact-input{max-width:none;flex:1}}
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#173f35" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Fisio Check-in" />
+<title>Fisio Check-in V6</title>
+<style>
+:root{--green:#173f35;--green2:#285b4c;--cream:#f5f1e9;--paper:#fffdf9;--marsala:#9b4b56;--gold:#d8a64a;--ink:#202522;--muted:#6f7772;--line:#e6dfd3;--ok:#2f7a55;--warn:#a06d16;--danger:#a94343;--blue:#376f9d;--shadow:0 12px 34px rgba(32,37,34,.09)}
+*{box-sizing:border-box}html{background:var(--cream)}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--cream);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.muted{color:var(--muted)}.tiny{font-size:.75rem;line-height:1.45}.eyebrow{font-size:.7rem;letter-spacing:.14em;font-weight:900;color:var(--marsala);margin:0 0 4px;text-transform:uppercase}
+.login-screen{min-height:100vh;display:grid;place-items:center;padding:28px 18px}.login-card{width:min(460px,100%);background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)}.brand-lockup{display:flex;gap:14px;align-items:center}.brand-icon{width:62px;height:62px}.brand-lockup h1{margin:0;font-size:1.85rem}.login-copy{color:var(--muted);line-height:1.5}.form-stack{display:grid;gap:13px}label{display:grid;gap:7px;font-size:.86rem;font-weight:750;color:#3c433f}input,select,textarea{width:100%;border:1px solid var(--line);background:white;border-radius:14px;padding:12px 13px;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(40,91,76,.10)}textarea{resize:vertical}
+.btn{border:0;border-radius:15px;padding:12px 15px;font-weight:850;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn.primary{background:var(--green);color:white}.btn.secondary{background:#edf3ef;color:var(--green)}.btn.soft{background:#f5efe4;color:#715829}.btn.danger{background:#fff0f0;color:var(--danger);border:1px solid #eccaca}.btn.wide{width:100%}.action-btn{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 11px;font-size:.76rem;font-weight:850;color:var(--green)}.action-btn.strong{background:var(--green);color:white;border-color:var(--green)}.action-btn.finish{background:var(--marsala);color:white;border-color:var(--marsala)}.action-btn.whatsapp{background:#e9f7ee;color:#17653a;border-color:#d0ead9}.action-btn.danger{color:var(--danger);background:#fff8f8;border-color:#efcccc}
+.app-shell{min-height:100vh;padding-bottom:100px}.topbar{position:sticky;top:0;z-index:30;background:rgba(245,241,233,.94);backdrop-filter:blur(14px);display:flex;justify-content:space-between;align-items:center;padding:13px 17px;border-bottom:1px solid rgba(230,223,211,.9)}.brand-mini{display:flex;gap:10px;align-items:center}.brand-mini img{width:40px;height:40px}.brand-mini strong{display:block}.brand-mini span{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--green);font-weight:900}.main-content{width:min(1050px,100%);margin:0 auto;padding:18px 15px}.page-title-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:5px 0 16px}.page-title-row h1{margin:0;font-size:1.72rem}.page-title-row p{margin:5px 0 0;color:var(--muted);font-size:.88rem}.inline-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:17px}.metric{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:0 4px 15px rgba(32,37,34,.04)}.metric span{font-size:.73rem;color:var(--muted);display:block}.metric strong{display:block;font-size:1.38rem;margin-top:5px}.metric.highlight{background:var(--green);border-color:var(--green);color:white}.metric.highlight span{color:#dfeae5}.section-label{display:flex;justify-content:space-between;align-items:center;margin:19px 0 9px}.section-label h2{margin:0;font-size:1rem}.section-label span{font-size:.75rem;color:var(--muted)}
+.session-list{display:grid;gap:10px}.session-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 4px 14px rgba(32,37,34,.035)}.session-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.time-block strong{font-size:1.18rem;color:var(--green)}.time-block span{display:block;font-size:.73rem;color:var(--muted);margin-top:3px}.patient-block{flex:1}.patient-block strong{display:block;font-size:1rem}.patient-block small{display:block;color:var(--muted);margin-top:3px}.status-pill{border-radius:999px;padding:6px 9px;font-size:.66rem;font-weight:900;white-space:nowrap}.s-pending{background:#fff4d9;color:#7b5c1d}.s-confirmed{background:#e5f6ea;color:#24633f}.s-in_progress{background:#e7f0f8;color:#315f88}.s-completed{background:#edf2ee;color:#496156}.s-cancelled,.s-no_show{background:#f9e5e5;color:#8d3d3d}.s-reschedule_requested{background:#f3e7f4;color:#76427c}.session-meta,.record-summary{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0}.mini-tag{background:#f6f2eb;border-radius:999px;padding:6px 9px;font-size:.73rem;color:#58615c}.session-actions,.patient-card-actions{display:flex;gap:7px;flex-wrap:wrap}.reschedule-alert{margin:10px 0;padding:9px 11px;border-radius:12px;background:#f3e8f4;color:#6d3d73;font-size:.76rem;font-weight:800}
+.bottom-nav{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:40;width:min(590px,calc(100% - 22px));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,253,249,.97);backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:24px;padding:7px;box-shadow:0 12px 30px rgba(32,37,34,.13)}.nav-item{border:0;background:transparent;border-radius:17px;padding:8px 3px;color:#78807b;display:grid;place-items:center;gap:2px;font-weight:850}.nav-item span{font-size:1.02rem}.nav-item small{font-size:.58rem}.nav-item.active{background:var(--green);color:white}.fab{position:fixed;right:20px;bottom:98px;z-index:35;width:57px;height:57px;border-radius:50%;border:0;background:var(--marsala);color:white;font-size:1.75rem;box-shadow:0 10px 22px rgba(155,75,86,.27)}
+.empty-state{text-align:center;padding:34px 17px;background:var(--paper);border:1px dashed #cec6ba;border-radius:21px;color:var(--muted)}.empty-state .big{font-size:1.9rem}.empty-state strong{display:block;color:var(--ink);margin:5px}.patient-grid{display:grid;gap:10px}.patient-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:14px}.patient-main{display:flex;gap:10px;align-items:center}.avatar{width:43px;height:43px;border-radius:14px;background:#e8eee9;color:var(--green);display:grid;place-items:center;font-weight:900}.patient-main strong{display:block}.patient-main small{display:block;color:var(--muted);margin-top:3px}.patient-card .tiny{margin:10px 0}.finance-table{display:grid;gap:8px}.finance-row{display:grid;grid-template-columns:1fr auto;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px}.finance-row strong{display:block}.finance-row small{color:var(--muted)}.finance-money{text-align:right}.finance-money span{font-weight:900;display:block}.finance-money button{border:0;background:none;color:var(--green);font-size:.75rem;font-weight:850;margin-top:5px}
+/* agenda estilo calendário */
+.agenda-toolbar{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:11px;margin-bottom:12px}.agenda-navrow{display:flex;align-items:center;justify-content:space-between;gap:8px}.agenda-period{font-weight:900;text-align:center;flex:1;text-transform:capitalize}.segmented{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#e9e5dc;padding:4px;border-radius:13px;margin-top:9px}.segmented button{border:0;background:transparent;border-radius:10px;padding:8px 5px;font-size:.74rem;font-weight:850;color:#5f6662}.segmented button.active{background:var(--green);color:white}.calendar-scroll{overflow-x:auto;padding-bottom:5px}.month-grid{min-width:790px;display:grid;grid-template-columns:repeat(7,minmax(108px,1fr));border-left:1px solid var(--line);border-top:1px solid var(--line);background:white}.cal-head,.cal-day{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.cal-head{padding:8px;text-align:center;font-size:.72rem;font-weight:900;background:#f3f0e9}.cal-day{min-height:126px;padding:7px}.cal-day.out{background:#faf9f6;color:#aaa}.cal-date{font-size:.72rem;font-weight:900;margin-bottom:5px}.cal-chip{display:block;width:100%;border:0;border-radius:8px;padding:5px 6px;margin:4px 0;text-align:left;font-size:.65rem;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cal-chip.s-pending{background:#f5c85a;color:#563d00}.cal-chip.s-confirmed{background:#51a966;color:white}.cal-chip.s-in_progress{background:#5d93bd;color:white}.cal-chip.s-completed{background:#789184;color:white}.cal-chip.s-cancelled,.cal-chip.s-no_show{background:#cf5858;color:white}.cal-chip.s-reschedule_requested{background:#a36bac;color:white}.week-grid{display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));min-width:1060px;border-left:1px solid var(--line);border-top:1px solid var(--line);background:white}.week-col{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:330px;padding:8px}.week-col h3{font-size:.72rem;text-align:center;margin:0 0 8px;text-transform:capitalize}.week-item{border-radius:10px;padding:7px;margin-bottom:6px;font-size:.69rem;border-left:4px solid var(--green);background:#f7f4ee}.week-item strong{display:block}.week-item span{color:var(--muted)}
+/* prontuário */
+.record-card,.eval-card,.exercise-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:13px;margin-bottom:9px}.record-card-top,.eval-card-top,.exercise-card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.record-card strong,.eval-card strong,.exercise-card strong{display:block}.record-card small,.eval-card small,.exercise-card small{color:var(--muted);display:block;margin-top:3px}.record-badge{font-size:.68rem;font-weight:900;border-radius:999px;padding:6px 9px}.record-badge.done{background:#e7f5eb;color:#286440}.record-badge.pending{background:#fff2d0;color:#7b5c1d}.record-note-preview{background:#f5f1e9;padding:9px 11px;border-radius:11px;color:#555f59;font-size:.76rem;margin:8px 0}.filter-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}.record-month-title{background:#edf3ef;border:1px solid #d7e3db;border-radius:14px;padding:11px;margin:10px 0}.record-month-title strong,.record-month-title span{display:block}.record-month-title span{font-size:.76rem;color:var(--muted);margin-top:4px}
+/* diálogos */
+.modal{border:0;padding:0;background:transparent;width:min(560px,calc(100% - 20px));max-height:91vh}.modal.wide-modal{width:min(920px,calc(100% - 16px))}.modal::backdrop{background:rgba(17,26,22,.49);backdrop-filter:blur(3px)}.modal-card{background:var(--paper);border-radius:26px;padding:19px;display:grid;gap:13px;max-height:91vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.modal-header h2{margin:0}.close-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:white;font-size:1.25rem}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:9px}.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}fieldset{border:1px solid var(--line);border-radius:15px;padding:11px}legend{padding:0 6px;font-size:.8rem;font-weight:850}.weekday-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.weekday-grid label{display:flex;align-items:center;gap:5px;background:#f5f3ed;border-radius:9px;padding:7px}.weekday-grid input{width:auto}.patient-highlight{margin:0;background:#edf3ef;padding:10px 12px;border-radius:12px;color:var(--green);font-weight:850}.series-preview{background:#edf3ef;border:1px solid #d9e5dc;border-radius:13px;padding:11px;color:var(--green);font-size:.8rem}.toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);z-index:100;background:#202522;color:white;border-radius:999px;padding:10px 15px;font-size:.8rem;font-weight:800;box-shadow:var(--shadow);transition:.2s}.toast.show{transform:translate(-50%,0)}
+/* ficha do paciente */
+.patient-profile-head{display:flex;gap:12px;align-items:center}.patient-profile-head .avatar{width:54px;height:54px;font-size:1.05rem}.profile-tabs{display:flex;gap:6px;overflow:auto;padding-bottom:4px}.profile-tabs button{border:1px solid var(--line);background:white;color:var(--green);border-radius:999px;padding:8px 11px;white-space:nowrap;font-size:.72rem;font-weight:850}.profile-tabs button.active{background:var(--green);color:white;border-color:var(--green)}.profile-pane{min-height:240px}.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.quick-card{background:#f7f4ee;border:1px solid var(--line);border-radius:14px;padding:11px}.quick-card span{display:block;color:var(--muted);font-size:.7rem}.quick-card strong{display:block;margin-top:5px}.profile-actions{display:flex;gap:7px;flex-wrap:wrap}
+/* exercício */
+.library-tools{display:grid;grid-template-columns:1.2fr 1fr;gap:8px}.exercise-library{max-height:290px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:white}.library-item{padding:10px 11px;border-bottom:1px solid #eee;cursor:pointer}.library-item:last-child{border-bottom:0}.library-item.selected{background:#e9f2ed}.library-item strong{font-size:.82rem}.library-item small{display:block;color:var(--muted);margin-top:2px}.adherence-row{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}.day-dot{width:27px;height:27px;border-radius:8px;background:#efede7;display:grid;place-items:center;font-size:.65rem;font-weight:850}.day-dot.done{background:#dff1e5;color:#2d6946}.day-dot.pain{background:#fde9d8;color:#914f1f}.day-dot.unable{background:#f7dede;color:#8a3838}
+@media(min-width:760px){.summary-grid{grid-template-columns:repeat(4,1fr)}.patient-grid{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(4,1fr)}.fab{right:max(24px,calc((100vw - 1050px)/2 + 24px))}}
+@media(max-width:520px){.two-col,.three-col,.filter-grid,.library-tools{grid-template-columns:1fr}.page-title-row{align-items:flex-start;flex-direction:column}.summary-grid{grid-template-columns:repeat(2,1fr)}.modal-card{padding:17px}.bottom-nav small{font-size:.54rem}.patient-block small{font-size:.7rem}}
 </style>
 </head>
 <body>
-  <div id="toast" class="toast" aria-live="polite"></div>
-
-  <section id="loginScreen" class="login-screen">
-    <div class="login-card">
-      <div class="brand-lockup">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzE3M2YzNSIvPgogIDxwYXRoIGQ9Ik0xMzEgMTY4YzAtMjAgMTYtMzYgMzYtMzZoMTc4YzIwIDAgMzYgMTYgMzYgMzZ2MTc2YzAgMjAtMTYgMzYtMzYgMzZIMTY3Yy0yMCAwLTM2LTE2LTM2LTM2VjE2OFoiIGZpbGw9IiNmNmYyZTkiLz4KICA8cGF0aCBkPSJNMTc3IDEwOXY3M00zMzUgMTA5djczIiBzdHJva2U9IiNkOGE2NGEiIHN0cm9rZS13aWR0aD0iMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xODMgMjU5bDQ1IDQ0IDEwMS0xMDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliNGI1NiIgc3Ryb2tlLXdpZHRoPSIzMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="" class="brand-icon" />
-        <div>
-          <p class="eyebrow">AGENDA PARTICULAR</p>
-          <h1>Fisio Check-in</h1>
-        </div>
-      </div>
-      <p class="login-copy">Agenda, confirmação pelo WhatsApp, check-in/check-out e financeiro em um só lugar.</p>
-
-      <form id="loginForm" class="form-stack">
-        <label>E-mail
-          <input id="loginEmail" type="email" autocomplete="email" placeholder="seu@email.com" required />
-        </label>
-        <label>Senha
-          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••" required />
-        </label>
-        <button class="btn primary" type="submit">Entrar</button>
-      </form>
-      <p id="setupNotice" class="setup-notice hidden"></p>
-      <div class="divider"><span>ou</span></div>
-      <button id="demoButton" class="btn secondary wide" type="button">Abrir demonstração</button>
-      <p class="tiny muted">Na demonstração os dados ficam apenas neste aparelho. Para links de confirmação funcionarem no celular do paciente, configure o Supabase conforme o README.</p>
-    </div>
-  </section>
-
-  <div id="appShell" class="app-shell hidden">
-    <header class="topbar">
-      <div class="brand-mini">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzE3M2YzNSIvPgogIDxwYXRoIGQ9Ik0xMzEgMTY4YzAtMjAgMTYtMzYgMzYtMzZoMTc4YzIwIDAgMzYgMTYgMzYgMzZ2MTc2YzAgMjAtMTYgMzYtMzYgMzZIMTY3Yy0yMCAwLTM2LTE2LTM2LTM2VjE2OFoiIGZpbGw9IiNmNmYyZTkiLz4KICA8cGF0aCBkPSJNMTc3IDEwOXY3M00zMzUgMTA5djczIiBzdHJva2U9IiNkOGE2NGEiIHN0cm9rZS13aWR0aD0iMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xODMgMjU5bDQ1IDQ0IDEwMS0xMDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliNGI1NiIgc3Ryb2tlLXdpZHRoPSIzMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="" />
-        <div>
-          <strong>Fisio Check-in</strong>
-          <span id="todayLabel"></span>
-        </div>
-      </div>
-      <button id="logoutButton" class="icon-btn" type="button" title="Sair" aria-label="Sair">↗</button>
-    </header>
-
-    <main class="main-content">
-      <section id="viewToday" class="view"></section>
-      <section id="viewAgenda" class="view hidden"></section>
-      <section id="viewPatients" class="view hidden"></section>
-      <section id="viewRecords" class="view hidden"></section>
-      <section id="viewFinance" class="view hidden"></section>
-    </main>
-
-    <button id="newAppointmentFab" class="fab" type="button" aria-label="Novo atendimento">＋</button>
-
-    <nav class="bottom-nav" aria-label="Navegação principal">
-      <button data-view="today" class="nav-item active"><span>⌂</span><small>Hoje</small></button>
-      <button data-view="agenda" class="nav-item"><span>▦</span><small>Agenda</small></button>
-      <button data-view="patients" class="nav-item"><span>♙</span><small>Pacientes</small></button>
-      <button data-view="records" class="nav-item"><span>▤</span><small>Prontuários</small></button>
-      <button data-view="finance" class="nav-item"><span>R$</span><small>Financeiro</small></button>
-    </nav>
+<div id="toast" class="toast" aria-live="polite"></div>
+<section id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="brand-lockup"><img class="brand-icon" alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzE3M2YzNSIvPjxwYXRoIGQ9Ik0xMzEgMTY4YzAtMjAgMTYtMzYgMzYtMzZoMTc4YzIwIDAgMzYgMTYgMzYgMzZ2MTc2YzAgMjAtMTYgMzYtMzYgMzZIMTY3Yy0yMCAwLTM2LTE2LTM2LTM2VjE2OFoiIGZpbGw9IiNmNmYyZTkiLz48cGF0aCBkPSJNMTc3IDEwOXY3M00zMzUgMTA5djczIiBzdHJva2U9IiNkOGE2NGEiIHN0cm9rZS13aWR0aD0iMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xODMgMjU5bDQ1IDQ0IDEwMS0xMDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliNGI1NiIgc3Ryb2tlLXdpZHRoPSIzMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+"/><div><p class="eyebrow">AGENDA CLÍNICA</p><h1>Fisio Check-in</h1></div></div>
+    <p class="login-copy">Agenda, prontuário, avaliações, exercícios domiciliares e financeiro em um só lugar.</p>
+    <form id="loginForm" class="form-stack"><label>E-mail<input id="loginEmail" type="email" autocomplete="email" required></label><label>Senha<input id="loginPassword" type="password" autocomplete="current-password" required></label><button class="btn primary" type="submit">Entrar</button></form>
+    <p id="setupNotice" class="tiny muted hidden"></p>
   </div>
+</section>
+<div id="appShell" class="app-shell hidden">
+  <header class="topbar"><div class="brand-mini"><img alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzE3M2YzNSIvPjxwYXRoIGQ9Ik0xMzEgMTY4YzAtMjAgMTYtMzYgMzYtMzZoMTc4YzIwIDAgMzYgMTYgMzYgMzZ2MTc2YzAgMjAtMTYgMzYtMzYgMzZIMTY3Yy0yMCAwLTM2LTE2LTM2LTM2VjE2OFoiIGZpbGw9IiNmNmYyZTkiLz48cGF0aCBkPSJNMTc3IDEwOXY3M00zMzUgMTA5djczIiBzdHJva2U9IiNkOGE2NGEiIHN0cm9rZS13aWR0aD0iMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xODMgMjU5bDQ1IDQ0IDEwMS0xMDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliNGI1NiIgc3Ryb2tlLXdpZHRoPSIzMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+"/><div><strong>Fisio Check-in</strong><span id="todayLabel"></span></div></div><button id="logoutButton" class="icon-btn" aria-label="Sair">↗</button></header>
+  <main class="main-content"><section id="viewToday" class="view"></section><section id="viewAgenda" class="view hidden"></section><section id="viewPatients" class="view hidden"></section><section id="viewRecords" class="view hidden"></section><section id="viewFinance" class="view hidden"></section></main>
+  <button id="newAppointmentFab" class="fab" aria-label="Novo atendimento">＋</button>
+  <nav class="bottom-nav"><button data-view="today" class="nav-item active"><span>⌂</span><small>Hoje</small></button><button data-view="agenda" class="nav-item"><span>▦</span><small>Agenda</small></button><button data-view="patients" class="nav-item"><span>♙</span><small>Pacientes</small></button><button data-view="records" class="nav-item"><span>▤</span><small>Prontuários</small></button><button data-view="finance" class="nav-item"><span>R$</span><small>Financeiro</small></button></nav>
+</div>
 
-  <dialog id="appointmentDialog" class="modal">
-    <form id="appointmentForm" method="dialog" class="modal-card">
-      <div class="modal-header">
-        <div><p class="eyebrow">AGENDA</p><h2>Novo atendimento</h2></div>
-        <button class="close-btn" type="button" data-close-dialog>×</button>
-      </div>
-      <label>Paciente
-        <select id="appointmentPatient" required></select>
-      </label>
-      <div class="two-col">
-        <label>Data
-          <input id="appointmentDate" type="date" required />
-        </label>
-        <label>Horário
-          <input id="appointmentTime" type="time" required />
-        </label>
-      </div>
-      <div class="two-col">
-        <label>Duração
-          <select id="appointmentDuration">
-            <option value="30">30 min</option><option value="45">45 min</option><option value="50">50 min</option><option value="60" selected>60 min</option><option value="90">90 min</option>
-          </select>
-        </label>
-        <label>Valor da sessão
-          <input id="appointmentValue" type="number" min="0" step="0.01" placeholder="110,00" />
-        </label>
-      </div>
-      <button class="btn primary" type="submit">Salvar atendimento</button>
-    </form>
-  </dialog>
+<!-- Novo atendimento -->
+<dialog id="appointmentDialog" class="modal"><form id="appointmentForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">AGENDA</p><h2>Novo agendamento</h2></div><button type="button" class="close-btn" data-close>×</button></div><label>Paciente<select id="appointmentPatient" required></select></label><label>Tipo<select id="appointmentType"><option>Avaliação inicial</option><option selected>Atendimento</option><option>Reavaliação</option><option>Alta</option><option>Domiciliar</option></select></label><div class="two-col"><label>Data<input id="appointmentDate" type="date" required></label><label>Horário<input id="appointmentTime" type="time" required></label></div><div class="two-col"><label>Duração<select id="appointmentDuration"><option>30</option><option>45</option><option>50</option><option selected>60</option><option>90</option></select></label><label>Valor da sessão<input id="appointmentValue" type="number" min="0" step="0.01"></label></div><button class="btn primary" type="submit">Salvar agendamento</button></form></dialog>
 
-  <dialog id="patientDialog" class="modal">
-    <form id="patientForm" method="dialog" class="modal-card">
-      <div class="modal-header">
-        <div><p class="eyebrow">PACIENTE</p><h2 id="patientDialogTitle">Novo paciente</h2></div>
-        <button class="close-btn" type="button" data-close-dialog>×</button>
-      </div>
-      <input id="patientId" type="hidden" />
-      <label>Nome
-        <input id="patientName" required placeholder="Nome do paciente" />
-      </label>
-      <label>WhatsApp
-        <input id="patientPhone" inputmode="tel" placeholder="(15) 99999-9999" />
-      </label>
-      <label>Valor padrão da sessão
-        <input id="patientValue" type="number" min="0" step="0.01" placeholder="110,00" />
-      </label>
-      <label>Observação administrativa
-        <textarea id="patientNotes" rows="3" placeholder="Ex.: atende às terças e quintas"></textarea>
-      </label>
-      <button class="btn primary" type="submit">Salvar paciente</button>
-      <button id="deletePatientBtn" class="btn danger-ghost wide hidden" type="button">Excluir paciente e atendimentos</button>
-    </form>
-  </dialog>
+<!-- Cadastro paciente -->
+<dialog id="patientDialog" class="modal"><form id="patientForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">PACIENTE</p><h2 id="patientDialogTitle">Novo paciente</h2></div><button type="button" class="close-btn" data-close>×</button></div><input id="patientId" type="hidden"><label>Nome<input id="patientName" required></label><label>WhatsApp<input id="patientPhone" inputmode="tel"></label><label>Valor padrão da sessão<input id="patientValue" type="number" min="0" step="0.01"></label><label>Observação administrativa<textarea id="patientNotes" rows="3"></textarea></label><button class="btn primary" type="submit">Salvar paciente</button><button id="deactivatePatientBtn" class="btn secondary wide hidden" type="button">Desativar paciente</button><button id="deletePatientBtn" class="btn danger wide hidden" type="button">Excluir paciente e atendimentos</button></form></dialog>
 
-  <dialog id="seriesDialog" class="modal">
-    <form id="seriesForm" method="dialog" class="modal-card">
-      <div class="modal-header">
-        <div><p class="eyebrow">AGENDA MENSAL</p><h2>Gerar sessões do mês</h2></div>
-        <button class="close-btn" type="button" data-close-dialog>×</button>
-      </div>
-      <input id="seriesPatientId" type="hidden" />
-      <p id="seriesPatientName" class="patient-highlight"></p>
-      <label>Mês
-        <input id="seriesMonth" type="month" required />
-      </label>
-      <fieldset>
-        <legend>Dias da semana</legend>
-        <div class="weekday-grid">
-          <label><input type="checkbox" name="weekday" value="1" />Seg</label>
-          <label><input type="checkbox" name="weekday" value="2" />Ter</label>
-          <label><input type="checkbox" name="weekday" value="3" />Qua</label>
-          <label><input type="checkbox" name="weekday" value="4" />Qui</label>
-          <label><input type="checkbox" name="weekday" value="5" />Sex</label>
-          <label><input type="checkbox" name="weekday" value="6" />Sáb</label>
-        </div>
-      </fieldset>
-      <div class="two-col">
-        <label>Horário
-          <input id="seriesTime" type="time" value="14:00" required />
-        </label>
-        <label>Duração
-          <select id="seriesDuration"><option value="45">45 min</option><option value="50">50 min</option><option value="60" selected>60 min</option></select>
-        </label>
-      </div>
-      <label>Valor por sessão
-        <input id="seriesValue" type="number" min="0" step="0.01" />
-      </label>
-      <div id="seriesPreview" class="series-preview">Selecione os dias da semana para ver a previsão.</div>
-      <button class="btn primary" type="submit">Gerar atendimentos</button>
-    </form>
-  </dialog>
+<!-- Gerar mês -->
+<dialog id="seriesDialog" class="modal"><form id="seriesForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">AGENDA RECORRENTE</p><h2>Gerar sessões do mês</h2></div><button type="button" class="close-btn" data-close>×</button></div><input id="seriesPatientId" type="hidden"><p id="seriesPatientName" class="patient-highlight"></p><label>Mês<input id="seriesMonth" type="month" required></label><label>Tipo<select id="seriesType"><option selected>Atendimento</option><option>Domiciliar</option><option>Reavaliação</option></select></label><fieldset><legend>Dias da semana</legend><div class="weekday-grid"><label><input type="checkbox" name="weekday" value="1">Seg</label><label><input type="checkbox" name="weekday" value="2">Ter</label><label><input type="checkbox" name="weekday" value="3">Qua</label><label><input type="checkbox" name="weekday" value="4">Qui</label><label><input type="checkbox" name="weekday" value="5">Sex</label><label><input type="checkbox" name="weekday" value="6">Sáb</label></div></fieldset><div class="two-col"><label>Horário<input id="seriesTime" type="time" value="14:00" required></label><label>Duração<select id="seriesDuration"><option>45</option><option>50</option><option selected>60</option></select></label></div><label>Valor por sessão<input id="seriesValue" type="number" min="0" step="0.01"></label><div id="seriesPreview" class="series-preview">Selecione os dias da semana para ver a previsão.</div><button class="btn primary" type="submit">Gerar atendimentos</button></form></dialog>
 
+<!-- Prontuário de sessão -->
+<dialog id="recordDialog" class="modal"><form id="recordForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">PRONTUÁRIO • PRIVADO</p><h2>Evolução do atendimento</h2></div><button type="button" class="close-btn" data-close>×</button></div><input id="recordAppointmentId" type="hidden"><div id="recordAppointmentSummary" class="patient-highlight"></div><label>Estado geral<select id="recordGeneralState"><option value="">Não informado</option><option value="BEG">BEG — Bom estado geral</option><option value="REG">REG — Regular estado geral</option><option value="MEG">MEG — Mau estado geral</option></select></label><label>Queixa / relato breve <span class="muted">(opcional)</span><textarea id="recordComplaint" rows="2"></textarea></label><div class="two-col"><label>Dor antes (0–10)<select id="recordPainBefore"><option value="">Não informado</option></select></label><label>Dor após (0–10)<select id="recordPainAfter"><option value="">Não informado</option></select></label></div><label>Evolução / achados<textarea id="recordEvolution" rows="4" required></textarea></label><label>Conduta realizada<textarea id="recordConduct" rows="4" required></textarea></label><label>Intercorrências<select id="recordIntercurrenceStatus"><option value="none">Sem intercorrências</option><option value="yes">Com intercorrências</option></select></label><label id="recordIntercurrenceDetailsWrap" class="hidden">Descreva a intercorrência<textarea id="recordIntercurrenceDetails" rows="3"></textarea></label><button class="btn primary" type="submit">Salvar evolução</button></form></dialog>
 
+<!-- Ficha completa do paciente -->
+<dialog id="patientDetailDialog" class="modal wide-modal"><div class="modal-card"><div class="modal-header"><div class="patient-profile-head"><div id="profileAvatar" class="avatar"></div><div><p class="eyebrow">FICHA DO PACIENTE</p><h2 id="profileName"></h2><p id="profileSub" class="tiny muted"></p></div></div><button type="button" class="close-btn" data-close>×</button></div><div id="profileTabs" class="profile-tabs"><button data-profile-tab="summary" class="active">Resumo</button><button data-profile-tab="agenda">Agenda</button><button data-profile-tab="records">Prontuário</button><button data-profile-tab="evaluations">Avaliações</button><button data-profile-tab="exercises">Exercícios</button><button data-profile-tab="finance">Financeiro</button></div><div id="profilePane" class="profile-pane"></div></div></dialog>
 
-  <dialog id="recordDialog" class="modal">
-    <form id="recordForm" method="dialog" class="modal-card">
-      <div class="modal-header">
-        <div><p class="eyebrow">PRONTUÁRIO • PRIVADO</p><h2>Registro do atendimento</h2></div>
-        <button class="close-btn" type="button" data-close-dialog>×</button>
-      </div>
-      <input id="recordAppointmentId" type="hidden" />
-      <div id="recordAppointmentSummary" class="patient-highlight"></div>
-      <label>Queixa / relato do dia
-        <textarea id="recordComplaint" rows="3" placeholder="Ex.: relata melhora da dor, porém ainda apresenta desconforto ao subir escadas."></textarea>
-      </label>
-      <div class="two-col">
-        <label>Dor antes (0–10)
-          <select id="recordPainBefore"><option value="">Não informado</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
-        </label>
-        <label>Dor após (0–10)
-          <select id="recordPainAfter"><option value="">Não informado</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
-        </label>
-      </div>
-      <label>Evolução / achados
-        <textarea id="recordEvolution" rows="4" required placeholder="Descreva a evolução e os principais achados do atendimento."></textarea>
-      </label>
-      <label>Conduta realizada
-        <textarea id="recordConduct" rows="5" required placeholder="Ex.: cicloergômetro 10 min; leg press 4×12; treino de equilíbrio..."></textarea>
-      </label>
-      <label>Resposta ao atendimento / intercorrências
-        <textarea id="recordResponse" rows="3" placeholder="Ex.: tolerou bem, sem intercorrências; referiu redução da dor ao final."></textarea>
-      </label>
-      <label>Plano para a próxima sessão
-        <textarea id="recordPlan" rows="3" placeholder="Ex.: progredir carga e manter treino de equilíbrio."></textarea>
-      </label>
-      <button class="btn primary" type="submit">Salvar prontuário</button>
-      <p class="tiny muted">Este conteúdo fica somente na sua área autenticada. O link de confirmação enviado ao paciente não tem acesso ao prontuário.</p>
-    </form>
-  </dialog>
+<!-- Avaliação -->
+<dialog id="evaluationDialog" class="modal wide-modal"><form id="evaluationForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">AVALIAÇÃO FISIOTERAPÊUTICA</p><h2 id="evaluationTitle">Nova avaliação</h2></div><button type="button" class="close-btn" data-close>×</button></div><input id="evaluationId" type="hidden"><input id="evaluationPatientId" type="hidden"><input id="evaluationAppointmentId" type="hidden"><div class="two-col"><label>Tipo<select id="evaluationType"><option>Avaliação inicial</option><option>Reavaliação</option><option>Alta</option></select></label><label>Data<input id="evaluationDate" type="date" required></label></div><label>Queixa principal<textarea id="evalComplaint" rows="2"></textarea></label><div class="two-col"><label>HMA — História atual<textarea id="evalHma" rows="4"></textarea></label><label>HMP / antecedentes<textarea id="evalHmp" rows="4"></textarea></label></div><label>Dor / localização / comportamento<textarea id="evalPain" rows="3"></textarea></label><div class="two-col"><label>Inspeção e palpação<textarea id="evalInspection" rows="4"></textarea></label><label>ADM / mobilidade<textarea id="evalRom" rows="4"></textarea></label></div><div class="two-col"><label>Força muscular<textarea id="evalStrength" rows="4"></textarea></label><label>Testes especiais<textarea id="evalTests" rows="4"></textarea></label></div><label>Função / marcha / equilíbrio / AVDs<textarea id="evalFunction" rows="3"></textarea></label><label>Diagnóstico cinético-funcional<textarea id="evalDiagnosis" rows="3"></textarea></label><label>Objetivos fisioterapêuticos<textarea id="evalGoals" rows="3"></textarea></label><label>Plano terapêutico / conduta inicial<textarea id="evalPlan" rows="3"></textarea></label><label>Observações<textarea id="evalNotes" rows="3"></textarea></label><div class="profile-actions"><button class="btn primary" type="submit">Salvar avaliação</button><button id="evaluationPdfBtn" class="btn secondary hidden" type="button">Exportar PDF</button><button id="deleteEvaluationBtn" class="btn danger hidden" type="button">Excluir</button></div></form></dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-/*
-  CONFIGURAÇÃO DO SUPABASE
-  1) Crie um projeto em https://supabase.com
-  2) Rode o arquivo supabase.sql no SQL Editor
-  3) Em Settings > API Keys (ou Connect), copie Project URL e Publishable key
-  4) Cole abaixo e publique novamente no GitHub Pages.
+<!-- Prescrever exercício -->
+<dialog id="exerciseDialog" class="modal wide-modal"><form id="exerciseForm" method="dialog" class="modal-card"><div class="modal-header"><div><p class="eyebrow">EXERCÍCIOS DOMICILIARES</p><h2>Prescrever exercício</h2></div><button type="button" class="close-btn" data-close>×</button></div><input id="exercisePatientId" type="hidden"><input id="exerciseKey" type="hidden"><div class="library-tools"><label>Buscar exercício<input id="exerciseSearch" placeholder="Ex.: sentar e levantar"></label><label>Categoria<select id="exerciseCategory"><option value="all">Todas</option></select></label></div><div id="exerciseLibrary" class="exercise-library"></div><label>Exercício selecionado<input id="exerciseName" readonly required></label><label>Link do vídeo no YouTube<input id="exerciseVideo" type="url" required></label><div class="three-col"><label>Séries<input id="exerciseSets" placeholder="4"></label><label>Repetições<input id="exerciseReps" placeholder="12"></label><label>Frequência<input id="exerciseFrequency" placeholder="1x/dia"></label></div><div class="two-col"><label>Início<input id="exerciseStart" type="date"></label><label>Até <span class="muted">(opcional)</span><input id="exerciseEnd" type="date"></label></div><label>Orientação para o paciente<textarea id="exerciseInstructions" rows="3" placeholder="Ex.: usar cadeira firme; interromper se houver dor forte."></textarea></label><button class="btn primary" type="submit">Adicionar ao programa</button><p class="tiny muted">Nesta V6 a biblioteca usa links de busca direcionada no YouTube como protótipo. Você pode substituir o link por um vídeo específico antes de salvar.</p></form></dialog>
 
-  A Publishable key pode ficar no front-end. A segurança real é feita pelas políticas RLS
-  e pelas funções públicas limitadas do arquivo supabase.sql.
-*/
-window.APP_CONFIG = {
-  SUPABASE_URL: "https://fjumiqrfilcgvjdpuupj.supabase.co",
-  SUPABASE_PUBLISHABLE_KEY: "sb_publishable_dSALwP3rs4lAg9ACeYPHIQ_-VRRU96-",
-  CLINIC_NAME: "Fisio Check-in"
-};
+<!-- Sessão rápida do calendário -->
+<dialog id="quickSessionDialog" class="modal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">AGENDAMENTO</p><h2>Detalhes</h2></div><button type="button" class="close-btn" data-close>×</button></div><div id="quickSessionContent"></div></div></dialog>
 
+<script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.APP_CONFIG={SUPABASE_URL:"https://fjumiqrfilcgvjdpuupj.supabase.co",SUPABASE_PUBLISHABLE_KEY:"sb_publishable_dSALwP3rs4lAg9ACeYPHIQ_-VRRU96-",CLINIC_NAME:"Fisio Check-in"};
 </script>
-  <script>
-(() => {
-  'use strict';
-  const cfg = window.APP_CONFIG || {};
-  const configured = Boolean(cfg.SUPABASE_URL && cfg.SUPABASE_PUBLISHABLE_KEY);
-  const db = configured ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_PUBLISHABLE_KEY) : null;
-
-  const $ = (id) => document.getElementById(id);
-  const state = { demo:false, user:null, patients:[], appointments:[], view:'today', agendaMonth:monthKey(new Date()), financeMonth:monthKey(new Date()), recordsPatient:'all', recordsMonth:monthKey(new Date()) };
-  const statusNames = { pending:'Aguardando', confirmed:'Confirmada', reschedule_requested:'Solicitou remarcar', cancelled:'Cancelada', in_progress:'Em atendimento', completed:'Finalizada', no_show:'Faltou' };
-
-  document.addEventListener('DOMContentLoaded', init);
-
-  async function init(){
-    bindEvents();
-    document.querySelectorAll('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
-    $('todayLabel').textContent = new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).format(new Date());
-    if (new URLSearchParams(location.search).get('demo') === '1'){ state.demo=true; state.user={id:'demo'}; seedDemo(); await enterApp(); return; }
-    if (!configured){
-      $('setupNotice').classList.remove('hidden');
-      $('setupNotice').textContent = 'Modo online ainda não configurado. Você pode testar a demonstração agora e depois ativar o Supabase.';
-      return;
-    }
-    const { data } = await db.auth.getSession();
-    if (data.session){ state.user = data.session.user; await enterApp(); }
-    db.auth.onAuthStateChange(async (_event, session) => {
-      if (session && !state.demo){ state.user=session.user; await enterApp(); }
-    });
-  }
-
-  function bindEvents(){
-    $('loginForm').addEventListener('submit', login);
-    $('demoButton').addEventListener('click', async()=>{ state.demo=true; state.user={id:'demo'}; seedDemo(); await enterApp(); });
-    $('logoutButton').addEventListener('click', logout);
-    document.querySelectorAll('.nav-item').forEach(btn=>btn.addEventListener('click',()=>switchView(btn.dataset.view)));
-    $('newAppointmentFab').addEventListener('click',()=>openAppointmentDialog());
-    $('appointmentForm').addEventListener('submit', saveAppointment);
-    $('patientForm').addEventListener('submit', savePatient);
-    $('deletePatientBtn').addEventListener('click',()=>deletePatient($('patientId').value));
-    $('seriesForm').addEventListener('submit', saveSeries);
-    $('recordForm').addEventListener('submit', saveClinicalRecord);
-    ['seriesMonth','seriesTime','seriesDuration','seriesValue'].forEach(id=>$(id).addEventListener('input', updateSeriesPreview));
-    document.querySelectorAll('input[name="weekday"]').forEach(x=>x.addEventListener('change', updateSeriesPreview));
-  }
-
-  async function login(e){
-    e.preventDefault();
-    if (!configured) return toast('Configure o Supabase ou use a demonstração.');
-    const { error } = await db.auth.signInWithPassword({ email:$('loginEmail').value.trim(), password:$('loginPassword').value });
-    if (error) toast('Não foi possível entrar. Confira e-mail e senha.');
-  }
-
-  async function logout(){
-    if (!state.demo && db) await db.auth.signOut();
-    state.demo=false; state.user=null; state.patients=[]; state.appointments=[];
-    $('appShell').classList.add('hidden'); $('loginScreen').classList.remove('hidden');
-  }
-
-  async function enterApp(){
-    $('loginScreen').classList.add('hidden'); $('appShell').classList.remove('hidden');
-    await loadData();
-    switchView('today');
-  }
-
-  async function loadData(){
-    if (state.demo){
-      const data = JSON.parse(localStorage.getItem('fisioDemoData') || '{}');
-      state.patients = data.patients || [];
-      state.appointments = data.appointments || [];
-    } else {
-      const [p,a] = await Promise.all([
-        db.from('patients').select('*').order('name'),
-        db.from('appointments').select('*').order('scheduled_start')
-      ]);
-      if (p.error || a.error){ toast('Erro ao carregar os dados.'); return; }
-      state.patients=p.data||[]; state.appointments=a.data||[];
-    }
-    refreshPatientSelect();
-  }
-
-  function persistDemo(){ localStorage.setItem('fisioDemoData', JSON.stringify({patients:state.patients,appointments:state.appointments})); }
-
-  function seedDemo(){
-    if (localStorage.getItem('fisioDemoData')) return;
-    const today = new Date();
-    const mk = (h,m,id,patientId,status,value,phone)=>({id,patient_id:patientId,scheduled_start:new Date(today.getFullYear(),today.getMonth(),today.getDate(),h,m).toISOString(),duration_minutes:60,session_value:value,status,confirmation_token:'demo-'+id,actual_start:null,actual_end:null,paid:false});
-    const patients=[
-      {id:'p1',name:'Maria Pontes',whatsapp:'15999990001',session_value:110,notes:'Terças e sextas',active:true},
-      {id:'p2',name:'Arlinda',whatsapp:'15999990002',session_value:110,notes:'Atendimento domiciliar',active:true},
-      {id:'p3',name:'João Augusto',whatsapp:'15999990003',session_value:120,notes:'',active:true}
-    ];
-    const appointments=[mk(9,0,'a1','p1','confirmed',110),mk(14,0,'a2','p2','pending',110),mk(17,30,'a3','p3','completed',120)];
-    localStorage.setItem('fisioDemoData', JSON.stringify({patients,appointments}));
-  }
-
-  function switchView(view){
-    state.view=view;
-    ['Today','Agenda','Patients','Records','Finance'].forEach(v=>$('view'+v).classList.add('hidden'));
-    $('view'+capitalize(view)).classList.remove('hidden');
-    document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
-    if (view==='today') renderToday();
-    if (view==='agenda') renderAgenda();
-    if (view==='patients') renderPatients();
-    if (view==='records') renderRecords();
-    if (view==='finance') renderFinance();
-  }
-
-  function renderToday(){
-    const todayKey=dateKey(new Date());
-    const list=state.appointments.filter(a=>dateKey(new Date(a.scheduled_start))===todayKey).sort(byDate);
-    const confirmed=list.filter(a=>a.status==='confirmed').length;
-    const completed=list.filter(a=>a.status==='completed').length;
-    const pending=list.filter(a=>a.status==='pending').length;
-    $('viewToday').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">PAINEL DO DIA</p><h1>Atendimentos de hoje</h1><p>${list.length ? 'Tudo o que você precisa para conduzir o dia.' : 'Seu dia está livre por enquanto.'}</p></div></div>
-      <div class="summary-grid">
-        <div class="metric highlight"><span>Total hoje</span><strong>${list.length}</strong></div>
-        <div class="metric"><span>Confirmados</span><strong>${confirmed}</strong></div>
-        <div class="metric"><span>Finalizados</span><strong>${completed}</strong></div>
-        <div class="metric"><span>Aguardando</span><strong>${pending}</strong></div>
-      </div>
-      <div class="section-label"><h2>Agenda do dia</h2><span>${formatShortDate(new Date())}</span></div>
-      <div class="session-list">${list.length?list.map(sessionCard).join(''):emptyState('Nenhum atendimento hoje','Use o botão + para adicionar uma sessão.')}</div>`;
-    bindSessionActions($('viewToday'));
-  }
-
-  function renderAgenda(){
-    const month=state.agendaMonth;
-    const list=state.appointments.filter(a=>monthKey(new Date(a.scheduled_start))===month).sort(byDate);
-    const groups={}; list.forEach(a=>{ const k=dateKey(new Date(a.scheduled_start)); (groups[k] ||= []).push(a); });
-    $('viewAgenda').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">AGENDA</p><h1>Mês</h1><p>${list.length} atendimento(s) no período</p></div><div class="inline-actions"><input id="agendaMonthInput" class="compact-input" type="month" value="${month}"></div></div>
-      ${Object.keys(groups).length ? Object.keys(groups).sort().map(k=>`<div class="date-group"><h3 class="date-heading">${formatLongDate(new Date(k+'T12:00:00'))}</h3><div class="session-list">${groups[k].map(sessionCard).join('')}</div></div>`).join('') : emptyState('Nenhum atendimento neste mês','Você pode criar sessões individuais ou gerar o mês de um paciente.')}`;
-    $('agendaMonthInput').addEventListener('change',e=>{state.agendaMonth=e.target.value;renderAgenda();});
-    bindSessionActions($('viewAgenda'));
-  }
-
-  function renderPatients(){
-    const active=state.patients.filter(p=>p.active!==false);
-    $('viewPatients').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">PACIENTES</p><h1>Seus pacientes</h1><p>${active.length} cadastro(s) ativo(s)</p></div><button id="addPatientBtn" class="btn secondary">＋ Paciente</button></div>
-      <div class="patient-grid">${active.length?active.map(patientCard).join(''):emptyState('Nenhum paciente cadastrado','Cadastre o primeiro paciente para começar.')}</div>`;
-    $('addPatientBtn').addEventListener('click',()=>openPatientDialog());
-    $('viewPatients').querySelectorAll('[data-edit-patient]').forEach(b=>b.addEventListener('click',()=>openPatientDialog(b.dataset.editPatient)));
-    $('viewPatients').querySelectorAll('[data-series-patient]').forEach(b=>b.addEventListener('click',()=>openSeriesDialog(b.dataset.seriesPatient)));
-    $('viewPatients').querySelectorAll('[data-deactivate-patient]').forEach(b=>b.addEventListener('click',()=>deactivatePatient(b.dataset.deactivatePatient)));
-    $('viewPatients').querySelectorAll('[data-patient-records]').forEach(b=>b.addEventListener('click',()=>{state.recordsPatient=b.dataset.patientRecords;state.recordsMonth='';switchView('records');}));
-  }
-
-  function renderRecords(){
-    const completedAll=state.appointments.filter(a=>a.status==='completed').sort((a,b)=>new Date(b.actual_end||b.scheduled_start)-new Date(a.actual_end||a.scheduled_start));
-    const list=completedAll.filter(a=>(state.recordsPatient==='all'||a.patient_id===state.recordsPatient) && (!state.recordsMonth||monthKey(new Date(a.scheduled_start))===state.recordsMonth));
-    const filled=list.filter(a=>recordComplete(readClinicalRecord(a))).length;
-    const pending=list.length-filled;
-    const patientOptions=state.patients.slice().sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')).map(p=>`<option value="${p.id}" ${state.recordsPatient===p.id?'selected':''}>${escapeHtml(p.name)}</option>`).join('');
-    const canExport=state.recordsPatient!=='all' && Boolean(state.recordsMonth) && list.length>0;
-    const selectedPatient=state.recordsPatient==='all'?null:findPatient(state.recordsPatient);
-    const monthLabel=state.recordsMonth?formatMonthLabel(state.recordsMonth):'Todos os meses';
-    $('viewRecords').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">PRIVADO • DADOS CLÍNICOS</p><h1>Prontuários</h1><p>Histórico dos atendimentos, organizado por paciente e por mês.</p></div></div>
-      <div class="record-private">🔒 Os prontuários ficam na sua área autenticada. O PDF só é criado quando você solicitar e não inclui valores financeiros.</div>
-      <div class="record-filters">
-        <label>Paciente<select id="recordsPatientFilter"><option value="all" ${state.recordsPatient==='all'?'selected':''}>Todos os pacientes</option>${patientOptions}</select></label>
-        <label>Mês<input id="recordsMonthFilter" type="month" value="${state.recordsMonth}"></label>
-      </div>
-      <div class="record-export-bar">
-        <button id="exportRecordsPdf" class="btn primary" type="button" ${canExport?'':'disabled'}>Exportar PDF do mês</button>
-        <button id="clearRecordFilters" class="action-btn" type="button">Mostrar histórico completo</button>
-      </div>
-      ${selectedPatient&&state.recordsMonth?`<div class="record-month-title"><strong>${escapeHtml(selectedPatient.name)} • ${escapeHtml(monthLabel)}</strong><span>${list.length} atendimento(s) realizado(s) • ${filled} prontuário(s) preenchido(s)${pending?` • ${pending} pendente(s)`:''}</span></div>`:''}
-      <div class="summary-grid">
-        <div class="metric highlight"><span>Atendimentos realizados</span><strong>${list.length}</strong></div>
-        <div class="metric"><span>Prontuários preenchidos</span><strong>${filled}</strong></div>
-        <div class="metric"><span>Pendentes</span><strong>${pending}</strong></div>
-        <div class="metric"><span>Total no histórico</span><strong>${completedAll.length}</strong></div>
-      </div>
-      <div class="section-label"><h2>${state.recordsMonth?'Atendimentos do mês':'Histórico de atendimentos'}</h2><span>${list.length} registro(s)</span></div>
-      <div class="record-list">${list.length?list.map(recordCard).join(''):emptyState('Nenhum atendimento realizado','Quando uma sessão for finalizada, ela aparecerá aqui automaticamente.')}</div>`;
-    $('recordsPatientFilter').addEventListener('change',e=>{state.recordsPatient=e.target.value;renderRecords();});
-    $('recordsMonthFilter').addEventListener('change',e=>{state.recordsMonth=e.target.value;renderRecords();});
-    $('clearRecordFilters').addEventListener('click',()=>{state.recordsPatient='all';state.recordsMonth='';renderRecords();});
-    $('exportRecordsPdf').addEventListener('click',()=>exportMonthlyRecordsPdf());
-    $('viewRecords').querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openRecordDialog(b.dataset.record)));
-  }
-
-  function formatMonthLabel(value){
-    if(!value)return'';
-    const [y,m]=value.split('-').map(Number);
-    return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(y,m-1,1));
-  }
-
-  function formatPdfDate(d){
-    return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d);
-  }
-
-  function safeFileName(v){
-    return String(v||'arquivo').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'');
-  }
-
-  async function exportMonthlyRecordsPdf(){
-    if(state.recordsPatient==='all'){toast('Selecione um paciente para gerar o PDF.');return;}
-    if(!state.recordsMonth){toast('Selecione o mês que deseja exportar.');return;}
-    const patient=findPatient(state.recordsPatient); if(!patient)return;
-    const list=state.appointments.filter(a=>a.status==='completed' && a.patient_id===patient.id && monthKey(new Date(a.scheduled_start))===state.recordsMonth).sort(byDate);
-    if(!list.length){toast('Não há atendimentos realizados neste mês.');return;}
-    const pending=list.filter(a=>!recordComplete(readClinicalRecord(a))).length;
-    if(pending && !window.confirm(`Há ${pending} prontuário(s) ainda não preenchido(s). Eles aparecerão no PDF apenas como atendimento realizado. Deseja continuar?`))return;
-    if(!window.jspdf?.jsPDF){toast('Não foi possível carregar o gerador de PDF. Tente novamente com internet ativa.');return;}
-
-    const { jsPDF }=window.jspdf;
-    const doc=new jsPDF({unit:'mm',format:'a4'});
-    const pageW=210, pageH=297, left=16, right=16, contentW=pageW-left-right;
-    let y=18;
-    const monthLabel=formatMonthLabel(state.recordsMonth);
-    const ensure=(needed=12)=>{ if(y+needed>pageH-18){doc.addPage(); y=18; addPdfHeader(false);} };
-    const line=(txt,size=10,style='normal',gap=5)=>{
-      doc.setFont('helvetica',style); doc.setFontSize(size); doc.setTextColor(35,43,39);
-      const lines=doc.splitTextToSize(String(txt||''),contentW);
-      ensure(lines.length*4.8+gap); doc.text(lines,left,y); y+=lines.length*4.8+gap;
-    };
-    const labelBlock=(labelTxt,value)=>{
-      if(!String(value||'').trim())return;
-      ensure(13); doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(24,76,62);doc.text(labelTxt,left,y);y+=4.5;
-      doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(45,50,48);
-      const lines=doc.splitTextToSize(String(value),contentW); doc.text(lines,left,y); y+=lines.length*4.5+4.5;
-    };
-    function addPdfHeader(first=true){
-      doc.setFont('helvetica','bold'); doc.setTextColor(24,76,62); doc.setFontSize(first?17:11); doc.text('Fisio Check-in',left,y); y+=first?8:6;
-      if(first){
-        doc.setFontSize(12);doc.setTextColor(90,74,77);doc.text('RELATORIO DE ATENDIMENTOS',left,y);y+=8;
-        doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(35,43,39);doc.text(patient.name,left,y);y+=6;
-        doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(95,103,99);doc.text(`${monthLabel} • ${list.length} atendimento(s) realizado(s)`,left,y);y+=6;
-        doc.setDrawColor(220,215,205);doc.line(left,y,pageW-right,y);y+=8;
-      }else{
-        doc.setDrawColor(220,215,205);doc.line(left,y,pageW-right,y);y+=6;
-      }
-    }
-
-    addPdfHeader(true);
-    list.forEach((a,idx)=>{
-      const d=new Date(a.scheduled_start), r=readClinicalRecord(a);
-      const start=a.actual_start?new Date(a.actual_start):d;
-      const end=a.actual_end?new Date(a.actual_end):null;
-      const duration=end?Math.max(1,Math.round((end-start)/60000)):(a.duration_minutes||60);
-      ensure(28);
-      doc.setFillColor(246,243,237); doc.roundedRect(left,y-4,contentW,13,2,2,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(24,76,62);doc.text(`Atendimento ${idx+1} - ${formatPdfDate(d)}`,left+3,y+2);
-      doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(85,92,89);doc.text(`${formatTime(start)}${end?` - ${formatTime(end)}`:''} • ${duration} min`,left+3,y+7); y+=15;
-      if(r){
-        if(r.complaint)labelBlock('Queixa / relato do dia',r.complaint);
-        if(r.pain_before!==''||r.pain_after!=='')labelBlock('Dor',`${r.pain_before===''?'Nao informado':r.pain_before}/10 antes - ${r.pain_after===''?'Nao informado':r.pain_after}/10 apos`);
-        labelBlock('Evolucao / achados',r.evolution);
-        labelBlock('Conduta realizada',r.conduct);
-        labelBlock('Resposta ao atendimento / intercorrencias',r.response);
-        labelBlock('Plano para a proxima sessao',r.plan);
-      }else{
-        line('Prontuario ainda nao preenchido para este atendimento.',9,'italic',5);
-      }
-      ensure(8); doc.setDrawColor(232,228,220);doc.line(left,y,pageW-right,y);y+=7;
-    });
-
-    ensure(24);
-    doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(24,76,62);doc.text('Resumo do periodo',left,y);y+=6;
-    doc.setFont('helvetica','normal');doc.setTextColor(55,61,58);doc.setFontSize(9.5);doc.text(`${list.length} atendimento(s) realizado(s) em ${monthLabel}.`,left,y);y+=6;
-    doc.setFontSize(8.5);doc.setTextColor(110,116,113);doc.text(`Documento gerado em ${formatPdfDate(new Date())}. Informacoes financeiras nao sao exibidas.`,left,y);
-
-    const filename=`atendimentos-${safeFileName(patient.name)}-${state.recordsMonth}.pdf`;
-    const blob=doc.output('blob');
-    try{
-      const file=new File([blob],filename,{type:'application/pdf'});
-      if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
-        await navigator.share({title:`Atendimentos - ${patient.name} - ${monthLabel}`,files:[file]});
-        return;
-      }
-    }catch(err){ if(err?.name==='AbortError')return; }
-    const url=URL.createObjectURL(blob); window.open(url,'_blank'); setTimeout(()=>URL.revokeObjectURL(url),120000);
-    toast('PDF gerado. Use o menu Compartilhar para enviar ao paciente.');
-  }
-
-  function recordCard(a){
-    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start); const r=readClinicalRecord(a); const done=recordComplete(r);
-    const actual=a.actual_start&&a.actual_end?`${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))} • ${Math.max(1,Math.round((new Date(a.actual_end)-new Date(a.actual_start))/60000))} min`:`${formatTime(d)} • ${a.duration_minutes||60} min`;
-    const pain=(r&&r.pain_before!==''&&r.pain_before!=null)|| (r&&r.pain_after!==''&&r.pain_after!=null) ? `<span class="mini-tag">Dor ${r.pain_before===''||r.pain_before==null?'—':r.pain_before} → ${r.pain_after===''||r.pain_after==null?'—':r.pain_after}</span>`:'';
-    const preview=done?escapeHtml((r.evolution||r.conduct||'').slice(0,150)):'';
-    return `<article class="record-card"><div class="record-card-top"><div><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${formatLongDate(d)} • ${actual}</small></div><span class="record-badge ${done?'done':'pending'}">${done?'✓ Preenchido':'Pendente'}</span></div><div class="record-summary"><span class="mini-tag">Atendimento finalizado</span>${pain}</div>${preview?`<div class="record-note-preview">${preview}${(r.evolution||r.conduct||'').length>150?'…':''}</div>`:''}<button class="action-btn ${done?'':'strong'}" data-record="${a.id}">${done?'Ver / editar prontuário':'Preencher prontuário'}</button></article>`;
-  }
-
-  function renderFinance(){
-    const month=state.financeMonth;
-    const list=state.appointments.filter(a=>monthKey(new Date(a.scheduled_start))===month && !['cancelled','no_show'].includes(a.status)).sort(byDate);
-    const expected=list.reduce((s,a)=>s+Number(a.session_value||0),0);
-    const completed=list.filter(a=>a.status==='completed').reduce((s,a)=>s+Number(a.session_value||0),0);
-    const received=list.filter(a=>a.paid).reduce((s,a)=>s+Number(a.session_value||0),0);
-    const receivable=Math.max(completed-received,0);
-    $('viewFinance').innerHTML=`
-      <div class="page-title-row"><div><p class="eyebrow">PRIVADO • SOMENTE VOCÊ</p><h1>Financeiro</h1><p>Valores não são exibidos no link do paciente.</p></div><input id="financeMonthInput" class="compact-input" type="month" value="${month}"></div>
-      <div class="summary-grid">
-        <div class="metric"><span>Previsto</span><strong>${money(expected)}</strong></div>
-        <div class="metric"><span>Realizado</span><strong>${money(completed)}</strong></div>
-        <div class="metric highlight"><span>Recebido</span><strong>${money(received)}</strong></div>
-        <div class="metric"><span>A receber</span><strong>${money(receivable)}</strong></div>
-      </div>
-      <div class="section-label"><h2>Sessões do mês</h2><span>${list.length} lançamentos</span></div>
-      <div class="finance-table">${list.length?list.map(financeRow).join(''):emptyState('Sem lançamentos','Os atendimentos aparecem aqui automaticamente.')}</div>`;
-    $('financeMonthInput').addEventListener('change',e=>{state.financeMonth=e.target.value;renderFinance();});
-    $('viewFinance').querySelectorAll('[data-toggle-paid]').forEach(b=>b.addEventListener('click',async()=>{ const a=findAppointment(b.dataset.togglePaid); await updateAppointment(a.id,{paid:!a.paid}); renderFinance(); }));
-  }
-
-  function sessionCard(a){
-    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start);
-    const actual=a.actual_start?`Início real ${formatTime(new Date(a.actual_start))}`:'';
-    const duration=a.actual_start&&a.actual_end?`${Math.max(1,Math.round((new Date(a.actual_end)-new Date(a.actual_start))/60000))} min realizados`:`${a.duration_minutes||60} min previstos`;
-    return `<article class="session-card">
-      <div class="session-head"><div class="time-block"><strong>${formatTime(d)}</strong><span>${duration}</span></div><div class="patient-block"><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${actual || (p?.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp')}</small></div><span class="status-pill s-${a.status}">${statusNames[a.status]||a.status}</span></div>
-      ${a.status==='reschedule_requested'?'<div class="reschedule-alert">↻ O paciente pediu para remarcar. Entre em contato antes de iniciar esta sessão.</div>':''}
-      <div class="session-meta"><span class="mini-tag">${a.status==='completed'&&a.actual_end?'✓ encerrada':'◷ sessão'}</span>${a.paid?'<span class="mini-tag">R$ pago</span>':''}</div>
-      <div class="session-actions">
-        ${['pending','confirmed'].includes(a.status)?`<button class="action-btn strong" data-start="${a.id}">▶ Iniciar</button>`:''}
-        ${a.status==='in_progress'?`<button class="action-btn finish" data-finish="${a.id}">■ Finalizar</button>`:''}
-        ${!['completed','cancelled','no_show'].includes(a.status)?`<button class="action-btn whatsapp" data-whatsapp="${a.id}">WhatsApp</button>`:''}
-        ${a.status==='pending'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Confirmar</button>`:''}${a.status==='reschedule_requested'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Manter horário</button>`:''}
-        ${!['completed','cancelled'].includes(a.status)?`<button class="action-btn" data-status="cancelled" data-id="${a.id}">Cancelar</button>`:''}
-        ${a.status==='completed'?`<button class="action-btn strong" data-record="${a.id}">Prontuário</button>`:`<button class="action-btn danger" data-delete-appointment="${a.id}">Excluir</button>`}
-      </div>
-    </article>`;
-  }
-
-  function patientCard(p){
-    const initials=p.name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-    return `<article class="patient-card"><div class="patient-card-top"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)}</small></div></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="patient-card-actions"><button class="action-btn" data-edit-patient="${p.id}">Editar</button><button class="action-btn strong" data-series-patient="${p.id}">Gerar mês</button><button class="action-btn" data-patient-records="${p.id}">Prontuários</button><button class="action-btn danger" data-deactivate-patient="${p.id}">Desativar</button></div></article>`;
-  }
-
-  function financeRow(a){
-    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start);
-    return `<div class="finance-row"><div><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${formatShortDate(d)} • ${formatTime(d)} • ${statusNames[a.status]||a.status}</small></div><div class="finance-money"><span>${money(a.session_value||0)}</span><button data-toggle-paid="${a.id}">${a.paid?'✓ Recebido':'Marcar recebido'}</button></div></div>`;
-  }
-
-  function bindSessionActions(root){
-    root.querySelectorAll('[data-start]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.start,{status:'in_progress',actual_start:new Date().toISOString()}).then(renderCurrent)));
-    root.querySelectorAll('[data-finish]').forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.finish;await updateAppointment(id,{status:'completed',actual_end:new Date().toISOString()});renderCurrent();openRecordDialog(id);}));
-    root.querySelectorAll('[data-status]').forEach(b=>b.addEventListener('click',()=>updateAppointment(b.dataset.id,{status:b.dataset.status}).then(renderCurrent)));
-    root.querySelectorAll('[data-whatsapp]').forEach(b=>b.addEventListener('click',()=>openWhatsApp(b.dataset.whatsapp)));
-    root.querySelectorAll('[data-delete-appointment]').forEach(b=>b.addEventListener('click',()=>deleteAppointment(b.dataset.deleteAppointment)));
-    root.querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openRecordDialog(b.dataset.record)));
-  }
-
-  function renderCurrent(){ if(state.view==='today')renderToday(); if(state.view==='agenda')renderAgenda(); if(state.view==='records')renderRecords(); if(state.view==='finance')renderFinance(); }
-
-  function openAppointmentDialog(){
-    if (!state.patients.some(p=>p.active!==false)){toast('Cadastre um paciente primeiro.');switchView('patients');return;}
-    refreshPatientSelect(); const now=new Date();
-    $('appointmentDate').value=dateKey(now); $('appointmentTime').value='14:00';
-    const p=findPatient($('appointmentPatient').value); $('appointmentValue').value=p?.session_value||'';
-    $('appointmentPatient').onchange=()=>{ const px=findPatient($('appointmentPatient').value); $('appointmentValue').value=px?.session_value||''; };
-    $('appointmentDialog').showModal();
-  }
-
-  function openPatientDialog(id=null){
-    const p=id?findPatient(id):null;
-    $('patientDialogTitle').textContent=p?'Editar paciente':'Novo paciente'; $('patientId').value=p?.id||''; $('patientName').value=p?.name||''; $('patientPhone').value=p?.whatsapp||''; $('patientValue').value=p?.session_value||''; $('patientNotes').value=p?.notes||'';
-    $('deletePatientBtn').classList.toggle('hidden',!p);
-    $('patientDialog').showModal();
-  }
-
-  function openSeriesDialog(id){
-    const p=findPatient(id); if(!p)return;
-    $('seriesPatientId').value=id; $('seriesPatientName').textContent=p.name; $('seriesMonth').value=monthKey(new Date()); $('seriesValue').value=p.session_value||'';
-    document.querySelectorAll('input[name="weekday"]').forEach(x=>x.checked=false);
-    updateSeriesPreview();
-    $('seriesDialog').showModal();
-  }
-
-  async function saveAppointment(e){
-    e.preventDefault();
-    const p=findPatient($('appointmentPatient').value); if(!p)return;
-    const local=new Date(`${$('appointmentDate').value}T${$('appointmentTime').value}:00`);
-    const row={ patient_id:p.id, scheduled_start:local.toISOString(), duration_minutes:Number($('appointmentDuration').value), session_value:Number($('appointmentValue').value||p.session_value||0), status:'pending', paid:false };
-    await insertAppointment(row); $('appointmentDialog').close(); await loadData(); renderCurrent(); toast('Atendimento criado.');
-  }
-
-  async function savePatient(e){
-    e.preventDefault();
-    const id=$('patientId').value;
-    const row={name:$('patientName').value.trim(),whatsapp:digits($('patientPhone').value),session_value:Number($('patientValue').value||0),notes:$('patientNotes').value.trim(),active:true};
-    if(state.demo){
-      if(id){ const idx=state.patients.findIndex(p=>p.id===id); state.patients[idx]={...state.patients[idx],...row}; }
-      else state.patients.push({id:crypto.randomUUID(),...row}); persistDemo();
-    } else {
-      const q=id?db.from('patients').update(row).eq('id',id):db.from('patients').insert(row);
-      const {error}=await q; if(error){toast('Não foi possível salvar.');return;}
-    }
-    $('patientDialog').close(); await loadData(); renderPatients(); toast('Paciente salvo.');
-  }
-
-  function buildSeriesPlan(){
-    const id=$('seriesPatientId').value; const p=findPatient(id);
-    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')].map(x=>Number(x.value));
-    const monthValue=$('seriesMonth').value;
-    if(!p || !monthValue || !weekdays.length) return {rows:[],skippedPast:0,skippedExisting:0};
-    const [year,month]=monthValue.split('-').map(Number); const [hh,mm]=$('seriesTime').value.split(':').map(Number);
-    const now=new Date(); const rows=[]; let skippedPast=0, skippedExisting=0;
-    const cursor=new Date(year,month-1,1,12,0,0);
-    while(cursor.getMonth()===month-1){
-      if(weekdays.includes(cursor.getDay())){
-        const dt=new Date(year,month-1,cursor.getDate(),hh,mm,0);
-        if(dt.getTime() < now.getTime()) skippedPast++;
-        else {
-          const exists=state.appointments.some(a=>a.patient_id===id && new Date(a.scheduled_start).getTime()===dt.getTime());
-          if(exists) skippedExisting++;
-          else rows.push({patient_id:id,scheduled_start:dt.toISOString(),duration_minutes:Number($('seriesDuration').value),session_value:Number($('seriesValue').value||p.session_value||0),status:'pending',paid:false});
-        }
-      }
-      cursor.setDate(cursor.getDate()+1);
-    }
-    return {rows,skippedPast,skippedExisting};
-  }
-
-  function updateSeriesPreview(){
-    const box=$('seriesPreview'); if(!box)return;
-    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')];
-    if(!weekdays.length){ box.innerHTML='Selecione os dias da semana para ver a previsão.'; return; }
-    const plan=buildSeriesPlan(); const total=plan.rows.reduce((sum,row)=>sum+Number(row.session_value||0),0);
-    if(!plan.rows.length){
-      box.innerHTML=`<strong>Nenhuma nova sessão será criada.</strong>${plan.skippedPast?'As datas/horários anteriores a agora serão ignorados. ':''}${plan.skippedExisting?'As sessões que já existem também não serão duplicadas.':''}`;
-      return;
-    }
-    box.innerHTML=`<strong>${plan.rows.length} sessão(ões) nova(s) • ${money(total)}</strong>${plan.skippedPast?`${plan.skippedPast} data(s) passada(s) serão ignoradas. `:''}${plan.skippedExisting?`${plan.skippedExisting} sessão(ões) já existente(s) não serão duplicadas.`:''}`;
-  }
-
-  async function saveSeries(e){
-    e.preventDefault();
-    const weekdays=[...document.querySelectorAll('input[name="weekday"]:checked')];
-    if(!weekdays.length){toast('Selecione pelo menos um dia da semana.');return;}
-    const {rows}=buildSeriesPlan();
-    if(!rows.length){toast('Não há novas datas futuras para gerar.');return;}
-    if(state.demo){ rows.forEach(r=>state.appointments.push({id:crypto.randomUUID(),confirmation_token:'demo-'+crypto.randomUUID(),actual_start:null,actual_end:null,...r})); persistDemo(); }
-    else { const {error}=await db.from('appointments').insert(rows); if(error){toast('Erro ao gerar as sessões.');return;} }
-    $('seriesDialog').close(); await loadData(); toast(`${rows.length} sessão(ões) gerada(s).`); switchView('agenda');
-  }
-
-  async function deleteAppointment(id){
-    const a=findAppointment(id); if(!a)return;
-    if(a.status==='completed'){toast('Atendimentos finalizados ficam preservados no prontuário.');return;}
-    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start);
-    if(!window.confirm(`Excluir definitivamente o atendimento de ${p?.name||'Paciente'} em ${formatShortDate(d)} às ${formatTime(d)}?`)) return;
-    if(state.demo){ state.appointments=state.appointments.filter(x=>x.id!==id); persistDemo(); }
-    else { const {error}=await db.from('appointments').delete().eq('id',id); if(error){toast('Não foi possível excluir o atendimento.');return;} }
-    await loadData(); renderCurrent(); toast('Atendimento excluído.');
-  }
-
-  async function deactivatePatient(id){
-    const p=findPatient(id); if(!p)return;
-    if(!window.confirm(`Desativar ${p.name}? O histórico de atendimentos será mantido, mas o paciente deixará de aparecer na lista ativa.`)) return;
-    if(state.demo){ const i=state.patients.findIndex(x=>x.id===id); state.patients[i]={...state.patients[i],active:false}; persistDemo(); }
-    else { const {error}=await db.from('patients').update({active:false}).eq('id',id); if(error){toast('Não foi possível desativar o paciente.');return;} }
-    await loadData(); renderPatients(); toast('Paciente desativado.');
-  }
-
-  async function deletePatient(id){
-    const p=findPatient(id); if(!p)return;
-    if(state.appointments.some(a=>a.patient_id===id && a.status==='completed')){toast('Este paciente possui prontuário. Use Desativar para preservar o histórico.');return;}
-    if(!window.confirm(`Excluir definitivamente ${p.name} e TODOS os atendimentos desse paciente? Esta ação não pode ser desfeita.`)) return;
-    if(state.demo){
-      state.patients=state.patients.filter(x=>x.id!==id);
-      state.appointments=state.appointments.filter(a=>a.patient_id!==id);
-      persistDemo();
-    } else {
-      const {error}=await db.from('patients').delete().eq('id',id);
-      if(error){toast('Não foi possível excluir o paciente.');return;}
-    }
-    $('patientDialog').close(); await loadData(); renderPatients(); toast('Paciente e atendimentos excluídos.');
-  }
-
-  async function insertAppointment(row){
-    if(state.demo){ state.appointments.push({id:crypto.randomUUID(),confirmation_token:'demo-'+crypto.randomUUID(),actual_start:null,actual_end:null,...row}); persistDemo(); return; }
-    const {error}=await db.from('appointments').insert(row); if(error) throw error;
-  }
-
-  async function updateAppointment(id, patch){
-    if(state.demo){ const i=state.appointments.findIndex(a=>a.id===id); state.appointments[i]={...state.appointments[i],...patch}; persistDemo(); }
-    else { const {error}=await db.from('appointments').update(patch).eq('id',id); if(error){toast('Não foi possível atualizar.');return;} }
-    await loadData();
-  }
-
-  function readClinicalRecord(a){
-    if(!a?.notes) return null;
-    try{ const r=JSON.parse(a.notes); return r && r._type==='fisio_clinical_record_v1' ? r : null; }catch(_e){ return null; }
-  }
-
-  function recordComplete(r){ return Boolean(r && (String(r.evolution||'').trim() || String(r.conduct||'').trim())); }
-
-  function openRecordDialog(id){
-    const a=findAppointment(id); if(!a || a.status!=='completed'){toast('Finalize o atendimento antes de preencher o prontuário.');return;}
-    const p=findPatient(a.patient_id); const d=new Date(a.scheduled_start); const r=readClinicalRecord(a)||{};
-    $('recordAppointmentId').value=id;
-    const actual=a.actual_start&&a.actual_end?` • ${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))}`:'';
-    $('recordAppointmentSummary').textContent=`${p?.name||'Paciente'} • ${formatLongDate(d)}${actual}`;
-    $('recordComplaint').value=r.complaint||'';
-    $('recordPainBefore').value=r.pain_before ?? '';
-    $('recordPainAfter').value=r.pain_after ?? '';
-    $('recordEvolution').value=r.evolution||'';
-    $('recordConduct').value=r.conduct||'';
-    $('recordResponse').value=r.response||'';
-    $('recordPlan').value=r.plan||'';
-    $('recordDialog').showModal();
-  }
-
-  async function saveClinicalRecord(e){
-    e.preventDefault(); const id=$('recordAppointmentId').value; const a=findAppointment(id); if(!a)return;
-    const existing=readClinicalRecord(a)||{};
-    const record={
-      _type:'fisio_clinical_record_v1', version:1,
-      complaint:$('recordComplaint').value.trim(),
-      pain_before:$('recordPainBefore').value,
-      pain_after:$('recordPainAfter').value,
-      evolution:$('recordEvolution').value.trim(),
-      conduct:$('recordConduct').value.trim(),
-      response:$('recordResponse').value.trim(),
-      plan:$('recordPlan').value.trim(),
-      created_at:existing.created_at||new Date().toISOString(),
-      updated_at:new Date().toISOString()
-    };
-    await updateAppointment(id,{notes:JSON.stringify(record)});
-    $('recordDialog').close();
-    if(state.view==='records')renderRecords(); else renderCurrent();
-    toast('Prontuário salvo.');
-  }
-
-  function openWhatsApp(id){
-    const a=findAppointment(id), p=findPatient(a?.patient_id); if(!a||!p)return;
-    const phone=normalizeBrazilPhone(p.whatsapp); if(!phone){toast('Cadastre o WhatsApp deste paciente.');return;}
-    const d=new Date(a.scheduled_start); const confirmUrl=new URL('confirm.html',window.location.href); confirmUrl.searchParams.set('t',a.confirmation_token);
-    const first=p.name.split(' ')[0]; const text=`Olá, ${first}! 😊\n\nSeu atendimento está agendado para *${formatLongDate(d)}*, às *${formatTime(d)}*.\n\nPara confirmar, remarcar ou cancelar, acesse:\n${confirmUrl.toString()}\n\nObrigado!`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,'_blank','noopener');
-  }
-
-  function refreshPatientSelect(){ $('appointmentPatient').innerHTML=state.patients.filter(p=>p.active!==false).map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join(''); }
-  function findPatient(id){return state.patients.find(p=>p.id===id)} function findAppointment(id){return state.appointments.find(a=>a.id===id)}
-  function emptyState(title,copy){return `<div class="empty-state"><div class="big">○</div><strong>${title}</strong><span>${copy}</span></div>`}
-  function byDate(a,b){return new Date(a.scheduled_start)-new Date(b.scheduled_start)}
-  function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-  function monthKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
-  function formatTime(d){return new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(d)}
-  function formatShortDate(d){return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit'}).format(d)}
-  function formatLongDate(d){return new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).format(d)}
-  function money(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v||0))}
-  function digits(v){return String(v||'').replace(/\D/g,'')}
-  function normalizeBrazilPhone(v){let x=digits(v); if(!x)return''; if(x.startsWith('55')&&x.length>=12)return x; return '55'+x}
-  function formatPhone(v){const x=digits(v).replace(/^55/,''); if(x.length===11)return `(${x.slice(0,2)}) ${x.slice(2,7)}-${x.slice(7)}`; return v}
-  function capitalize(v){return v[0].toUpperCase()+v.slice(1)}
-  function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-  function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2600)}
+<script>
+const EXERCISE_LIBRARY=[{"key":"ex001","name":"Sentar e levantar da cadeira","category":"Funcional / idosos","video_url":"https://www.youtube.com/results?search_query=Sentar+e+levantar+da+cadeira+fisioterapia+exerc%C3%ADcio"},{"key":"ex002","name":"Agachamento livre","category":"Membros inferiores","video_url":"https://www.youtube.com/results?search_query=Agachamento+livre+fisioterapia+exerc%C3%ADcio"},{"key":"ex003","name":"Agachamento com apoio","category":"Membros inferiores","video_url":"https://www.youtube.com/results?search_query=Agachamento+com+apoio+fisioterapia+exerc%C3%ADcio"},{"key":"ex004","name":"Agachamento sumô","category":"Membros inferiores","video_url":"https://www.youtube.com/results?search_query=Agachamento+sum%C3%B4+fisioterapia+exerc%C3%ADcio"},{"key":"ex005","name":"Mini agachamento","category":"Joelho","video_url":"https://www.youtube.com/results?search_query=Mini+agachamento+fisioterapia+exerc%C3%ADcio"},{"key":"ex006","name":"Ponte de quadril","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Ponte+de+quadril+fisioterapia+exerc%C3%ADcio"},{"key":"ex007","name":"Ponte unilateral","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Ponte+unilateral+fisioterapia+exerc%C3%ADcio"},{"key":"ex008","name":"Abdução de quadril em decúbito lateral","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Abdu%C3%A7%C3%A3o+de+quadril+em+dec%C3%BAbito+lateral+fisioterapia+exerc%C3%ADcio"},{"key":"ex009","name":"Abdução de quadril em pé","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Abdu%C3%A7%C3%A3o+de+quadril+em+p%C3%A9+fisioterapia+exerc%C3%ADcio"},{"key":"ex010","name":"Extensão de quadril em pé","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+de+quadril+em+p%C3%A9+fisioterapia+exerc%C3%ADcio"},{"key":"ex011","name":"Clamshell","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Clamshell+fisioterapia+exerc%C3%ADcio"},{"key":"ex012","name":"Marcha lateral com elástico","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Marcha+lateral+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex013","name":"Monster walk com elástico","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Monster+walk+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex014","name":"Elevação pélvica com elástico","category":"Quadril / glúteos","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+p%C3%A9lvica+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex015","name":"Step-up no degrau","category":"Funcional / idosos","video_url":"https://www.youtube.com/results?search_query=Step-up+no+degrau+fisioterapia+exerc%C3%ADcio"},{"key":"ex016","name":"Step-down no degrau","category":"Joelho","video_url":"https://www.youtube.com/results?search_query=Step-down+no+degrau+fisioterapia+exerc%C3%ADcio"},{"key":"ex017","name":"Avanço (lunge)","category":"Membros inferiores","video_url":"https://www.youtube.com/results?search_query=Avan%C3%A7o+%28lunge%29+fisioterapia+exerc%C3%ADcio"},{"key":"ex018","name":"Afundo reverso","category":"Membros inferiores","video_url":"https://www.youtube.com/results?search_query=Afundo+reverso+fisioterapia+exerc%C3%ADcio"},{"key":"ex019","name":"Stiff / levantamento romeno","category":"Posterior de coxa","video_url":"https://www.youtube.com/results?search_query=Stiff+%2F+levantamento+romeno+fisioterapia+exerc%C3%ADcio"},{"key":"ex020","name":"Flexão de joelho em pé","category":"Posterior de coxa","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+joelho+em+p%C3%A9+fisioterapia+exerc%C3%ADcio"},{"key":"ex021","name":"Flexão de joelho com elástico","category":"Posterior de coxa","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+joelho+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex022","name":"Extensão de joelho sentado","category":"Quadríceps","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+de+joelho+sentado+fisioterapia+exerc%C3%ADcio"},{"key":"ex023","name":"Extensão terminal de joelho com elástico","category":"Quadríceps","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+terminal+de+joelho+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex024","name":"Elevação de perna estendida","category":"Quadríceps","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+de+perna+estendida+fisioterapia+exerc%C3%ADcio"},{"key":"ex025","name":"Contração isométrica de quadríceps","category":"Quadríceps","video_url":"https://www.youtube.com/results?search_query=Contra%C3%A7%C3%A3o+isom%C3%A9trica+de+quadr%C3%ADceps+fisioterapia+exerc%C3%ADcio"},{"key":"ex026","name":"Deslizamento de calcanhar","category":"Joelho","video_url":"https://www.youtube.com/results?search_query=Deslizamento+de+calcanhar+fisioterapia+exerc%C3%ADcio"},{"key":"ex027","name":"Mobilização de patela","category":"Joelho","video_url":"https://www.youtube.com/results?search_query=Mobiliza%C3%A7%C3%A3o+de+patela+fisioterapia+exerc%C3%ADcio"},{"key":"ex028","name":"Elevação de panturrilha em pé","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+de+panturrilha+em+p%C3%A9+fisioterapia+exerc%C3%ADcio"},{"key":"ex029","name":"Elevação de panturrilha sentado","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+de+panturrilha+sentado+fisioterapia+exerc%C3%ADcio"},{"key":"ex030","name":"Dorsiflexão de tornozelo com elástico","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Dorsiflex%C3%A3o+de+tornozelo+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex031","name":"Flexão plantar com elástico","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+plantar+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex032","name":"Inversão de tornozelo com elástico","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Invers%C3%A3o+de+tornozelo+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex033","name":"Eversão de tornozelo com elástico","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Evers%C3%A3o+de+tornozelo+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex034","name":"Mobilidade de dorsiflexão na parede","category":"Tornozelo / pé","video_url":"https://www.youtube.com/results?search_query=Mobilidade+de+dorsiflex%C3%A3o+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex035","name":"Equilíbrio unipodal","category":"Equilíbrio","video_url":"https://www.youtube.com/results?search_query=Equil%C3%ADbrio+unipodal+fisioterapia+exerc%C3%ADcio"},{"key":"ex036","name":"Equilíbrio tandem","category":"Equilíbrio","video_url":"https://www.youtube.com/results?search_query=Equil%C3%ADbrio+tandem+fisioterapia+exerc%C3%ADcio"},{"key":"ex037","name":"Transferência de peso lateral","category":"Equilíbrio","video_url":"https://www.youtube.com/results?search_query=Transfer%C3%AAncia+de+peso+lateral+fisioterapia+exerc%C3%ADcio"},{"key":"ex038","name":"Transferência de peso ântero-posterior","category":"Equilíbrio","video_url":"https://www.youtube.com/results?search_query=Transfer%C3%AAncia+de+peso+%C3%A2ntero-posterior+fisioterapia+exerc%C3%ADcio"},{"key":"ex039","name":"Marcha tandem","category":"Equilíbrio","video_url":"https://www.youtube.com/results?search_query=Marcha+tandem+fisioterapia+exerc%C3%ADcio"},{"key":"ex040","name":"Marcha com elevação de joelhos","category":"Marcha / funcional","video_url":"https://www.youtube.com/results?search_query=Marcha+com+eleva%C3%A7%C3%A3o+de+joelhos+fisioterapia+exerc%C3%ADcio"},{"key":"ex041","name":"Marcha lateral","category":"Marcha / funcional","video_url":"https://www.youtube.com/results?search_query=Marcha+lateral+fisioterapia+exerc%C3%ADcio"},{"key":"ex042","name":"Caminhada calcanhar-ponta","category":"Marcha / funcional","video_url":"https://www.youtube.com/results?search_query=Caminhada+calcanhar-ponta+fisioterapia+exerc%C3%ADcio"},{"key":"ex043","name":"Subir e descer degrau","category":"Marcha / funcional","video_url":"https://www.youtube.com/results?search_query=Subir+e+descer+degrau+fisioterapia+exerc%C3%ADcio"},{"key":"ex044","name":"Flexão de ombro com bastão","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+ombro+com+bast%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex045","name":"Abdução de ombro com bastão","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Abdu%C3%A7%C3%A3o+de+ombro+com+bast%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex046","name":"Rotação externa de ombro com bastão","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+externa+de+ombro+com+bast%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex047","name":"Rotação interna de ombro com bastão","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+interna+de+ombro+com+bast%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex048","name":"Flexão de ombro na parede","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+ombro+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex049","name":"Escalada dos dedos na parede","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Escalada+dos+dedos+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex050","name":"Pêndulo de Codman","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=P%C3%AAndulo+de+Codman+fisioterapia+exerc%C3%ADcio"},{"key":"ex051","name":"Rotação externa com elástico","category":"Manguito rotador","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+externa+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex052","name":"Rotação interna com elástico","category":"Manguito rotador","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+interna+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex053","name":"Remada com elástico","category":"Escápula / ombro","video_url":"https://www.youtube.com/results?search_query=Remada+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex054","name":"Retração escapular","category":"Escápula / ombro","video_url":"https://www.youtube.com/results?search_query=Retra%C3%A7%C3%A3o+escapular+fisioterapia+exerc%C3%ADcio"},{"key":"ex055","name":"Serrátil anterior na parede","category":"Escápula / ombro","video_url":"https://www.youtube.com/results?search_query=Serr%C3%A1til+anterior+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex056","name":"Wall slide","category":"Escápula / ombro","video_url":"https://www.youtube.com/results?search_query=Wall+slide+fisioterapia+exerc%C3%ADcio"},{"key":"ex057","name":"Elevação frontal de ombro","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+frontal+de+ombro+fisioterapia+exerc%C3%ADcio"},{"key":"ex058","name":"Elevação lateral de ombro","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o+lateral+de+ombro+fisioterapia+exerc%C3%ADcio"},{"key":"ex059","name":"Scaption","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Scaption+fisioterapia+exerc%C3%ADcio"},{"key":"ex060","name":"Isometria de flexão de ombro","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Isometria+de+flex%C3%A3o+de+ombro+fisioterapia+exerc%C3%ADcio"},{"key":"ex061","name":"Isometria de abdução de ombro","category":"Ombro","video_url":"https://www.youtube.com/results?search_query=Isometria+de+abdu%C3%A7%C3%A3o+de+ombro+fisioterapia+exerc%C3%ADcio"},{"key":"ex062","name":"Isometria de rotação externa do ombro","category":"Manguito rotador","video_url":"https://www.youtube.com/results?search_query=Isometria+de+rota%C3%A7%C3%A3o+externa+do+ombro+fisioterapia+exerc%C3%ADcio"},{"key":"ex063","name":"Flexão de cotovelo com peso","category":"Cotovelo","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+cotovelo+com+peso+fisioterapia+exerc%C3%ADcio"},{"key":"ex064","name":"Extensão de cotovelo com elástico","category":"Cotovelo","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+de+cotovelo+com+el%C3%A1stico+fisioterapia+exerc%C3%ADcio"},{"key":"ex065","name":"Pronação e supinação com bastão","category":"Cotovelo / antebraço","video_url":"https://www.youtube.com/results?search_query=Prona%C3%A7%C3%A3o+e+supina%C3%A7%C3%A3o+com+bast%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex066","name":"Extensão de punho com peso","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+de+punho+com+peso+fisioterapia+exerc%C3%ADcio"},{"key":"ex067","name":"Flexão de punho com peso","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Flex%C3%A3o+de+punho+com+peso+fisioterapia+exerc%C3%ADcio"},{"key":"ex068","name":"Desvio radial com peso","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Desvio+radial+com+peso+fisioterapia+exerc%C3%ADcio"},{"key":"ex069","name":"Desvio ulnar com peso","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Desvio+ulnar+com+peso+fisioterapia+exerc%C3%ADcio"},{"key":"ex070","name":"Abertura e fechamento das mãos","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Abertura+e+fechamento+das+m%C3%A3os+fisioterapia+exerc%C3%ADcio"},{"key":"ex071","name":"Oposição do polegar","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Oposi%C3%A7%C3%A3o+do+polegar+fisioterapia+exerc%C3%ADcio"},{"key":"ex072","name":"Deslizamento de tendões da mão","category":"Punho / mão","video_url":"https://www.youtube.com/results?search_query=Deslizamento+de+tend%C3%B5es+da+m%C3%A3o+fisioterapia+exerc%C3%ADcio"},{"key":"ex073","name":"Mobilização neural do nervo mediano","category":"Neurodinâmica","video_url":"https://www.youtube.com/results?search_query=Mobiliza%C3%A7%C3%A3o+neural+do+nervo+mediano+fisioterapia+exerc%C3%ADcio"},{"key":"ex074","name":"Mobilização neural do nervo ulnar","category":"Neurodinâmica","video_url":"https://www.youtube.com/results?search_query=Mobiliza%C3%A7%C3%A3o+neural+do+nervo+ulnar+fisioterapia+exerc%C3%ADcio"},{"key":"ex075","name":"Mobilização neural do nervo radial","category":"Neurodinâmica","video_url":"https://www.youtube.com/results?search_query=Mobiliza%C3%A7%C3%A3o+neural+do+nervo+radial+fisioterapia+exerc%C3%ADcio"},{"key":"ex076","name":"Retração cervical","category":"Coluna cervical","video_url":"https://www.youtube.com/results?search_query=Retra%C3%A7%C3%A3o+cervical+fisioterapia+exerc%C3%ADcio"},{"key":"ex077","name":"Rotação cervical ativa","category":"Coluna cervical","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+cervical+ativa+fisioterapia+exerc%C3%ADcio"},{"key":"ex078","name":"Inclinação cervical ativa","category":"Coluna cervical","video_url":"https://www.youtube.com/results?search_query=Inclina%C3%A7%C3%A3o+cervical+ativa+fisioterapia+exerc%C3%ADcio"},{"key":"ex079","name":"Mobilidade torácica em rotação sentado","category":"Coluna torácica","video_url":"https://www.youtube.com/results?search_query=Mobilidade+tor%C3%A1cica+em+rota%C3%A7%C3%A3o+sentado+fisioterapia+exerc%C3%ADcio"},{"key":"ex080","name":"Extensão torácica na cadeira","category":"Coluna torácica","video_url":"https://www.youtube.com/results?search_query=Extens%C3%A3o+tor%C3%A1cica+na+cadeira+fisioterapia+exerc%C3%ADcio"},{"key":"ex081","name":"Gato-camelo","category":"Coluna","video_url":"https://www.youtube.com/results?search_query=Gato-camelo+fisioterapia+exerc%C3%ADcio"},{"key":"ex082","name":"Rotação lombar em decúbito","category":"Coluna lombar","video_url":"https://www.youtube.com/results?search_query=Rota%C3%A7%C3%A3o+lombar+em+dec%C3%BAbito+fisioterapia+exerc%C3%ADcio"},{"key":"ex083","name":"Inclinação pélvica","category":"Coluna lombar","video_url":"https://www.youtube.com/results?search_query=Inclina%C3%A7%C3%A3o+p%C3%A9lvica+fisioterapia+exerc%C3%ADcio"},{"key":"ex084","name":"Bird dog","category":"Core / coluna","video_url":"https://www.youtube.com/results?search_query=Bird+dog+fisioterapia+exerc%C3%ADcio"},{"key":"ex085","name":"Dead bug","category":"Core / coluna","video_url":"https://www.youtube.com/results?search_query=Dead+bug+fisioterapia+exerc%C3%ADcio"},{"key":"ex086","name":"Prancha com joelhos apoiados","category":"Core / coluna","video_url":"https://www.youtube.com/results?search_query=Prancha+com+joelhos+apoiados+fisioterapia+exerc%C3%ADcio"},{"key":"ex087","name":"Alongamento de panturrilha na parede","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+panturrilha+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex088","name":"Alongamento de isquiotibiais","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+isquiotibiais+fisioterapia+exerc%C3%ADcio"},{"key":"ex089","name":"Alongamento de quadríceps em pé","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+quadr%C3%ADceps+em+p%C3%A9+fisioterapia+exerc%C3%ADcio"},{"key":"ex090","name":"Alongamento de flexores de quadril","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+flexores+de+quadril+fisioterapia+exerc%C3%ADcio"},{"key":"ex091","name":"Alongamento de glúteos","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+gl%C3%BAteos+fisioterapia+exerc%C3%ADcio"},{"key":"ex092","name":"Alongamento piriforme","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+piriforme+fisioterapia+exerc%C3%ADcio"},{"key":"ex093","name":"Alongamento de peitoral na parede","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+peitoral+na+parede+fisioterapia+exerc%C3%ADcio"},{"key":"ex094","name":"Alongamento de trapézio superior","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+trap%C3%A9zio+superior+fisioterapia+exerc%C3%ADcio"},{"key":"ex095","name":"Alongamento de levantador da escápula","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+levantador+da+esc%C3%A1pula+fisioterapia+exerc%C3%ADcio"},{"key":"ex096","name":"Alongamento de flexores do punho","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+flexores+do+punho+fisioterapia+exerc%C3%ADcio"},{"key":"ex097","name":"Alongamento de extensores do punho","category":"Alongamentos","video_url":"https://www.youtube.com/results?search_query=Alongamento+de+extensores+do+punho+fisioterapia+exerc%C3%ADcio"},{"key":"ex098","name":"Respiração diafragmática","category":"Respiratório / relaxamento","video_url":"https://www.youtube.com/results?search_query=Respira%C3%A7%C3%A3o+diafragm%C3%A1tica+fisioterapia+exerc%C3%ADcio"},{"key":"ex099","name":"Treino de alcance sentado","category":"Funcional / idosos","video_url":"https://www.youtube.com/results?search_query=Treino+de+alcance+sentado+fisioterapia+exerc%C3%ADcio"},{"key":"ex100","name":"Transferência de objetos sentado-em-pé","category":"Funcional / idosos","video_url":"https://www.youtube.com/results?search_query=Transfer%C3%AAncia+de+objetos+sentado-em-p%C3%A9+fisioterapia+exerc%C3%ADcio"}];
+</script>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),cfg=window.APP_CONFIG||{},configured=Boolean(cfg.SUPABASE_URL&&cfg.SUPABASE_PUBLISHABLE_KEY),db=configured?window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY):null;
+const state={user:null,patients:[],appointments:[],evaluations:[],prescriptions:[],checkins:[],view:'today',agendaMode:'month',agendaCursor:new Date(),financeMonth:monthKey(new Date()),recordsPatient:'all',recordsMonth:monthKey(new Date()),profilePatientId:null,profileTab:'summary',selectedExercise:null};
+const statusNames={pending:'Aguardando',confirmed:'Confirmado',reschedule_requested:'Remarcar',cancelled:'Cancelado',in_progress:'Em atendimento',completed:'Concluído',no_show:'Faltou'};
+document.addEventListener('DOMContentLoaded',init);
+async function init(){populatePainSelects();bindStatic();$('todayLabel').textContent=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).format(new Date());if(!configured){$('setupNotice').classList.remove('hidden');$('setupNotice').textContent='Supabase não configurado.';return}const{data}=await db.auth.getSession();if(data.session){state.user=data.session.user;await enterApp()}db.auth.onAuthStateChange(async(_e,s)=>{if(s){state.user=s.user;await enterApp()}})}
+function bindStatic(){$('loginForm').addEventListener('submit',login);$('logoutButton').addEventListener('click',logout);document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));$('newAppointmentFab').addEventListener('click',openAppointmentDialog);$('appointmentForm').addEventListener('submit',saveAppointment);$('patientForm').addEventListener('submit',savePatient);$('deletePatientBtn').addEventListener('click',()=>deletePatient($('patientId').value));$('deactivatePatientBtn').addEventListener('click',()=>deactivatePatient($('patientId').value));$('seriesForm').addEventListener('submit',saveSeries);$('recordForm').addEventListener('submit',saveRecord);$('recordIntercurrenceStatus').addEventListener('change',toggleIntercurrence);$('evaluationForm').addEventListener('submit',saveEvaluation);$('evaluationPdfBtn').addEventListener('click',()=>exportEvaluationPdf($('evaluationId').value));$('deleteEvaluationBtn').addEventListener('click',()=>deleteEvaluation($('evaluationId').value));$('exerciseForm').addEventListener('submit',savePrescription);$('exerciseSearch').addEventListener('input',renderExerciseLibrary);$('exerciseCategory').addEventListener('change',renderExerciseLibrary);['seriesMonth','seriesTime','seriesDuration','seriesValue','seriesType'].forEach(id=>$(id).addEventListener('input',updateSeriesPreview));document.querySelectorAll('input[name=weekday]').forEach(x=>x.addEventListener('change',updateSeriesPreview));$('profileTabs').addEventListener('click',e=>{const b=e.target.closest('[data-profile-tab]');if(!b)return;state.profileTab=b.dataset.profileTab;renderProfilePane()})}
+async function login(e){e.preventDefault();const{error}=await db.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error)toast('Não foi possível entrar. Confira e-mail e senha.')}
+async function logout(){await db.auth.signOut();state.user=null;$('appShell').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
+async function enterApp(){$('loginScreen').classList.add('hidden');$('appShell').classList.remove('hidden');await loadData();switchView('today')}
+async function loadData(){const queries=await Promise.all([db.from('patients').select('*').order('name'),db.from('appointments').select('*').order('scheduled_start'),db.from('evaluations').select('*').order('evaluation_date',{ascending:false}),db.from('exercise_prescriptions').select('*').order('created_at',{ascending:false}),db.from('exercise_checkins').select('*').order('checkin_date',{ascending:false})]);const[p,a,e,pr,ch]=queries;if(p.error||a.error){toast('Erro ao carregar dados principais.');return}state.patients=p.data||[];state.appointments=a.data||[];if(e.error||pr.error||ch.error){toast('A V6 precisa da migração do Supabase. Rode o arquivo v6-migration.sql.')}state.evaluations=e.data||[];state.prescriptions=pr.data||[];state.checkins=ch.data||[];refreshPatientSelect()}
+function switchView(v){state.view=v;['Today','Agenda','Patients','Records','Finance'].forEach(x=>$('view'+x).classList.add('hidden'));$('view'+cap(v)).classList.remove('hidden');document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===v));if(v==='today')renderToday();if(v==='agenda')renderAgenda();if(v==='patients')renderPatients();if(v==='records')renderRecords();if(v==='finance')renderFinance()}
+function renderToday(){const k=dateKey(new Date()),list=state.appointments.filter(a=>dateKey(new Date(a.scheduled_start))===k).sort(byDate),pendingRecords=state.appointments.filter(a=>a.status==='completed'&&!isEvaluationAppointment(a)&&!recordComplete(readRecord(a))).length;$('viewToday').innerHTML=`<div class="page-title-row"><div><p class="eyebrow">PAINEL DO DIA</p><h1>Atendimentos de hoje</h1><p>${list.length?'Agenda do dia em um só lugar.':'Seu dia está livre por enquanto.'}</p></div></div><div class="summary-grid"><div class="metric highlight"><span>Total hoje</span><strong>${list.length}</strong></div><div class="metric"><span>Confirmados</span><strong>${list.filter(a=>a.status==='confirmed').length}</strong></div><div class="metric"><span>Finalizados</span><strong>${list.filter(a=>a.status==='completed').length}</strong></div><div class="metric"><span>Prontuários pendentes</span><strong>${pendingRecords}</strong></div></div><div class="section-label"><h2>Agenda do dia</h2><span>${formatShortDate(new Date())}</span></div><div class="session-list">${list.length?list.map(sessionCard).join(''):emptyState('Nenhum atendimento hoje','Use o botão + para criar um agendamento.')}</div>`;bindSessionActions($('viewToday'))}
+function renderAgenda(){const c=state.agendaCursor,mode=state.agendaMode;$('viewAgenda').innerHTML=`<div class="page-title-row"><div><p class="eyebrow">AGENDA</p><h1>Agenda clínica</h1><p>Visualização inspirada em agendas profissionais.</p></div></div><div class="agenda-toolbar"><div class="agenda-navrow"><button id="agendaPrev" class="action-btn">‹</button><button id="agendaToday" class="action-btn">Hoje</button><div class="agenda-period">${agendaPeriodLabel()}</div><button id="agendaNext" class="action-btn">›</button></div><div class="segmented"><button data-agenda-mode="month" class="${mode==='month'?'active':''}">Mês</button><button data-agenda-mode="week" class="${mode==='week'?'active':''}">Semana</button><button data-agenda-mode="day" class="${mode==='day'?'active':''}">Dia</button><button data-agenda-mode="list" class="${mode==='list'?'active':''}">Lista</button></div></div><div id="agendaBody">${agendaBody()}</div>`;$('agendaPrev').onclick=()=>shiftAgenda(-1);$('agendaNext').onclick=()=>shiftAgenda(1);$('agendaToday').onclick=()=>{state.agendaCursor=new Date();renderAgenda()};$('viewAgenda').querySelectorAll('[data-agenda-mode]').forEach(b=>b.onclick=()=>{state.agendaMode=b.dataset.agendaMode;renderAgenda()});bindAgendaClicks();bindSessionActions($('viewAgenda'))}
+function agendaPeriodLabel(){const d=state.agendaCursor;if(state.agendaMode==='day')return formatLongDate(d);if(state.agendaMode==='week'){const s=startOfWeek(d),e=new Date(s);e.setDate(e.getDate()+6);return `${formatShortDate(s)} – ${formatShortDate(e)}`}return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(d)}
+function shiftAgenda(n){const d=new Date(state.agendaCursor);if(state.agendaMode==='day')d.setDate(d.getDate()+n);else if(state.agendaMode==='week')d.setDate(d.getDate()+7*n);else d.setMonth(d.getMonth()+n);state.agendaCursor=d;renderAgenda()}
+function agendaBody(){if(state.agendaMode==='month')return monthCalendar();if(state.agendaMode==='week')return weekCalendar();if(state.agendaMode==='day')return dayAgenda();return listAgenda()}
+function monthCalendar(){const y=state.agendaCursor.getFullYear(),m=state.agendaCursor.getMonth(),first=new Date(y,m,1),start=new Date(first);start.setDate(first.getDate()-first.getDay());const days=[];for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);days.push(d)}return `<div class="calendar-scroll"><div class="month-grid">${['dom.','seg.','ter.','qua.','qui.','sex.','sáb.'].map(x=>`<div class="cal-head">${x}</div>`).join('')}${days.map(d=>{const arr=state.appointments.filter(a=>dateKey(new Date(a.scheduled_start))===dateKey(d)).sort(byDate);return `<div class="cal-day ${d.getMonth()!==m?'out':''}"><div class="cal-date">${d.getDate()}</div>${arr.slice(0,6).map(a=>calendarChip(a)).join('')}${arr.length>6?`<div class="tiny muted">+${arr.length-6}</div>`:''}</div>`}).join('')}</div></div>`}
+function weekCalendar(){const s=startOfWeek(state.agendaCursor);const days=[];for(let i=0;i<7;i++){const d=new Date(s);d.setDate(s.getDate()+i);days.push(d)}return `<div class="calendar-scroll"><div class="week-grid">${days.map(d=>{const arr=state.appointments.filter(a=>dateKey(new Date(a.scheduled_start))===dateKey(d)).sort(byDate);return `<div class="week-col"><h3>${formatLongDate(d)}</h3>${arr.length?arr.map(a=>`<button class="week-item" data-open-session="${a.id}"><strong>${formatTime(new Date(a.scheduled_start))} • ${escapeHtml(findPatient(a.patient_id)?.name||'Paciente')}</strong><span>${escapeHtml(a.appointment_type||'Atendimento')} • ${statusNames[a.status]||a.status}</span></button>`).join(''):'<div class="tiny muted">Livre</div>'}</div>`}).join('')}</div></div>`}
+function dayAgenda(){const k=dateKey(state.agendaCursor),arr=state.appointments.filter(a=>dateKey(new Date(a.scheduled_start))===k).sort(byDate);return `<div class="section-label"><h2>${formatLongDate(state.agendaCursor)}</h2><span>${arr.length} agendamento(s)</span></div><div class="session-list">${arr.length?arr.map(sessionCard).join(''):emptyState('Dia livre','Crie um atendimento pelo botão +.')}</div>`}
+function listAgenda(){const mk=monthKey(state.agendaCursor),arr=state.appointments.filter(a=>monthKey(new Date(a.scheduled_start))===mk).sort(byDate),groups={};arr.forEach(a=>{const k=dateKey(new Date(a.scheduled_start));(groups[k]||=[]).push(a)});return Object.keys(groups).length?Object.keys(groups).sort().map(k=>`<div class="section-label"><h2>${formatLongDate(new Date(k+'T12:00:00'))}</h2><span>${groups[k].length}</span></div><div class="session-list">${groups[k].map(sessionCard).join('')}</div>`).join(''):emptyState('Nenhum atendimento neste mês','Gere o mês de um paciente ou adicione manualmente.')}
+function calendarChip(a){const p=findPatient(a.patient_id);return `<button class="cal-chip s-${a.status}" data-open-session="${a.id}">${formatTime(new Date(a.scheduled_start))} ${escapeHtml((p?.name||'Paciente').split(' ')[0])}</button>`}
+function bindAgendaClicks(){$('viewAgenda').querySelectorAll('[data-open-session]').forEach(b=>b.onclick=()=>openQuickSession(b.dataset.openSession))}
+function openQuickSession(id){const a=findAppointment(id);if(!a)return;$('quickSessionContent').innerHTML=sessionCard(a);bindSessionActions($('quickSessionContent'));$('quickSessionDialog').showModal()}
+function renderPatients(){const active=state.patients.filter(p=>p.active!==false);$('viewPatients').innerHTML=`<div class="page-title-row"><div><p class="eyebrow">PACIENTES</p><h1>Seus pacientes</h1><p>${active.length} cadastro(s) ativo(s)</p></div><button id="addPatientBtn" class="btn secondary">＋ Paciente</button></div><div class="patient-grid">${active.length?active.map(patientCard).join(''):emptyState('Nenhum paciente cadastrado','Cadastre o primeiro paciente para começar.')}</div>`;$('addPatientBtn').onclick=()=>openPatientDialog();$('viewPatients').querySelectorAll('[data-open-profile]').forEach(b=>b.onclick=()=>openPatientProfile(b.dataset.openProfile));$('viewPatients').querySelectorAll('[data-edit-patient]').forEach(b=>b.onclick=()=>openPatientDialog(b.dataset.editPatient));$('viewPatients').querySelectorAll('[data-series-patient]').forEach(b=>b.onclick=()=>openSeriesDialog(b.dataset.seriesPatient));$('viewPatients').querySelectorAll('[data-patient-portal]').forEach(b=>b.onclick=()=>sharePatientPortal(b.dataset.patientPortal))}
+function patientCard(p){const initials=getInitials(p.name),next=state.appointments.filter(a=>a.patient_id===p.id&&new Date(a.scheduled_start)>=new Date()&&!['cancelled','no_show'].includes(a.status)).sort(byDate)[0],pending=state.appointments.filter(a=>a.patient_id===p.id&&a.status==='completed'&&!recordComplete(readRecord(a))).length;return `<article class="patient-card"><div class="patient-main"><div class="avatar">${escapeHtml(initials)}</div><div><strong>${escapeHtml(p.name)}</strong><small>${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${next?`próx. ${formatShortDate(new Date(next.scheduled_start))} ${formatTime(new Date(next.scheduled_start))}`:'sem próximo horário'}</small></div></div>${p.notes?`<p class="tiny muted">${escapeHtml(p.notes)}</p>`:''}<div class="session-meta">${pending?`<span class="mini-tag">${pending} prontuário(s) pendente(s)</span>`:''}<span class="mini-tag">${state.prescriptions.filter(x=>x.patient_id===p.id&&x.active).length} exercício(s)</span></div><div class="patient-card-actions"><button class="action-btn strong" data-open-profile="${p.id}">Abrir ficha</button><button class="action-btn" data-series-patient="${p.id}">Gerar mês</button><button class="action-btn whatsapp" data-patient-portal="${p.id}">Área do paciente</button><button class="action-btn" data-edit-patient="${p.id}">Editar</button></div></article>`}
+function renderRecords(){const completed=state.appointments.filter(a=>a.status==='completed'&&!isEvaluationAppointment(a)).sort((a,b)=>new Date(b.actual_end||b.scheduled_start)-new Date(a.actual_end||a.scheduled_start)),list=completed.filter(a=>(state.recordsPatient==='all'||a.patient_id===state.recordsPatient)&&(!state.recordsMonth||monthKey(new Date(a.scheduled_start))===state.recordsMonth)),filled=list.filter(a=>recordComplete(readRecord(a))).length,pending=list.length-filled,opts=state.patients.map(p=>`<option value="${p.id}" ${state.recordsPatient===p.id?'selected':''}>${escapeHtml(p.name)}</option>`).join('');$('viewRecords').innerHTML=`<div class="page-title-row"><div><p class="eyebrow">PRIVADO • DADOS CLÍNICOS</p><h1>Prontuários</h1><p>Finalize o atendimento e preencha quando tiver tempo.</p></div></div><div class="filter-grid"><label>Paciente<select id="recordsPatient"><option value="all">Todos os pacientes</option>${opts}</select></label><label>Mês<input id="recordsMonth" type="month" value="${state.recordsMonth}"></label></div><div class="profile-actions" style="margin:10px 0"><button id="recordsPdf" class="btn primary">Exportar PDF do mês</button><button id="recordsClear" class="btn secondary">Mostrar histórico completo</button></div><div class="summary-grid"><div class="metric highlight"><span>Atendimentos realizados</span><strong>${list.length}</strong></div><div class="metric"><span>Prontuários preenchidos</span><strong>${filled}</strong></div><div class="metric"><span>Pendentes</span><strong>${pending}</strong></div><div class="metric"><span>Total no histórico</span><strong>${completed.length}</strong></div></div><div class="section-label"><h2>Histórico de atendimentos</h2><span>${list.length} registro(s)</span></div>${list.length?list.map(recordCard).join(''):emptyState('Nenhum prontuário neste filtro','Atendimentos finalizados aparecerão aqui.')}`;$('recordsPatient').value=state.recordsPatient;$('recordsPatient').onchange=e=>{state.recordsPatient=e.target.value;renderRecords()};$('recordsMonth').onchange=e=>{state.recordsMonth=e.target.value;renderRecords()};$('recordsClear').onclick=()=>{state.recordsPatient='all';state.recordsMonth='';renderRecords()};$('recordsPdf').onclick=exportMonthlyRecordsPdf;$('viewRecords').querySelectorAll('[data-record]').forEach(b=>b.onclick=()=>openRecordDialog(b.dataset.record))}
+function recordCard(a){const p=findPatient(a.patient_id),d=new Date(a.scheduled_start),r=readRecord(a),done=recordComplete(r),actual=a.actual_start&&a.actual_end?`${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))} • ${durationActual(a)} min`:`${formatTime(d)} • ${a.duration_minutes||60} min`;return `<article class="record-card"><div class="record-card-top"><div><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${formatLongDate(d)} • ${actual}</small></div><span class="record-badge ${done?'done':'pending'}">${done?'✓ Preenchido':'Pendente'}</span></div><div class="record-summary"><span class="mini-tag">${escapeHtml(a.appointment_type||'Atendimento')}</span>${r?.general_state?`<span class="mini-tag">${r.general_state}</span>`:''}${r&&(r.pain_before!==''||r.pain_after!=='')?`<span class="mini-tag">Dor ${r.pain_before||'—'} → ${r.pain_after||'—'}</span>`:''}</div>${done?`<div class="record-note-preview">${escapeHtml((r.evolution||r.conduct||'').slice(0,160))}</div>`:''}<button class="action-btn ${done?'':'strong'}" data-record="${a.id}">${done?'Ver / editar prontuário':'Preencher prontuário'}</button></article>`}
+function renderFinance(){const m=state.financeMonth,list=state.appointments.filter(a=>monthKey(new Date(a.scheduled_start))===m&&!['cancelled','no_show'].includes(a.status)).sort(byDate),expected=sumValue(list),completed=sumValue(list.filter(a=>a.status==='completed')),received=sumValue(list.filter(a=>a.paid));$('viewFinance').innerHTML=`<div class="page-title-row"><div><p class="eyebrow">PRIVADO • SOMENTE VOCÊ</p><h1>Financeiro</h1><p>O paciente não tem acesso aos valores.</p></div><input id="financeMonth" type="month" value="${m}"></div><div class="summary-grid"><div class="metric"><span>Previsto</span><strong>${money(expected)}</strong></div><div class="metric"><span>Realizado</span><strong>${money(completed)}</strong></div><div class="metric highlight"><span>Recebido</span><strong>${money(received)}</strong></div><div class="metric"><span>A receber</span><strong>${money(Math.max(0,completed-received))}</strong></div></div><div class="finance-table">${list.length?list.map(financeRow).join(''):emptyState('Sem lançamentos','Os atendimentos aparecem aqui automaticamente.')}</div>`;$('financeMonth').onchange=e=>{state.financeMonth=e.target.value;renderFinance()};$('viewFinance').querySelectorAll('[data-toggle-paid]').forEach(b=>b.onclick=async()=>{const a=findAppointment(b.dataset.togglePaid);await updateAppointment(a.id,{paid:!a.paid});renderFinance()})}
+function financeRow(a){const p=findPatient(a.patient_id),d=new Date(a.scheduled_start);return `<div class="finance-row"><div><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${formatShortDate(d)} • ${formatTime(d)} • ${escapeHtml(a.appointment_type||'Atendimento')} • ${statusNames[a.status]||a.status}</small></div><div class="finance-money"><span>${money(a.session_value||0)}</span><button data-toggle-paid="${a.id}">${a.paid?'✓ Recebido':'Marcar recebido'}</button></div></div>`}
+function sessionCard(a){const p=findPatient(a.patient_id),d=new Date(a.scheduled_start),isEval=['Avaliação inicial','Reavaliação','Alta'].includes(a.appointment_type);return `<article class="session-card"><div class="session-head"><div class="time-block"><strong>${formatTime(d)}</strong><span>${a.actual_start&&a.actual_end?`${durationActual(a)} min realizados`:`${a.duration_minutes||60} min previstos`}</span></div><div class="patient-block"><strong>${escapeHtml(p?.name||'Paciente')}</strong><small>${escapeHtml(a.appointment_type||'Atendimento')}${a.actual_start?` • início ${formatTime(new Date(a.actual_start))}`:''}</small></div><span class="status-pill s-${a.status}">${statusNames[a.status]||a.status}</span></div>${a.status==='reschedule_requested'?'<div class="reschedule-alert">↻ O paciente pediu para remarcar.</div>':''}<div class="session-actions">${['pending','confirmed'].includes(a.status)?`<button class="action-btn strong" data-start="${a.id}">▶ Iniciar</button>`:''}${a.status==='in_progress'?`<button class="action-btn finish" data-finish="${a.id}">■ Finalizar</button>`:''}${!['completed','cancelled','no_show'].includes(a.status)?`<button class="action-btn whatsapp" data-whatsapp="${a.id}">WhatsApp</button>`:''}${a.status==='pending'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Confirmar</button>`:''}${a.status==='reschedule_requested'?`<button class="action-btn" data-status="confirmed" data-id="${a.id}">Manter horário</button>`:''}${!['completed','cancelled','no_show'].includes(a.status)?`<button class="action-btn" data-status="cancelled" data-id="${a.id}">Cancelar</button><button class="action-btn" data-status="no_show" data-id="${a.id}">Faltou</button>`:''}${a.status==='completed'?(isEval?`<button class="action-btn strong" data-eval-appt="${a.id}">Avaliação</button>`:`<button class="action-btn ${recordComplete(readRecord(a))?'':'strong'}" data-record="${a.id}">${recordComplete(readRecord(a))?'Ver prontuário':'Prontuário pendente'}</button>`):`<button class="action-btn danger" data-delete-appointment="${a.id}">Excluir</button>`}<button class="action-btn" data-profile-from-appt="${a.id}">Ficha</button></div></article>`}
+function bindSessionActions(root){root.querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>updateAppointment(b.dataset.start,{status:'in_progress',actual_start:new Date().toISOString()}).then(renderCurrent));root.querySelectorAll('[data-finish]').forEach(b=>b.onclick=async()=>{await updateAppointment(b.dataset.finish,{status:'completed',actual_end:new Date().toISOString()});renderCurrent();toast('Atendimento finalizado. Registro ficou pendente no prontuário.')});root.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>updateAppointment(b.dataset.id,{status:b.dataset.status}).then(renderCurrent));root.querySelectorAll('[data-whatsapp]').forEach(b=>b.onclick=()=>openWhatsApp(b.dataset.whatsapp));root.querySelectorAll('[data-delete-appointment]').forEach(b=>b.onclick=()=>deleteAppointment(b.dataset.deleteAppointment));root.querySelectorAll('[data-record]').forEach(b=>b.onclick=()=>openRecordDialog(b.dataset.record));root.querySelectorAll('[data-eval-appt]').forEach(b=>b.onclick=()=>openEvaluationFromAppointment(b.dataset.evalAppt));root.querySelectorAll('[data-profile-from-appt]').forEach(b=>b.onclick=()=>{const a=findAppointment(b.dataset.profileFromAppt);if(a)openPatientProfile(a.patient_id)})}
+function renderCurrent(){if(state.view==='today')renderToday();if(state.view==='agenda')renderAgenda();if(state.view==='records')renderRecords();if(state.view==='finance')renderFinance();if(state.view==='patients')renderPatients()}
+function openAppointmentDialog(){if(!state.patients.some(p=>p.active!==false)){toast('Cadastre um paciente primeiro.');switchView('patients');return}refreshPatientSelect();const now=new Date();$('appointmentDate').value=dateKey(now);$('appointmentTime').value='14:00';const pid=$('appointmentPatient').value,p=findPatient(pid);$('appointmentValue').value=p?.session_value||'';$('appointmentType').value=defaultAppointmentType(pid);$('appointmentPatient').onchange=()=>{const id=$('appointmentPatient').value;$('appointmentValue').value=findPatient(id)?.session_value||'';$('appointmentType').value=defaultAppointmentType(id)};$('appointmentDialog').showModal()}
+async function saveAppointment(e){e.preventDefault();const pid=$('appointmentPatient').value,dt=new Date(`${$('appointmentDate').value}T${$('appointmentTime').value}:00`);const row={patient_id:pid,scheduled_start:dt.toISOString(),duration_minutes:Number($('appointmentDuration').value),session_value:Number($('appointmentValue').value||0),status:'pending',appointment_type:$('appointmentType').value};const{error}=await db.from('appointments').insert(row);if(error){toast('Erro ao salvar agendamento.');return}$('appointmentDialog').close();await loadData();renderCurrent();toast('Agendamento criado.')}
+function openPatientDialog(id=null){const p=id?findPatient(id):null;$('patientDialogTitle').textContent=p?'Editar paciente':'Novo paciente';$('patientId').value=p?.id||'';$('patientName').value=p?.name||'';$('patientPhone').value=p?.whatsapp||'';$('patientValue').value=p?.session_value||'';$('patientNotes').value=p?.notes||'';$('deletePatientBtn').classList.toggle('hidden',!p);$('deactivatePatientBtn').classList.toggle('hidden',!p);$('patientDialog').showModal()}
+async function savePatient(e){e.preventDefault();const id=$('patientId').value,row={name:$('patientName').value.trim(),whatsapp:$('patientPhone').value.trim(),session_value:Number($('patientValue').value||0),notes:$('patientNotes').value.trim(),active:true};let error;if(id)({error}=await db.from('patients').update(row).eq('id',id));else({error}=await db.from('patients').insert(row));if(error){toast('Erro ao salvar paciente.');return}$('patientDialog').close();await loadData();renderPatients();toast(id?'Paciente atualizado.':'Paciente cadastrado.')}
+async function deactivatePatient(id){const p=findPatient(id);if(!p)return;if(!confirm(`Desativar ${p.name}? O histórico clínico será preservado.`))return;const{error}=await db.from('patients').update({active:false}).eq('id',id);if(error){toast('Não foi possível desativar.');return}$('patientDialog').close();await loadData();renderPatients();toast('Paciente desativado.')}
+async function deletePatient(id){const p=findPatient(id);if(!p)return;if(state.appointments.some(a=>a.patient_id===id&&a.status==='completed')||state.evaluations.some(e=>e.patient_id===id)){toast('Este paciente possui histórico clínico. Desative em vez de excluir.');return}if(!confirm(`Excluir ${p.name} e os agendamentos?`))return;const{error}=await db.from('patients').delete().eq('id',id);if(error){toast('Não foi possível excluir.');return}$('patientDialog').close();await loadData();renderPatients()}
+function openSeriesDialog(id){const p=findPatient(id);$('seriesPatientId').value=id;$('seriesPatientName').textContent=p.name;$('seriesMonth').value=monthKey(new Date());$('seriesValue').value=p.session_value||'';$('seriesType').value='Atendimento';document.querySelectorAll('input[name=weekday]').forEach(x=>x.checked=false);updateSeriesPreview();$('seriesDialog').showModal()}
+function seriesPlan(){const pid=$('seriesPatientId').value,m=$('seriesMonth').value,time=$('seriesTime').value,days=[...document.querySelectorAll('input[name=weekday]:checked')].map(x=>Number(x.value)),[y,mo]=m.split('-').map(Number),last=new Date(y,mo,0).getDate(),rows=[];let past=0,dup=0;for(let day=1;day<=last;day++){const d=new Date(y,mo-1,day),dt=new Date(`${m}-${String(day).padStart(2,'0')}T${time}:00`);if(!days.includes(d.getDay()))continue;if(dt<new Date()){past++;continue}if(state.appointments.some(a=>a.patient_id===pid&&new Date(a.scheduled_start).getTime()===dt.getTime())){dup++;continue}rows.push({patient_id:pid,scheduled_start:dt.toISOString(),duration_minutes:Number($('seriesDuration').value),session_value:Number($('seriesValue').value||0),status:'pending',appointment_type:$('seriesType').value})}return{rows,past,dup}}
+function updateSeriesPreview(){const days=[...document.querySelectorAll('input[name=weekday]:checked')];if(!days.length){$('seriesPreview').textContent='Selecione os dias da semana para ver a previsão.';return}const p=seriesPlan(),total=p.rows.length*Number($('seriesValue').value||0);$('seriesPreview').innerHTML=`<strong>${p.rows.length} sessão(ões) nova(s) • ${money(total)}</strong>${p.past?` • ${p.past} passada(s) ignorada(s)`:''}${p.dup?` • ${p.dup} duplicada(s) ignorada(s)`:''}`}
+async function saveSeries(e){e.preventDefault();const p=seriesPlan();if(!p.rows.length){toast('Não há novas datas futuras para gerar.');return}const{error}=await db.from('appointments').insert(p.rows);if(error){toast('Erro ao gerar sessões.');return}$('seriesDialog').close();await loadData();state.agendaCursor=new Date($('seriesMonth').value+'-01T12:00:00');switchView('agenda');toast(`${p.rows.length} sessão(ões) gerada(s).`)}
+async function updateAppointment(id,patch){const{error}=await db.from('appointments').update(patch).eq('id',id);if(error){toast('Não foi possível atualizar.');return}await loadData()}
+async function deleteAppointment(id){const a=findAppointment(id);if(!a)return;if(a.status==='completed'){toast('Atendimento finalizado fica preservado no prontuário.');return}if(!confirm('Excluir este agendamento?'))return;const{error}=await db.from('appointments').delete().eq('id',id);if(error){toast('Não foi possível excluir.');return}await loadData();renderCurrent()}
+function openWhatsApp(id){const a=findAppointment(id),p=findPatient(a?.patient_id);if(!a||!p)return;const phone=normalizeBrazilPhone(p.whatsapp);if(!phone){toast('Cadastre o WhatsApp deste paciente.');return}const d=new Date(a.scheduled_start),u=new URL('confirm.html',location.href);u.searchParams.set('t',a.confirmation_token);const first=p.name.split(' ')[0],text=`Olá, ${first}! 😊\n\nSeu ${String(a.appointment_type||'atendimento').toLowerCase()} está agendado para *${formatLongDate(d)}*, às *${formatTime(d)}*.\n\nPara confirmar, remarcar ou cancelar, acesse:\n${u}\n\nObrigado!`;window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,'_blank','noopener')}
+function isEvaluationAppointment(a){return ['Avaliação inicial','Reavaliação','Alta'].includes(a?.appointment_type)}
+function readRecord(a){if(!a?.notes)return null;try{const r=JSON.parse(a.notes);return r&&String(r._type||'').startsWith('fisio_clinical_record')?r:null}catch{return null}}
+function recordComplete(r){return Boolean(r&&String(r.evolution||'').trim()&&String(r.conduct||'').trim())}
+function openRecordDialog(id){const a=findAppointment(id);if(!a||a.status!=='completed'){toast('Finalize o atendimento antes.');return}const p=findPatient(a.patient_id),r=readRecord(a)||{};$('recordAppointmentId').value=id;$('recordAppointmentSummary').textContent=`${p?.name||'Paciente'} • ${formatLongDate(new Date(a.scheduled_start))}`;$('recordGeneralState').value=r.general_state||'';$('recordComplaint').value=r.complaint||'';$('recordPainBefore').value=r.pain_before??'';$('recordPainAfter').value=r.pain_after??'';$('recordEvolution').value=r.evolution||'';$('recordConduct').value=r.conduct||'';$('recordIntercurrenceStatus').value=r.intercurrence_status==='yes'?'yes':'none';$('recordIntercurrenceDetails').value=r.intercurrence_details||'';toggleIntercurrence();$('recordDialog').showModal()}
+function toggleIntercurrence(){const yes=$('recordIntercurrenceStatus').value==='yes';$('recordIntercurrenceDetailsWrap').classList.toggle('hidden',!yes);if(!yes)$('recordIntercurrenceDetails').value=''}
+async function saveRecord(e){e.preventDefault();const id=$('recordAppointmentId').value,a=findAppointment(id),old=readRecord(a)||{},yes=$('recordIntercurrenceStatus').value==='yes';if(yes&&!$('recordIntercurrenceDetails').value.trim()){toast('Descreva a intercorrência.');return}const r={_type:'fisio_clinical_record_v2',version:2,general_state:$('recordGeneralState').value,complaint:$('recordComplaint').value.trim(),pain_before:$('recordPainBefore').value,pain_after:$('recordPainAfter').value,evolution:$('recordEvolution').value.trim(),conduct:$('recordConduct').value.trim(),intercurrence_status:yes?'yes':'none',intercurrence_details:yes?$('recordIntercurrenceDetails').value.trim():'',created_at:old.created_at||new Date().toISOString(),updated_at:new Date().toISOString()};await updateAppointment(id,{notes:JSON.stringify(r)});$('recordDialog').close();renderCurrent();if(state.profilePatientId)renderProfilePane();toast('Evolução salva.')}
+function openPatientProfile(id){const p=findPatient(id);if(!p)return;state.profilePatientId=id;state.profileTab='summary';$('profileAvatar').textContent=getInitials(p.name);$('profileName').textContent=p.name;$('profileSub').textContent=`${p.whatsapp?formatPhone(p.whatsapp):'Sem WhatsApp'} • ${money(p.session_value||0)} por sessão`;$('patientDetailDialog').showModal();renderProfilePane()}
+function renderProfilePane(){const id=state.profilePatientId,p=findPatient(id);if(!p)return;$('profileTabs').querySelectorAll('[data-profile-tab]').forEach(b=>b.classList.toggle('active',b.dataset.profileTab===state.profileTab));const pane=$('profilePane');if(state.profileTab==='summary'){const aps=state.appointments.filter(a=>a.patient_id===id),next=aps.filter(a=>new Date(a.scheduled_start)>=new Date()&&!['cancelled','no_show'].includes(a.status)).sort(byDate)[0],completed=aps.filter(a=>a.status==='completed').length,pending=aps.filter(a=>a.status==='completed'&&!isEvaluationAppointment(a)&&!recordComplete(readRecord(a))).length,activeEx=state.prescriptions.filter(x=>x.patient_id===id&&x.active).length;pane.innerHTML=`<div class="quick-grid"><div class="quick-card"><span>Próximo atendimento</span><strong>${next?`${formatShortDate(new Date(next.scheduled_start))} • ${formatTime(new Date(next.scheduled_start))}`:'—'}</strong></div><div class="quick-card"><span>Atendimentos concluídos</span><strong>${completed}</strong></div><div class="quick-card"><span>Prontuários pendentes</span><strong>${pending}</strong></div><div class="quick-card"><span>Exercícios ativos</span><strong>${activeEx}</strong></div></div><div class="section-label"><h2>Ações rápidas</h2></div><div class="profile-actions"><button id="profileNewAppt" class="action-btn strong">＋ Agendamento</button><button id="profileNewEval" class="action-btn">＋ Avaliação</button><button id="profileSharePortal" class="action-btn whatsapp">Área do paciente</button><button id="profileGenerateMonth" class="action-btn">Gerar mês</button></div>${p.notes?`<div class="record-note-preview">${escapeHtml(p.notes)}</div>`:''}`;$('profileNewAppt').onclick=()=>{$('patientDetailDialog').close();openAppointmentDialogFor(id)};$('profileNewEval').onclick=()=>openEvaluationDialog(id);$('profileSharePortal').onclick=()=>sharePatientPortal(id);$('profileGenerateMonth').onclick=()=>{$('patientDetailDialog').close();openSeriesDialog(id)}}else if(state.profileTab==='agenda'){const arr=state.appointments.filter(a=>a.patient_id===id).sort((a,b)=>new Date(b.scheduled_start)-new Date(a.scheduled_start));pane.innerHTML=`<div class="section-label"><h2>Agenda do paciente</h2><span>${arr.length}</span></div><div class="session-list">${arr.length?arr.map(sessionCard).join(''):emptyState('Sem agendamentos','Crie o primeiro horário.')}</div>`;bindSessionActions(pane)}else if(state.profileTab==='records'){const arr=state.appointments.filter(a=>a.patient_id===id&&a.status==='completed'&&!isEvaluationAppointment(a)).sort((a,b)=>new Date(b.scheduled_start)-new Date(a.scheduled_start));pane.innerHTML=`<div class="section-label"><h2>Prontuário</h2><span>${arr.length} atendimento(s)</span></div>${arr.length?arr.map(recordCard).join(''):emptyState('Sem evoluções','Atendimentos concluídos aparecem aqui.')}`;pane.querySelectorAll('[data-record]').forEach(b=>b.onclick=()=>openRecordDialog(b.dataset.record))}else if(state.profileTab==='evaluations'){const arr=state.evaluations.filter(e=>e.patient_id===id).sort((a,b)=>String(b.evaluation_date).localeCompare(String(a.evaluation_date)));pane.innerHTML=`<div class="profile-actions" style="margin-bottom:10px"><button id="newEvalBtn" class="btn primary">＋ Nova avaliação</button></div>${arr.length?arr.map(evaluationCard).join(''):emptyState('Nenhuma avaliação','Crie a avaliação inicial deste paciente.')}`;$('newEvalBtn').onclick=()=>openEvaluationDialog(id);pane.querySelectorAll('[data-edit-eval]').forEach(b=>b.onclick=()=>openEvaluationDialog(id,b.dataset.editEval));pane.querySelectorAll('[data-pdf-eval]').forEach(b=>b.onclick=()=>exportEvaluationPdf(b.dataset.pdfEval))}else if(state.profileTab==='exercises'){const arr=state.prescriptions.filter(x=>x.patient_id===id);pane.innerHTML=`<div class="profile-actions" style="margin-bottom:10px"><button id="newExerciseBtn" class="btn primary">＋ Prescrever exercício</button><button id="shareExercisePortal" class="btn secondary">Enviar área do paciente</button></div>${arr.length?arr.map(exerciseCard).join(''):emptyState('Sem exercícios prescritos','Adicione exercícios para o paciente fazer em casa.')}`;$('newExerciseBtn').onclick=()=>openExerciseDialog(id);$('shareExercisePortal').onclick=()=>sharePatientPortal(id);pane.querySelectorAll('[data-toggle-exercise]').forEach(b=>b.onclick=()=>togglePrescription(b.dataset.toggleExercise))}else{const arr=state.appointments.filter(a=>a.patient_id===id&&!['cancelled','no_show'].includes(a.status)).sort((a,b)=>new Date(b.scheduled_start)-new Date(a.scheduled_start)),total=sumValue(arr),received=sumValue(arr.filter(a=>a.paid));pane.innerHTML=`<div class="quick-grid"><div class="quick-card"><span>Total lançado</span><strong>${money(total)}</strong></div><div class="quick-card"><span>Recebido</span><strong>${money(received)}</strong></div></div><div class="section-label"><h2>Lançamentos</h2><span>${arr.length}</span></div><div class="finance-table">${arr.map(financeRow).join('')}</div>`;pane.querySelectorAll('[data-toggle-paid]').forEach(b=>b.onclick=async()=>{const a=findAppointment(b.dataset.togglePaid);await updateAppointment(a.id,{paid:!a.paid});renderProfilePane()})}}
+function openAppointmentDialogFor(id){refreshPatientSelect();$('appointmentPatient').value=id;const now=new Date();$('appointmentDate').value=dateKey(now);$('appointmentTime').value='14:00';$('appointmentValue').value=findPatient(id)?.session_value||'';$('appointmentType').value=defaultAppointmentType(id);$('appointmentDialog').showModal()}
+function evaluationCard(e){return `<article class="eval-card"><div class="eval-card-top"><div><strong>${escapeHtml(e.evaluation_type)}</strong><small>${formatDateBR(e.evaluation_date)}</small></div><span class="record-badge done">✓ Salva</span></div><div class="record-note-preview">${escapeHtml((e.data?.diagnosis||e.data?.complaint||'Avaliação registrada').slice(0,170))}</div><div class="profile-actions"><button class="action-btn" data-edit-eval="${e.id}">Abrir / editar</button><button class="action-btn" data-pdf-eval="${e.id}">PDF</button></div></article>`}
+function openEvaluationFromAppointment(apptId){const a=findAppointment(apptId);if(!a)return;const existing=state.evaluations.find(e=>e.appointment_id===apptId);openEvaluationDialog(a.patient_id,existing?.id||null,apptId,a.appointment_type||'Avaliação inicial')}
+function openEvaluationDialog(patientId,id=null,appointmentId='',type='Avaliação inicial'){const e=id?state.evaluations.find(x=>x.id===id):null,data=e?.data||{};$('evaluationTitle').textContent=e?'Editar avaliação':'Nova avaliação';$('evaluationId').value=e?.id||'';$('evaluationPatientId').value=patientId;$('evaluationAppointmentId').value=e?.appointment_id||appointmentId||'';$('evaluationType').value=e?.evaluation_type||type;$('evaluationDate').value=e?.evaluation_date||dateKey(new Date());[['evalComplaint','complaint'],['evalHma','hma'],['evalHmp','hmp'],['evalPain','pain'],['evalInspection','inspection'],['evalRom','rom'],['evalStrength','strength'],['evalTests','tests'],['evalFunction','function'],['evalDiagnosis','diagnosis'],['evalGoals','goals'],['evalPlan','plan'],['evalNotes','notes']].forEach(([el,k])=>$(el).value=data[k]||'');$('evaluationPdfBtn').classList.toggle('hidden',!e);$('deleteEvaluationBtn').classList.toggle('hidden',!e);$('evaluationDialog').showModal()}
+async function saveEvaluation(ev){ev.preventDefault();const id=$('evaluationId').value,data={complaint:$('evalComplaint').value.trim(),hma:$('evalHma').value.trim(),hmp:$('evalHmp').value.trim(),pain:$('evalPain').value.trim(),inspection:$('evalInspection').value.trim(),rom:$('evalRom').value.trim(),strength:$('evalStrength').value.trim(),tests:$('evalTests').value.trim(),function:$('evalFunction').value.trim(),diagnosis:$('evalDiagnosis').value.trim(),goals:$('evalGoals').value.trim(),plan:$('evalPlan').value.trim(),notes:$('evalNotes').value.trim()},row={patient_id:$('evaluationPatientId').value,appointment_id:$('evaluationAppointmentId').value||null,evaluation_type:$('evaluationType').value,evaluation_date:$('evaluationDate').value,data,updated_at:new Date().toISOString()};let error;if(id)({error}=await db.from('evaluations').update(row).eq('id',id));else({error}=await db.from('evaluations').insert(row));if(error){toast('Erro ao salvar avaliação.');return}$('evaluationDialog').close();await loadData();renderProfilePane();toast('Avaliação salva.')}
+async function deleteEvaluation(id){if(!id||!confirm('Excluir esta avaliação?'))return;const{error}=await db.from('evaluations').delete().eq('id',id);if(error){toast('Não foi possível excluir.');return}$('evaluationDialog').close();await loadData();renderProfilePane()}
+function exportEvaluationPdf(id){const e=state.evaluations.find(x=>x.id===id);if(!e)return;const p=findPatient(e.patient_id),d=e.data||{},doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),left=18,right=192;let y=18;const add=(title,text)=>{if(!text)return;if(y>262){doc.addPage();y=18}doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(23,63,53);doc.text(title,left,y);y+=5;doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(40,44,42);const lines=doc.splitTextToSize(String(text),right-left);doc.text(lines,left,y);y+=lines.length*4.5+5};doc.setFont('helvetica','bold');doc.setFontSize(18);doc.setTextColor(23,63,53);doc.text('Avaliação fisioterapêutica',left,y);y+=8;doc.setFontSize(11);doc.setTextColor(30);doc.text(`${p?.name||'Paciente'} • ${e.evaluation_type} • ${formatDateBR(e.evaluation_date)}`,left,y);y+=10;add('Queixa principal',d.complaint);add('HMA — História atual',d.hma);add('HMP / antecedentes',d.hmp);add('Dor / localização',d.pain);add('Inspeção e palpação',d.inspection);add('ADM / mobilidade',d.rom);add('Força muscular',d.strength);add('Testes especiais',d.tests);add('Função / marcha / equilíbrio / AVDs',d.function);add('Diagnóstico cinético-funcional',d.diagnosis);add('Objetivos fisioterapêuticos',d.goals);add('Plano terapêutico',d.plan);add('Observações',d.notes);addPdfFooters(doc);doc.save(`avaliacao-${safeFileName(p?.name||'paciente')}-${e.evaluation_date}.pdf`)}
+function exerciseCard(pr){const cis=state.checkins.filter(c=>c.prescription_id===pr.id),recent=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d),c=cis.find(x=>x.checkin_date===k);recent.push({d,k,c})}return `<article class="exercise-card"><div class="exercise-card-top"><div><strong>${escapeHtml(pr.exercise_name)}</strong><small>${escapeHtml(pr.category||'Exercício')} • ${escapeHtml([pr.sets&&`${pr.sets} séries`,pr.reps&&`${pr.reps} rep.`,pr.frequency].filter(Boolean).join(' • '))}</small></div><span class="record-badge ${pr.active?'done':'pending'}">${pr.active?'Ativo':'Pausado'}</span></div>${pr.instructions?`<div class="record-note-preview">${escapeHtml(pr.instructions)}</div>`:''}<div class="adherence-row">${recent.map(x=>`<div class="day-dot ${x.c?.status||''}" title="${x.k}">${x.c?({done:'✓',pain:'!',unable:'×'}[x.c.status]||'•'):new Date(x.k+'T12:00').toLocaleDateString('pt-BR',{weekday:'narrow'})}</div>`).join('')}</div><div class="profile-actions" style="margin-top:9px"><a class="action-btn" href="${escapeHtml(pr.video_url||'#')}" target="_blank" rel="noopener">YouTube</a><button class="action-btn" data-toggle-exercise="${pr.id}">${pr.active?'Pausar':'Reativar'}</button></div></article>`}
+function openExerciseDialog(patientId){state.selectedExercise=null;$('exercisePatientId').value=patientId;$('exerciseName').value='';$('exerciseVideo').value='';$('exerciseSets').value='3';$('exerciseReps').value='10';$('exerciseFrequency').value='1x/dia';$('exerciseStart').value=dateKey(new Date());$('exerciseEnd').value='';$('exerciseInstructions').value='';const cats=[...new Set(EXERCISE_LIBRARY.map(x=>x.category))].sort((a,b)=>a.localeCompare(b,'pt-BR'));$('exerciseCategory').innerHTML='<option value="all">Todas</option>'+cats.map(c=>`<option>${escapeHtml(c)}</option>`).join('');$('exerciseSearch').value='';renderExerciseLibrary();$('exerciseDialog').showModal()}
+function renderExerciseLibrary(){const q=$('exerciseSearch').value.trim().toLowerCase(),cat=$('exerciseCategory').value,arr=EXERCISE_LIBRARY.filter(x=>(cat==='all'||x.category===cat)&&(!q||x.name.toLowerCase().includes(q)||x.category.toLowerCase().includes(q))).slice(0,100);$('exerciseLibrary').innerHTML=arr.map(x=>`<div class="library-item ${state.selectedExercise===x.key?'selected':''}" data-library-key="${x.key}"><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.category)}</small></div>`).join('');$('exerciseLibrary').querySelectorAll('[data-library-key]').forEach(el=>el.onclick=()=>selectExercise(el.dataset.libraryKey))}
+function selectExercise(key){const ex=EXERCISE_LIBRARY.find(x=>x.key===key);if(!ex)return;state.selectedExercise=key;$('exerciseKey').value=key;$('exerciseName').value=ex.name;$('exerciseVideo').value=ex.video_url;renderExerciseLibrary()}
+async function savePrescription(e){e.preventDefault();if(!$('exerciseName').value){toast('Selecione um exercício.');return}const row={patient_id:$('exercisePatientId').value,exercise_key:$('exerciseKey').value||null,exercise_name:$('exerciseName').value,category:EXERCISE_LIBRARY.find(x=>x.key===$('exerciseKey').value)?.category||'',video_url:$('exerciseVideo').value.trim(),sets:$('exerciseSets').value.trim(),reps:$('exerciseReps').value.trim(),frequency:$('exerciseFrequency').value.trim(),instructions:$('exerciseInstructions').value.trim(),start_date:$('exerciseStart').value||dateKey(new Date()),end_date:$('exerciseEnd').value||null,active:true};const{error}=await db.from('exercise_prescriptions').insert(row);if(error){toast('Erro ao prescrever exercício.');return}$('exerciseDialog').close();await loadData();renderProfilePane();toast('Exercício adicionado ao paciente.')}
+async function togglePrescription(id){const pr=state.prescriptions.find(x=>x.id===id);if(!pr)return;const{error}=await db.from('exercise_prescriptions').update({active:!pr.active}).eq('id',id);if(error){toast('Não foi possível atualizar.');return}await loadData();renderProfilePane()}
+function sharePatientPortal(id){const p=findPatient(id);if(!p?.portal_token){toast('Rode a migração V6 para liberar a Área do Paciente.');return}const phone=normalizeBrazilPhone(p.whatsapp);if(!phone){toast('Cadastre o WhatsApp do paciente.');return}const u=new URL('patient.html',location.href);u.searchParams.set('p',p.portal_token);const text=`Olá, ${p.name.split(' ')[0]}! 😊\n\nAqui está sua área do paciente. Nela você pode consultar seus exercícios para casa, assistir às demonstrações e marcar quando realizar:\n${u}\n\nObrigado!`;window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,'_blank','noopener')}
+async function exportMonthlyRecordsPdf(){if(state.recordsPatient==='all'){toast('Selecione um paciente para exportar.');return}if(!state.recordsMonth){toast('Selecione um mês.');return}const p=findPatient(state.recordsPatient),arr=state.appointments.filter(a=>a.patient_id===p.id&&a.status==='completed'&&monthKey(new Date(a.scheduled_start))===state.recordsMonth).sort(byDate);if(!arr.length){toast('Nenhum atendimento finalizado nesse período.');return}const doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),left=18,right=192;let y=17;doc.setFont('helvetica','bold');doc.setFontSize(17);doc.setTextColor(23,63,53);doc.text('Relatório mensal de atendimentos fisioterapêuticos',left,y);y+=8;doc.setFontSize(11);doc.setTextColor(35);doc.text(p.name,left,y);y+=6;doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.text(`${formatMonthLabel(state.recordsMonth)} • ${arr.length} atendimento(s) realizado(s)`,left,y);y+=8;arr.forEach((a,i)=>{const r=readRecord(a),d=new Date(a.scheduled_start);if(y>235){doc.addPage();y=17}doc.setFillColor(245,241,233);doc.roundedRect(left,y,right-left,11,2,2,'F');doc.setFont('helvetica','bold');doc.setFontSize(10.5);doc.setTextColor(23,63,53);doc.text(`Atendimento ${String(i+1).padStart(2,'0')} — ${formatDateBR(dateKey(d))}`,left+3,y+5);doc.setFont('helvetica','normal');doc.setFontSize(8.8);doc.setTextColor(90);doc.text(`${a.actual_start&&a.actual_end?`${formatTime(new Date(a.actual_start))}–${formatTime(new Date(a.actual_end))} • ${durationActual(a)} min`:`${formatTime(d)} • ${a.duration_minutes||60} min`} • ${a.appointment_type||'Atendimento'}`,left+3,y+9);y+=16;if(r){const fields=[['Estado geral',generalStateLabel(r.general_state)],['Queixa / relato',r.complaint],['Dor',(r.pain_before!==''||r.pain_after!=='')?`${r.pain_before||'—'}/10 antes • ${r.pain_after||'—'}/10 após`:'' ],['Evolução / achados',r.evolution],['Conduta realizada',r.conduct],['Intercorrências',r.intercurrence_status==='yes'?(r.intercurrence_details||'Com intercorrência'):'Sem intercorrências']];fields.forEach(([t,v])=>{if(!v)return;if(y>267){doc.addPage();y=17}doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(23,63,53);doc.text(t,left,y);y+=4;doc.setFont('helvetica','normal');doc.setTextColor(35);const lines=doc.splitTextToSize(String(v),right-left);doc.text(lines,left,y);y+=lines.length*4+4})}else if(isEvaluationAppointment(a)){const ev=state.evaluations.find(e=>e.appointment_id===a.id);doc.setFontSize(9);doc.setTextColor(80);const txt=ev?(ev.data?.diagnosis?`Avaliação registrada. Diagnóstico cinético-funcional: ${ev.data.diagnosis}`:`${ev.evaluation_type} registrada na ficha clínica.`):'Avaliação clínica ainda não preenchida.';const lines=doc.splitTextToSize(txt,right-left);doc.text(lines,left,y);y+=lines.length*4+3}else{doc.setFontSize(9);doc.setTextColor(105);doc.text('Prontuário ainda não preenchido.',left,y);y+=7}y+=3});if(y>255){doc.addPage();y=18}doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(23,63,53);doc.text('Resumo do período',left,y);y+=6;doc.setFont('helvetica','normal');doc.setTextColor(35);doc.text(`Total de atendimentos realizados: ${arr.length}`,left,y);addPdfFooters(doc);doc.save(`atendimentos-${safeFileName(p.name)}-${state.recordsMonth}.pdf`)}
+function addPdfFooters(doc){const pages=doc.getNumberOfPages();for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(120);doc.text(`Fisio Check-in • página ${i} de ${pages}`,18,289);doc.text(`Documento gerado em ${formatDateBR(dateKey(new Date()))}`,192,289,{align:'right'})}}
+function generalStateLabel(c){return({BEG:'BEG — Bom estado geral',REG:'REG — Regular estado geral',MEG:'MEG — Mau estado geral'})[c]||c||''}
+function defaultAppointmentType(pid){const hasEval=state.evaluations.some(e=>e.patient_id===pid);const hasAppt=state.appointments.some(a=>a.patient_id===pid&&a.status==='completed');return(!hasEval&&!hasAppt)?'Avaliação inicial':'Atendimento'}
+function refreshPatientSelect(){$('appointmentPatient').innerHTML=state.patients.filter(p=>p.active!==false).map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+function populatePainSelects(){for(const id of ['recordPainBefore','recordPainAfter'])for(let i=0;i<=10;i++)$(id).insertAdjacentHTML('beforeend',`<option>${i}</option>`)}
+function findPatient(id){return state.patients.find(p=>p.id===id)}function findAppointment(id){return state.appointments.find(a=>a.id===id)}function byDate(a,b){return new Date(a.scheduled_start)-new Date(b.scheduled_start)}function startOfWeek(d){const x=new Date(d),day=x.getDay();x.setHours(12,0,0,0);x.setDate(x.getDate()-day);return x}function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}function monthKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}function formatTime(d){return new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(d)}function formatShortDate(d){return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit'}).format(d)}function formatLongDate(d){return new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).format(d)}function formatDateBR(s){const d=typeof s==='string'?new Date(s+'T12:00:00'):s;return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d)}function formatMonthLabel(m){const[y,mo]=m.split('-').map(Number);return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(y,mo-1,1))}function money(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v||0))}function sumValue(arr){return arr.reduce((s,a)=>s+Number(a.session_value||0),0)}function digits(v){return String(v||'').replace(/\D/g,'')}function normalizeBrazilPhone(v){let x=digits(v);if(!x)return'';if(x.startsWith('55')&&x.length>=12)return x;return'55'+x}function formatPhone(v){const x=digits(v).replace(/^55/,'');return x.length===11?`(${x.slice(0,2)}) ${x.slice(2,7)}-${x.slice(7)}`:v}function durationActual(a){return Math.max(1,Math.round((new Date(a.actual_end)-new Date(a.actual_start))/60000))}function getInitials(n){return String(n||'P').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()}function cap(v){return v[0].toUpperCase()+v.slice(1)}function safeFileName(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-|-$/g,'')}function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}function emptyState(t,c){return `<div class="empty-state"><div class="big">○</div><strong>${t}</strong><span>${c}</span></div>`}function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2800)}
 })();
-
 </script>
 </body>
 </html>
